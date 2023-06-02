@@ -97,6 +97,8 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
             this.dy = ((Math.random() - 0.5));
             if(this.width!=maxFishSize+100){
                 this.colour = colours[randInt(0,colours.length)];
+            }else{
+                this.colour = "#ff22aa";
             }
         }
 
@@ -109,8 +111,8 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
 
 
         // interactivity
-        if(this.width!=maxFishSize+100){
-            
+        //if(this.width!=maxFishSize+100){
+
             maxDistance = 100;
             if(mouse.x - this.x - this.width/2 < maxDistance && mouse.x - this.x - this.width/2 > -maxDistance &&
                 mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
@@ -118,7 +120,7 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
                     d = new Date();
                     this.colour = colours[Math.round(d.getMinutes())%colours.length];
             }
-        }
+        //}
 
         this.draw();
     }
