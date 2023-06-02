@@ -125,8 +125,8 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
 }
 
 var fishArray = [];
-//var fishCount = Math.floor((canvas.width + canvas.height)/100);
-var fishCount = 5;
+var fishCount = Math.floor((canvas.width + canvas.height)/100);
+//var fishCount = 5;
 
 var maxFishSize = (canvas.width + canvas.height)/10
 var totalFish = 5;
