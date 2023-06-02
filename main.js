@@ -125,8 +125,8 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
 }
 
 var fishArray = [];
-var fishCount = Math.floor((canvas.width + canvas.height)/100);
-//var fishCount = 10;
+//var fishCount = Math.floor((canvas.width + canvas.height)/100);
+var fishCount = 5;
 
 var maxFishSize = (canvas.width + canvas.height)/10
 var totalFish = 5;
@@ -138,7 +138,10 @@ for (i=0; i<fishCount; i++){
             fish.src = "fish"+j+".png";
         }
     }
-    
+    if(i/totalFish<1){
+        fish = new Image();
+            fish.src = "fish"+i+".png";
+    }
     
     var width = (Math.random()*(maxFishSize)+100);
     var x = Math.random() * (canvas.width);
