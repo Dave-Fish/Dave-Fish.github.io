@@ -110,15 +110,15 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
 
         // interactivity
         if(this.width!=maxFishSize+100){
-        maxDistance = 100;
-
-        if(mouse.x - this.x - this.width/2 < maxDistance && mouse.x - this.x - this.width/2 > -maxDistance &&
-            mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
-                //this.colour = colours[0];
-                d = new Date();
-                this.colour = colours[Math.round(d.getMinutes())%colours.length];
+            
+            maxDistance = 100;
+            if(mouse.x - this.x - this.width/2 < maxDistance && mouse.x - this.x - this.width/2 > -maxDistance &&
+                mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
+                    //this.colour = colours[0];
+                    d = new Date();
+                    this.colour = colours[Math.round(d.getMinutes())%colours.length];
+            }
         }
-    }
 
         this.draw();
     }
