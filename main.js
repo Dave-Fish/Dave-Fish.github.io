@@ -53,15 +53,17 @@ function randInt(x, y){
 
 colours = [
     "#ff22aa", //system
-    "#ff2222", //red
+    "#dd2e44", //red
     "#c1694f", //fawn
     "#fada5e", //sunny
     "#08d11c", //artie
+    "#40e0d0", //turquoise
     "#0078d7", //blue
     "#967bb6", //lavender
     "#f5a9b8", //pink
     "#920a4e", //mulberry
     "#050505", //styx
+    "#979c9f", //grey
 ]
 shuffleArray(colours);
 
@@ -97,8 +99,6 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
             this.dy = ((Math.random() - 0.5));
             if(this.width!=maxFishSize+100){
                 this.colour = colours[randInt(0,colours.length)];
-            }else{
-                this.colour = "#ff22aa";
             }
         }
 
@@ -111,16 +111,16 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
 
 
         // interactivity
-        //if(this.width!=maxFishSize+100){
+        if(this.width!=maxFishSize+100){
+        maxDistance = 100;
 
-            maxDistance = 100;
-            if(mouse.x - this.x - this.width/2 < maxDistance && mouse.x - this.x - this.width/2 > -maxDistance &&
-                mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
-                    //this.colour = colours[0];
-                    d = new Date();
-                    this.colour = colours[Math.round(d.getMinutes())%colours.length];
-            }
-        //}
+        if(mouse.x - this.x - this.width/2 < maxDistance && mouse.x - this.x - this.width/2 > -maxDistance &&
+            mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
+                //this.colour = colours[0];
+                d = new Date();
+                this.colour = colours[Math.round(d.getMinutes())%colours.length];
+        }
+    }
 
         this.draw();
     }
@@ -128,7 +128,7 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
 
 var fishArray = [];
 var fishCount = Math.floor((canvas.width + canvas.height)/100);
-//var fishCount = 5;
+//var fishCount = 10;
 
 var maxFishSize = (canvas.width + canvas.height)/10
 var totalFish = 5;
@@ -140,10 +140,7 @@ for (i=0; i<fishCount; i++){
             fish.src = "fish"+j+".png";
         }
     }
-    if(i/totalFish<1){
-        fish = new Image();
-            fish.src = "fish"+i+".png";
-    }
+    
     
     var width = (Math.random()*(maxFishSize)+100);
     var x = Math.random() * (canvas.width);
@@ -160,7 +157,7 @@ for (i=0; i<fishCount; i++){
     fishArray.push(new Fish(x, y, dx, dy, width, colour, opacity, fish));
 }
 
-fishArray.push(new Fish(canvas.width/2-200, canvas.height/2-200, dx, dy, maxFishSize+100, "#ff22aa", 1, fish))
+//fishArray.push(new Fish(canvas.width/2-200, canvas.height/2-200, dx, dy, maxFishSize+100, "#ff22aa", 1, fish))
 
 palms = new Image();
 palms.src = "palm.png";
