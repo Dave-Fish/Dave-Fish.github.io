@@ -7,12 +7,21 @@
 	<title>Dave Davies</title>
 	<link rel="icon" type="image/png" href="face emoji copy.png" />
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- https://www.infoworld.com/article/3661628/intro-to-pyscript-run-python-in-your-web-browser.html#:~:text=PyScript%20lets%20you%20run%20Python,code%20and%20the%20web%20page. -->
+    <script type="module"
+    src="https://pyscript.net/releases/2023.11.2/core.js">
+    </script>
 </head>
 <body>
-    <!-- <canvas>
+    <canvas>
         <script src="main.js"></script>
-    </canvas> -->
+    </canvas>
     
+    <script type="py" terminal>
+        from pyscript import display
+        display("Hello World!")
+        print("Hello terminal!")
+    </script>
 
     <menu>
         <a href="index.html">home</a>
