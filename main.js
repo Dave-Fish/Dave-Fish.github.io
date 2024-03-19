@@ -131,7 +131,7 @@ var fishCount = Math.floor((canvas.width + canvas.height)/100);
 //var fishCount = 10;
 
 var maxFishSize = (canvas.width + canvas.height)/10
-var totalFish = 5;
+var totalFish = 1;
 
 for (i=0; i<fishCount; i++){
     for(j = 0; j<totalFish; j++){
