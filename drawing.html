@@ -1,0 +1,62 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dave Davies">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Drawing</title>
+	<link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script>
+        function dropHandler(ev) {
+            console.log("File(s) dropped");
+
+            // Prevent default behavior (Prevent file from being opened)
+            ev.preventDefault();
+
+            if (ev.dataTransfer.items) {
+                // Use DataTransferItemList interface to access the file(s)
+                [...ev.dataTransfer.items].forEach((item, i) => {
+                // If dropped items aren't files, reject them
+                if (item.kind === "file") {
+                    const file = item.getAsFile();
+                    console.log(`… file[${i}].name = ${file.name}`);
+                }
+                });
+            } else {
+                // Use DataTransfer interface to access the file(s)
+                [...ev.dataTransfer.files].forEach((file, i) => {
+                console.log(`… file[${i}].name = ${file.name}`);
+                });
+            }
+        }
+
+        function dragOverHandler(ev) {
+            console.log("File(s) in drop zone");
+
+            // Prevent default behavior (Prevent file from being opened)
+            ev.preventDefault();
+        }
+    </script>
+</head>
+<body>
+    <canvas>
+        <script src="main.js"></script>
+    </canvas>
+    
+
+    <menu>
+        <a href="index.html">home</a>
+    </menu>
+
+    <div
+        id="drop_zone"
+        ondrop="dropHandler(event);"
+        ondragover="dragOverHandler(event);">
+        <p>Drag one or more files to this <i>drop zone</i>.</p>
+    </div>
+
+
+</body>
+</html>
