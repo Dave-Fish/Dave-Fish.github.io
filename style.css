@@ -5,10 +5,12 @@ canvas{
 body{
     margin: 0;
     background-color: #222;
-    font-family: 'Comic Sans MS';
+    font-family: 'Merriweather';
     color: #eee;
-    padding-top: 4em;
+    padding-top: 3vmax;
+    text-shadow: -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222;
 }
+
 
 menu{
     position: fixed;
@@ -85,4 +87,45 @@ difficulty {
     border: 5px solid blue;
     width: 200px;
     height: 100px;
+}
+
+form{
+    text-align: center;
+}
+
+
+/* mobile, vertical */
+@media only screen and (max-width: 800px) {
+    contents{
+        display: inline-block;
+        padding-top: 1%;
+        padding-right: 4%;
+        padding-left: 4%;
+    }
+
+    embed{
+        width: 90%;
+        align-content: center;
+        
+    }
+}
+
+/* desktop, horizontal */
+@media only screen and (min-width: 900px) {
+    flexstuff{
+        display: flex;
+    }
+
+    contents{
+        display: inline-block;
+        padding-top: 1%;
+        padding-right: 4%;
+        padding-left: 4%;
+        flex: 50%;
+    }
+
+    embed{
+        float: right;
+        flex: 50%;
+    }
 }

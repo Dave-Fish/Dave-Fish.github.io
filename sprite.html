@@ -11,24 +11,66 @@
     <script type="module"
     src="https://pyscript.net/releases/2023.11.2/core.js">
     </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
     <canvas>
         <script src="main.js"></script>
     </canvas>
-    
-    <script type="py" terminal>
-        from pyscript import display
-        display("Hello World!")
-        print("Hello terminal!")
-    </script>
+    <overlay>     
+    </overlay>
 
     <menu>
         <a href="index.html">home</a>
     </menu>
 
-    <name>
-        dave<br>davies
-    </name>
+    <flexstuff>
+    <contents>
+        <p>
+            May 2024, I completed my dissertation for my computer graphics, vision, and games undergraduate degree.<br>
+            It was an awarded a 72%!<br>
+            Which I am glad about, given the long hours I spent on it and how much I loved working on it.<br>
+            <br>
+            Feel free to download it here, but please credit me if you use it please. :)<br>
+            Also if you end up using it for outreach or just for fun, drop me an email if you'd like!<br>
+            I'd love to know what kinds of things it's being used for.<br>
+            <br>
+            Basically it takes a video input of someone moving and automatically turns them into a video game or animation character that can be used in <b><a href="https://scratch.mit.edu/projects/editor/">scratch</a></b>. And your face looks really cool when it does.
+        </p>
+    
+        <!-- <form method="get" action="nice_sprites.exe">
+            <button type="submit">Executable file (for the windows user)</button>
+        </form> -->
+        <form method="get" action="nice_sprites.py">
+            <button type="submit">Python file (pip installs required)</button>
+        </form>
+
+    
+        <p>Abstract:<br>
+            <i>Scratch is a website that allows children and programming beginners to easily write
+                code. It has a visual, user-friendly interface and is built for innovation and fun.<br>
+                This report aims to describe the process in which a program that works with scratch was
+                created. It allows a scratch user to generate a sprite of themselves automatically. The
+                only necessary tools are their camera’s live video input and a machine running windows
+                11.<br>
+                Python was used to create the entire project. The work produced involved use of
+                computer vision techniques and file manipulation. Open source computer vision
+                (Open-cv) was the most useful external tool. It allowing for simple implementation of
+                video input, data extraction, and image analysis.<br>
+                Research into motion detection optimisation was done after the project reached its
+                minimum requirements. An exhaustive search was performed on every combination of
+                parameters within a Mixture of Gaussians algorithm. It was specifically designed to
+                optimise the amount and consistency of sprite images saved when running the program.
+                </i>
+        </p>
+    </contents>
+    
+    <embed src="Turn_Me_Into_A_Sprite (15).pdf"
+            type="application/pdf">
+    </flexstuff>
+
 </body>
 </html>
