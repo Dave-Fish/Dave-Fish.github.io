@@ -11,6 +11,9 @@ body{
     text-shadow: -1px -1px 0 #222, 1px -1px 0 #222, -1px 1px 0 #222, 1px 1px 0 #222;
 }
 
+img{
+    border-radius: 10%;
+}
 
 menu{
     position: fixed;
@@ -93,6 +96,49 @@ form{
     text-align: center;
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.collapsible {
+    background-color: #7770;
+    color: white;
+    cursor: pointer;
+    padding: 3px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+}
+
+.active, .collapsible:hover {
+}
+
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+tr:nth-child(even) {
+    background-color: #dddddd22;
+}
+
 
 /* mobile, vertical */
 @media only screen and (max-width: 800px) {
@@ -128,4 +174,17 @@ form{
         float: right;
         flex: 50%;
     }
+
+    firstquater{
+        padding:2%;
+        float:left;
+        flex:25%;
+        text-align:center;
+    }
+    middlehalf{
+        padding:2%;
+        flex:70%;
+        float:right;
+    }
+
 }

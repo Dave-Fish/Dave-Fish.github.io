@@ -1,0 +1,141 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dave Davies">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Dave Davies</title>
+	<link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <canvas>
+        <script src="main.js"></script>
+    </canvas>
+    <overlay>     
+    </overlay>
+
+    <menu>
+        <a href="index.html">home</a>
+    </menu>
+
+    <flexstuff>
+
+        
+        <middlehalf>
+            Hello!<br>
+            I'm David Llewelyn Davies (Dave) and this is my very homemade website.<br>
+            <br>If you would like to learn more about me, click on the sentences below!<br>
+            <br><br>
+            <button class="collapsible">I'm a 2024 Aberystwyth University graduate.</button>
+            <div class="content">
+                <p><a href="https://www.aber.ac.uk/en/">This place</a></p>
+            </div>
+
+            <button class="collapsible">I recieved a Second Class Honours, Division 1, Bachelor of Science in Computer Graphics, Vision And Games.</button>
+            <div class="content">
+                <p>The modules I studied were:</p>
+                <table>
+                    <tr>
+                      <th>First year</th>
+                      <th>Second year</th>
+                      <th>Third year</th>
+                    </tr>
+                    <tr>
+                      <td>Problems and Solutions</td>
+                      <td>Algorithm Design and Data Structures</td>
+                      <td><b><a href="sprite.html">Major Project</a></b></td>
+                    </tr>
+                    <tr>
+                      <td>Fundamentals of Web Development</td>
+                      <td>Psychology of Humour</td>
+                      <td>Computer Vision</td>
+                    </tr>
+                    <tr>
+                        <td>Professional and Personal Development</td>
+                        <td>Software Engineering</td>
+                        <td>Professional Issues in the Computing Industry</td>
+                      </tr>
+                    <tr>
+                      <td>Introduction to Programming</td>
+                      <td><b><a href="https://www.youtube.com/watch?v=gjRKDjO4hNo">Applied Graphics</a></b></td>
+                      <td>Fundamentals of Machine Learning</td>
+                    </tr>
+                    <tr>
+                      <td>Functional Programming</td>
+                      <td>Modelling Persistent Data</td>
+                      <td>Computer Graphics and Games</td>
+                    </tr>
+                    <tr>
+                      <td>Introduction to Computer Infrastructure</td>
+                      <td>Artificial Intelligence</td>
+                      <td>Mobile Development with Android</td>
+                    </tr>
+                    <tr>
+                      <td>Programming Using an Object-Oriented Language</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                        <td>Information security</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  </table>
+                  <br>
+            </div>
+            <button class="collapsible">While I studied there, I ran and was very active in a number of societies, official and unofficial.</button>
+            <div class="content">
+                <p>
+                    I founded the <b><a href="https://www.linktr.ee/tasksoc">taskmaster society</a></b> in 2021 and was the president for three years. I made <b><a href="https://www.youtube.com/watch?v=ePw1gzcYy2U&list=PLy6_IV3qYl717_e2rZYl7NileKTXKoDQG">youtube videos</a></b> interacting with the society over one summer.
+                </p>
+                <p>
+                    I was president of the improv society for a few months.
+                </p>
+                <p>
+                    I was vice president of the gaming society (Aberystwyth Community Of Gamers (ACOG)) for a year. I helped run the LAN event and made <b><a href="lan.html">many advertisements</a></b> for it, in which we raised £1581.50 for charity.
+                </p>
+                <p>
+                    I founded and ran Queer++, a social group for LGBTQ+ Aberystwyth computer science students. It met weekly for a year, and the discord is still in use.
+                </p>
+                <p>
+                    I founded and ran Pokemon Go Aberystwyth, a discord for local pokemon go players. The discord is still in use, as is the bot I created for it.
+                </p>
+                <p>
+                    I was treasurer of the craft society for a few months.
+                </p>
+                
+            </div>
+            <button class="collapsible">I have made multiple discord bots for myself and social groups.</button>
+            <div class="content">
+                <p><a href="bots.html">Bots!</a></p>
+            </div>
+            
+        </middlehalf>
+
+        <firstquater>
+
+            <img src="headshot2.jpg" alt="Just a picture of me feeling awkward at a job fair" width="50%" class="center">
+            <figcaption>Me and my awkward face</figcaption>
+        </firstquater>
+    </flexstuff>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            } 
+          });
+        }
+    </script>
+
+</body>
+</html>
