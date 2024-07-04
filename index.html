@@ -7,6 +7,10 @@
 	<title>Dave Davies</title>
 	<link rel="icon" type="image/png" href="face emoji copy.png" />
     <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script type="text/javascript"
+        src="main.js">
+    </script>
 </head>
 <body>
     <canvas>
@@ -15,15 +19,65 @@
     
 
     <menu>
-        <a href="me.html">dave</a>
-        <a href="sprite.html">diss</a>
-        <a href="bots.html">bots</a>
-        <a href="rage/index.html">game</a>
+        <a id="dave" href="me.html">dave</a>
+        <a id="diss" href="sprite.html">diss</a>
+        <a id="bots" href="bots.html">bots</a>
+        <a id="game" href="rage/index.html">game</a>
         
     </menu>
 
     <name>
-        <a href="me.html">dave<br>davies<a>
+        <a id="big" href="me.html">dave<br>davies<a>
     </name>
+
+    <script>
+        things_to_colour = [
+            document.getElementById("big"),
+            document.getElementById("dave"),
+            document.getElementById("diss"),
+            document.getElementById("bots"),
+            document.getElementById("game")
+        ]
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+        randIndex = getRandomInt(things_to_colour.length)
+
+        for (i = 0; i < things_to_colour.length; i++){
+            if(randIndex == i){ 
+                things_to_colour[i].style.color = colour;
+            }else{ // else make it white
+                things_to_colour[i].style.color = "#eee";
+            }
+        }
+
+        function animateWords(){
+			//requestAnimationFrame(animateWords);
+
+            daaaa = new Date();
+            let seconds = daaaa.getSeconds();
+            if (seconds%(Math.round(60/things_to_colour.length)) == 0){
+
+                function getRandomInt(max) {
+                    return Math.floor(Math.random() * max);
+                }
+                randIndex = getRandomInt(things_to_colour.length)
+
+                for (i = 0; i < things_to_colour.length; i++){
+                    if(randIndex == i){ 
+                        things_to_colour[i].style.color = colour;
+                    }else{ // else make it white
+                        things_to_colour[i].style.color = "#eee";
+                    }
+                }
+            }
+        }
+
+        setInterval(function(){  
+            animateWords();
+        }, 1000);
+
+        
+    </script>
 </body>
 </html>
