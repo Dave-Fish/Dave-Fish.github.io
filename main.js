@@ -67,6 +67,9 @@ colours = [
 ]
 shuffleArray(colours);
 
+d = new Date();
+current_colour = this.colour = colours[Math.round(d.getMinutes())%colours.length];
+
 function Fish(x, y, dx, dy, width, colour, opacity, fish){
     this.x = x;
     this.y = y;
@@ -117,8 +120,7 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
         if(mouse.x - this.x - this.width/2 < maxDistance && mouse.x - this.x - this.width/2 > -maxDistance &&
             mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
                 //this.colour = colours[0];
-                d = new Date();
-                this.colour = colours[Math.round(d.getMinutes())%colours.length];
+                this.colour = current_colour;
         }
     }
 
@@ -171,12 +173,62 @@ function animate(){
     }
 
     d = new Date();
-    colour = colours[Math.round(d.getMinutes())%colours.length];
+    if(d.getSeconds()==0){
+        current_colour = colours[Math.round(d.getMinutes())%colours.length];
+    }
+    
     context.beginPath();
     context.shadowBlur = 10;
-    context.shadowColor = colour;
+    context.shadowColor = current_colour;
     context.drawImage(palms, 0, canvas.height-(canvas.width/1.6298811545)+canvas.width/10, canvas.width, canvas.width/1.6298811545);
     context.fill();
 }
+
+controller = {
+    keyListener:function(event){
+        var key_state = (event.type == "keydown")?true:false;
+        switch(event.keyCode){            
+            case 68: // d
+			current_colour= "#ff22aa";
+			break;
+			case 82: // r
+			current_colour = "#dd2e44";
+			break;
+            case 70: // f
+			current_colour = "#c1694f";
+			break;
+            case 83: // s
+			current_colour = "#fada5e";
+			break;
+            case 65: // a
+			current_colour = "#08d11c";
+			break;
+            case 84: // t
+			current_colour = "#40e0d0";
+			break;
+            case 66: // b
+			current_colour = "#0078d7";
+			break;
+            case 76: // l
+			current_colour = "#967bb6";
+			break;
+            case 80: // p
+			current_colour = "#f5a9b8";
+			break;
+            case 77: // m
+			current_colour = "#920a4e";
+			break;
+            case 79: // o
+			current_colour = "#050505";
+			break;
+            case 71: // g
+			current_colour = "#979c9f";
+			break;
+		}
+	}
+};
+
+window.addEventListener("keydown", controller.keyListener);
+window.addEventListener("keyup", controller.keyListener);
 
 animate();
