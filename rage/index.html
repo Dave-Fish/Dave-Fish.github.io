@@ -19,20 +19,1438 @@
 </head>
 <body>
 	<canvas></canvas>
-	<script src="main.js"></script>
-	<script src="instructions.js"></script>
-	<script src="refreshPage.js"></script>
-	<script src="keyboardController.js"></script>
-	<script src="mobileController.js"></script>
-	<script src="multiplayerSelect.js"></script>
-	<script src="drawBarriers.js"></script>
-	<script src="drawUser.js"></script>
-	<script src="drawPinkCircle.js" type="text/javascript"></script>
-	<script src="powerUps.js"></script>
-	<script src="death.js"></script>
-	<script src="theAfterlife.js"></script>
-	<script src="startDetect.js"></script>
-	<script src="reset.js"></script>
-	<script src="mainLoop.js"></script>
+	<script>// made by Dave Fish
+		// 21.11.19
+		
+		console.log("main");
+		
+		canvas = document.querySelector('canvas');
+		
+		var context, controller, user, loop;
+		
+		context = document.querySelector("canvas").getContext("2d");
+		
+		canvas.width = window.innerWidth-5;
+		canvas.height = window.innerHeight-5;
+		
+		user2 = {
+			radius:canvas.height/30,
+			x:0,
+			x_velocity:0,
+			y:canvas.height/5,
+			y_velocity:0,
+			x_speed:canvas.width/1000,
+			y_speed:canvas.height/666,
+			speed:0,
+		
+			//jumping:true,
+		};
+		
+		user = {
+			radius:canvas.height/30,
+			x:0,
+			x_velocity:0,
+			y:canvas.height/5,
+			y_velocity:0,
+			x_speed:canvas.width/1000,
+			y_speed:canvas.height/666,
+			speed:0,
+		
+			//jumping:true,
+		};
+		
+		pinkCircle = {
+			x:0,
+			y:0,
+			radius:canvas.height/40,
+		};
+		
+		powerCircle = {
+			x:0,
+			y:0,
+			radius:canvas.height/40,
+		}
+		
+		// will hold the user's scores per session and show them their top 5
+		var ageScores = [0,0,0,0];
+		var scoreScores = [0,0,0,0];
+		
+		// will hold the user's death count and display it in the afterlife
+		var userDeathCount = 0;
+		var user2DeathCount = 0;
+		
+		// is the colour for the main pink circles
+		const PINK = "#f2a";
+		
+		// is the colour for the main background
+		const GREY = "#222";
+		// and makes the background
+		context.fillStyle = GREY;
+		context.fillRect(0,0,canvas.width,canvas.height);
+		
+		// only used sparingly
+		const WHITE = "#eee";
+		
+		
+
+		// made by Dave Fish
+// 02.11.19
+
+console.log("instructions");
+
+instructions = function(){
+	context.fillStyle = "#fcd";
+	context.fillRect(0,0,canvas.width, canvas.height);
+
+	var fontsize = canvas.width/30
+	var fontsizeString = fontsize.toString();
+	context.font = fontsizeString+"px Comic Sans MS";
+	context.fillStyle = PINK;
+
+	context.direction = "rtl";
+	context.fillText("(Don't hit the pink circles ( ͡ʘ ͜ʖ ͡ʘ",canvas.width - canvas.width/10,(canvas.height/10)*2);
+	context.fillText("Press left to slow down",canvas.width - canvas.width/10,(canvas.height/10)*3);
+	context.fillText("Go over the non pink circles for special effects",canvas.width - canvas.width/10,(canvas.height/10)*4);
+	context.fillText("Use the arrow keys to move",canvas.width - canvas.width/10,(canvas.height/10)*5);
+	context.fillText("!Become old! Collect powerups",canvas.width - canvas.width/10,(canvas.height/10)*6);
+	context.fillText("Or tap the screen if you're on mobile",canvas.width - canvas.width/10,(canvas.height/10)*7);
+	context.fillText("Pink circles will kill you",canvas.width - canvas.width/10,(canvas.height/10)*8);
+	context.direction = "ltr";
+
+	var fontsize = canvas.height/30
+	var fontsizeString = fontsize.toString();
+	context.font = fontsizeString+"px Comic Sans MS";
+	context.fillText("Made with love by Dave Fish <3",canvas.height/80,canvas.height - canvas.height/80);
+}
+		
+
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("refreshPage");
+
+var levelString = 0
+var levelCount = 0
+
+refreshPage = function(){
+	// if user is going off the left of the screen
+	if (user.x < -canvas.width/25) {
+		user.x = canvas.width;
+	} else if (user.x > canvas.width) {// if user goes past right boundary
+		user.x = -canvas.height/25;
+	}
+
+	if (user2.x > canvas.width) {
+		user.x = -canvas.height/25
+	}
+
+    if (user.x < 0 || user2.x < 0){
+
+		console.log("speed",user.speed);
+		console.log("x speed",user.x_speed);
+		console.log("y speed",user.y_speed);
+		console.log("x velocity",user.x_velocity);
+		console.log("y velocity",user.y_velocity);
+
+		coords = [];
+	    context.fillStyle = GREY;
+		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.fill();
+
+		user.x = 0;
+		user2.x = 0;
+		levelCount += 1;
+		var levelString = (levelCount-1).toString();
+
+		for (i=2; i <levelCount; i++){
+
+			//console.log("daddy");
+			//console.log(levelCount);
+
+			circleMain();
+
+		}
+		//if (levelCount !== 1){
+			circlePower();
+		//}
+		var fontsize = canvas.height/30
+		var fontsizeString = fontsize.toString();
+		context.font = fontsizeString+"px Comic Sans MS";
+		context.fillStyle = PINK;
+		if (greenFlag == true){
+			context.fillStyle = GREEN;
+		}
+		if (levelString == 0){
+			//context.fillText("__ update :3",canvas.width/30,canvas.height/4);
+			//context.fillStyle = (GREY);
+			//context.fillRect(0,canvas.height - canvas.height/20,canvas.width,canvas.height);
+			
+			
+		}
+		if (levelString == 1){
+			context.fillText("1 year old",canvas.height/100,canvas.height/25);
+			context.fillText("version 0.2.5",canvas.height/80,canvas.height - canvas.height/80)
+		}else{
+			
+			context.fillText(levelString+" years old",canvas.height/100,canvas.height/25);
+
+			// it can go here because the points will always be 0 on level 1
+			displayScore();
+		}
+
+		
+
+		// tells the user what the current powerup is
+		colourInfo();
+
+		// this is totally extra but I love and apreciate my stakeholders and I want to remind them of that every now and then
+		if (levelString > 5){
+			context.direction = "rtl";
+			// they have to earn it a bit tho
+			if (levelString % 7 == 2){
+				context.fillText("hey guess what",canvas.width - canvas.width/80,canvas.height/25)
+			}
+			if (levelString % 7 == 3){
+				context.fillStyle = GREY;
+				context.fillRect(canvas.width/2,0,canvas.width/2,canvas.height/20);
+				
+				context.fillStyle = PINK;
+
+				// I may as well create this variable here because I don't want it to have to define it unnessicarily
+				adjectives = [
+				"awesome",
+				"cool",
+				"really cool",
+				"amazing",
+				"lovely",
+				"brilliant",
+				"wonderful",
+				"pretty",
+				"clever",
+				"good at this",
+				"really helpful",
+				"nice",
+				"sweet",
+				"delightful",
+				"a heckin cool dude",
+				"a heckin nice person",
+				"great",
+				"cool",
+				"cool",
+				"awesome",
+				"helping my programming",
+				"the video game person",
+				]
+				var adjectivesPick = Math.floor(Math.random()*adjectives.length);
+				context.fillText("you're "+adjectives[adjectivesPick]+" :3",canvas.width - canvas.width/80,canvas.height/25)
+			}
+			context.direction = "ltr"
+		}
+		redFlag = false;
+		orangeFlag = false;
+		yellowFlag = false;
+		blueFlag = false;
+		purpleFlag = false;
+
+		if (multiplayerFlag){
+			redFlag2 = false;
+			orangeFlag2 = false;
+			yellowFlag2 = false;
+			blueFlag2 = false;
+			purpleFlag2 = false;
+		}
+	}
+}
+		
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("keyboardController");
+function openInNewTab(url) { // taken from https://stackoverflow.com/questions/4907843/open-a-url-in-a-new-tab-and-not-a-new-window
+	var win = window.open(url, '_blank');
+	win.focus();
+  } 
+controller = {
+
+    left:false,
+    right:false,
+    up:false,
+    keyListener:function(event){
+        var key_state = (event.type == "keydown")?true:false;
+        switch(event.keyCode){
+
+			case 37: // left key
+			controller.left = key_state;
+			break;
+			case 38: // up key
+			controller.up = key_state;
+			break;
+			case 39: // right key
+			controller.right = key_state;
+			break;
+			case 40: // down key
+			controller.down = key_state;
+			break;
+			
+			case 65: // a
+			controller.left2 = key_state;
+			break;
+			case 87: // w
+			controller.up2 = key_state;
+			break;
+			case 68: // d
+			controller.right2 = key_state;
+			break;
+			case 83: // s
+			controller.down2 = key_state;
+			break;
+
+			case 82: case 13:// r, enter
+			controller.restart = key_state;
+			break;
+			case 32: // space
+			controller.start = key_state;
+			break;
+
+			case 69: // e
+				openInNewTab("https://forms.gle/xRtqM8bQ4qfoVyAe6");
+			break;
+		}
+	}
+};
+
+window.addEventListener("keydown", controller.keyListener);
+window.addEventListener("keyup", controller.keyListener);
+
+
+/*
+//should be disabling scrolling
+function noScroll(){
+	window.scrollTo(0, 0);
+}
+  
+// add listener to disable scroll
+window.addEventListener('keydown', noScroll);
+  
+// Remove listener to re-enable scroll
+window.removeEventListener('keydown', noScroll);
+*/
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("mobileController");
+
+touchX = 0;
+touchY = 0;
+tapFlag = false;
+tap = function(){
+	
+	canvas.addEventListener("touchstart",function(){
+		controller.up = true;
+		tapFlag = true;
+		multiplayerFlag = false;
+		
+		if (deathFlag){
+			reset();
+		}
+
+		var touchX, touchY;
+		touchX = context.clientX;
+		touchY = context.clientY;
+		context.fillStyle = WHITE;
+		//context.fillText(touchX,200,100);
+	}
+	)
+	canvas.addEventListener("touchend",function(){
+		controller.up = false;
+		deltaX = touchX - canvas.clientX;
+		deltaY = touchY - canvas.clientY;
+		context.fillStyle = WHITE;
+		//context.fillText(deltaX,100,100);
+		
+		
+		if (deltaX < -(canvas.width/10)){
+			controller.left = true;
+		}
+		if (deltaX > canvas.width/10){
+			controller.left = false;
+		}
+	}
+	)
+};
+
+window.addEventListener("touchstart", tap);
+window.addEventListener("touchend", tap);
+
+
+
+// made by Dave Fish
+// 14.11.19
+
+drawMultiplayer = function(){
+    // draw pink rectangle
+    context.fillStyle = PINK;
+    var widthUnit=canvas.width/7
+    context.fillRect(widthUnit*4,canvas.height/2,widthUnit*2,canvas.height/4);
+
+    //lil grey rectangles for multiplayer
+    context.fillStyle = GREY;
+    context.fillRect((canvas.width/35)*22,(canvas.height/12)*7,canvas.width/17.5,canvas.height/12);
+    context.fillRect((canvas.width/35)*26,(canvas.height/12)*7,canvas.width/17.5,canvas.height/12);
+    context.fillRect((canvas.width/108)*70,(canvas.height/12)*8,canvas.width/52.5,canvas.height/12);
+    context.fillRect((canvas.width/108)*82,(canvas.height/12)*8,canvas.width/52.5,canvas.height/12);
+
+    context.fillStyle = WHITE;
+    
+    // left multiplayer eyes
+    context.fillRect((canvas.width/324)*210,(canvas.height/36)*22,canvas.width/100,canvas.height/100);
+    context.fillRect((canvas.width/324)*218,(canvas.height/36)*22,canvas.width/100,canvas.height/100);
+
+    // right multiplayer eyes
+    context.fillRect((canvas.width/324)*242,(canvas.height/36)*22,canvas.width/100,canvas.height/100);
+    context.fillRect((canvas.width/324)*250,(canvas.height/36)*22,canvas.width/100,canvas.height/100);
+}
+
+drawSingleplayer = function(){
+    // draw pink rectangle
+    context.fillStyle = PINK;
+    var widthUnit=canvas.width/7
+    context.fillRect(widthUnit,canvas.height/2,widthUnit*2,canvas.height/4);
+
+    // lil grey rectangles for singleplayer
+    context.fillStyle = GREY;
+    context.fillRect((canvas.width/35)*9,(canvas.height/12)*7,canvas.width/17.5,canvas.height/12);
+    context.fillRect((canvas.width/108)*30 ,(canvas.height/12)*8,canvas.width/52.5,canvas.height/12);
+
+    // faces for multiplayer select
+    context.fillStyle = WHITE;
+    // singleplayer eyes
+    context.fillRect((canvas.width/324)*87,(canvas.height/36)*22,canvas.width/100,canvas.height/100);
+    context.fillRect((canvas.width/324)*95,(canvas.height/36)*22,canvas.width/100,canvas.height/100);
+}
+
+
+// tells me if the user has thought about and selected their game mode
+var selectedFlag = false;
+
+selectAction = function(){
+    if (controller.right){
+        context.fillStyle = WHITE;
+        context.fillRect(canvas.width/1.83,canvas.height/2.2,canvas.width/3,canvas.height/3);
+
+        drawMultiplayer();
+
+        context.fillStyle = GREY;
+        context.fillRect(canvas.width/8,canvas.height/2.2,canvas.width/3,canvas.height/3);
+
+        drawSingleplayer();
+
+        selectedFlag = true;
+
+        multiplayerFlag = true;
+    }
+    if (controller.left){
+        context.fillStyle = GREY;
+        context.fillRect(0,0,canvas.width,canvas.height);
+
+        context.fillStyle = WHITE;
+        context.fillRect(canvas.width/8,canvas.height/2.2,canvas.width/3,canvas.height/3);
+
+        drawSingleplayer();
+
+        context.fillStyle = GREY;
+        context.fillRect(canvas.width/1.83,canvas.height/2.2,canvas.width/3,canvas.height/3);
+
+        drawMultiplayer();
+
+        selectedFlag = true;
+
+        multiplayerFlag = false;
+    }
+}
+
+var stopThisNonsense = true
+multiplayerSelect = function(){
+    console.log("E");
+    
+    selectAction();
+
+    if (selectedFlag){
+        if (controller.start || controller.restart){
+            startDetect();
+            logo = new Image();
+            logo.src = "LogoTransparent.png";
+            context.drawImage(logo,0,0);
+            stopThisNonsense = false
+        }
+    }
+    if (stopThisNonsense){
+        window.requestAnimationFrame(multiplayerSelect);
+    }
+}
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("drawBarriers");
+
+currentColour = WHITE;
+
+barriers = function(){
+
+	context.strokeStyle = currentColour;
+	
+	context.lineWidth = canvas.height/80;
+
+	// actually lineWidth/2 bacause it goes from the center of the line
+	var thickness = canvas.height/160;
+	// just think it looks good at canvas.height/18
+	var linePlacement = canvas.height/18;
+
+	// floor
+	if (user.y > (canvas.height - (user.radius + linePlacement + thickness))){
+		user.y = canvas.height - (user.radius + linePlacement + thickness);
+		user.y_velocity = 0;
+		user.jumping = false;
+	}
+
+	if (multiplayerFlag){		
+		if (user2.y > (canvas.height - (user2.radius + linePlacement + thickness))){
+			user2.y = canvas.height - (user2.radius + linePlacement + thickness);
+			user2.y_velocity = 0;
+			user2.jumping = false;
+		}
+	}
+
+	context.beginPath();
+	context.moveTo(0, canvas.height - linePlacement);
+	context.lineTo(canvas.width, canvas.height - linePlacement);
+	context.stroke();
+
+	// ceiling
+	if (user.y < (user.radius + linePlacement + thickness)){
+		user.y = user.radius + linePlacement + thickness;
+		user.y_velocity = 0;
+		user.jumping = false;
+	}
+
+	if (multiplayerFlag){
+		if (user2.y < (user2.radius + linePlacement + thickness)){
+			user2.y = user2.radius + linePlacement + thickness;
+			user2.y_velocity = 0;
+			user2.jumping = false;
+		}
+	}
+
+	context.beginPath();
+	context.moveTo(0, linePlacement);
+	context.lineTo(canvas.width, linePlacement);
+	context.stroke();
+}
+
+displayScore = function(){
+	pointMultiplier = Math.round(pointMultiplier, 2);
+	var score = pointMultiplier * (((levelCount-1)*levelCount) + levelCount) + levelCount;
+	
+	if (levelCount == 1){
+		context.fillStyle = GREY;
+	}
+
+	//context.fillStyle = WHITE;
+	context.fillText(score+" points",canvas.height/80,canvas.height - canvas.height/80);
+}
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("drawUser");
+
+var hue = 0;
+var mainColour2 = GREY;
+var greyness = 0;
+var whiteFlag = false;
+
+drawUser = function(){
+	if (green == undefined){
+		green = Math.random()*150;
+	}
+		
+	if (redFlag == false && orangeFlag == false && yellowFlag == false && greenFlag == false && blueFlag == false && purpleFlag == false){
+		hue += 10;
+		var saturation = "100%";
+		var lightness = "87%";
+		var mainColour = 'hsl('+hue+','+saturation+','+lightness+')';
+	}
+	
+	//if (redFlag == false && orangeFlag == false && yellowFlag == false && greenFlag == false && blueFlag == false && purpleFlag == false){
+		greyness += 2;
+		if (greyness>230){
+			whiteFlag = true;
+		}
+		if (whiteFlag){
+			greyness -= 4;
+		}
+		if (greyness<130){
+			whiteFlag = false;
+		}
+
+		var mainColour2 = 'rgb('+greyness+','+greyness+','+greyness+')';
+
+	//}
+	
+	if (greenFlag){
+		hue += 10;
+		var saturation = "100%";
+		var lightness = "72%";
+		var mainColour = 'hsl('+hue+','+saturation+','+lightness+')';
+
+		// the colour for the second circle
+		var mainColour2 = 'rgb('+(greyness-130)+',221,'+(greyness-80)+')';
+	}
+	
+	if (redFlag){
+		var red = 255;
+		green += 1;
+		if (green > 100){
+			green = 80;
+		}
+		var mainColour = 'rgb('+red+','+green+','+green+')';
+	}
+	
+	if (orangeFlag){
+		var red = 225;
+		var green = (Math.random()*100)+100;
+		var blue = (Math.random()*50)+50;
+		var mainColour = 'rgb('+red+','+green+','+blue+')';
+	}
+	
+	if (yellowFlag){
+		var red = 255;
+		var green = 255;
+		var blue = (Math.random()*155)+100;
+		var mainColour = 'rgb('+red+','+green+','+blue+')';
+		
+		context.fillStyle = mainColour;
+		context.fillText("banana!",canvas.width/80,canvas.height/4);
+	}
+	
+	if (blueFlag){
+		var red = (Math.random()*50)+100;
+		var green = red+50;
+		var blue = 255;
+		var mainColour = 'rgb('+red+','+green+','+blue+')';
+	}
+	
+	if (purpleFlag){
+		var red = 153;
+		var green = (Math.random()*55)+50;
+		var blue = 153;
+		var mainColour = 'rgb('+red+','+green+','+blue+')';
+	}
+
+	if (multiplayerFlag){
+		if (redFlag2){
+			var red = 255;
+			green += 1;
+			if (green > 100){
+				green = 80;
+			}
+			var mainColour2 = 'rgb('+red+','+green+','+green+')';
+		}
+		
+		if (orangeFlag2){
+			var red = 225;
+			var green = (Math.random()*100)+100;
+			var blue = (Math.random()*50)+50;
+			var mainColour2 = 'rgb('+red+','+green+','+blue+')';
+		}
+		
+		if (yellowFlag2){
+			var red = 255;
+			var green = 255;
+			var blue = (Math.random()*155)+100;
+			var mainColour2 = 'rgb('+red+','+green+','+blue+')';
+			
+			context.fillStyle = mainColour;
+			context.fillText("banana!",canvas.width/80,canvas.height/4);
+		}
+		
+		if (blueFlag2){
+			var red = (Math.random()*50)+100;
+			var green = red+50;
+			var blue = 255;
+			var mainColour2 = 'rgb('+red+','+green+','+blue+')';
+		}
+		
+		if (purpleFlag2){
+			var red = 153;
+			var green = (Math.random()*55)+50;
+			var blue = 153;
+			var mainColour2 = 'rgb('+red+','+green+','+blue+')';
+		}
+	}
+	
+	
+	
+	context.fillStyle = mainColour;
+	context.beginPath();
+	context.arc(user.x, user.y, user.radius, 0, 2*Math.PI);
+	context.fill();
+	
+	if (multiplayerFlag){
+		
+		context.fillStyle = mainColour2;
+		
+		context.beginPath();
+		context.arc(user2.x, user2.y, user2.radius, 0, 2*Math.PI);
+		context.fill();
+	}
+}
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("drawPinkCircle");
+
+// will store the x and y of each pink circle
+// was also the source of most of my pain
+var coords = [];
+
+circleMain = function(){
+	currentCoordinates = [];
+	var linePlacement = canvas.height/18;
+	var thickness = canvas.height/80;
+
+	pinkCircle.x = Math.random()*(canvas.width/6*5)+canvas.width/7
+	pinkCircle.y = (Math.random()*(canvas.height-(pinkCircle.radius + linePlacement + thickness)*2))+ pinkCircle.radius + linePlacement + thickness
+
+	currentCoordinates = [];
+	currentCoordinates.push(pinkCircle.x);
+	currentCoordinates.push(pinkCircle.y);
+	coords.push(currentCoordinates);
+	//console.log(currentCoordinates);
+
+	context.beginPath();
+	context.fillStyle = PINK;
+	context.arc(pinkCircle.x,pinkCircle.y,pinkCircle.radius,0,2*Math.PI);
+	context.fill();
+}
+
+
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("powerUps");
+
+var currentColour = GREY;
+
+// defines the value of each colour
+const RED = "#f22";
+const ORANGE = "#f72";
+const YELLOW = "#ff5";
+const GREEN = "#0d5";
+const BLUE = "#2af";
+const PURPLE = "#929";
+
+colourInfo = function(){
+	
+	if (levelCount !== 1){
+	
+	context.direction = "rtl";
+	var fontsize = canvas.height/30
+	var fontsizeString = fontsize.toString();
+	context.font = fontsizeString+"px Comic Sans MS";
+	//context.fillText("1 year old",canvas.height/100,canvas.height/25);
+
+	context.fillStyle = currentColour;
+
+	if (currentColour == RED){
+		if (levelCount % 5 == 4){
+			context.fillText("slowly",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+		}else{
+			context.fillText("speedy",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+		}
+	}
+	if (currentColour == ORANGE){
+	context.fillText("anti chunky",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+	}
+	if (currentColour == YELLOW){
+	context.fillText("chunky",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+	}
+	if (currentColour == GREEN){
+	context.fillText("life",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+	}
+	if (currentColour == BLUE){
+		if (levelCount % 5 == 0){
+			context.fillText("extragrav",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+		}else{
+			context.fillText("antigrav",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+		}
+	}
+	if (currentColour == PURPLE){
+	context.fillText("!points",canvas.width - canvas.width/80,canvas.height - canvas.height/80);
+	}
+	context.direction = "ltr";
+	
+	}
+}
+
+// to tell me if the user hits its respective colour
+var redFlag = false;
+var orangeFlag = false;
+var yellowFlag = false;
+var greenFlag = false;
+var blueFlag = false;
+var purpleFlag = false;
+
+// and for multiplayer
+var redFlag2 = false;
+var orangeFlag2 = false;
+var yellowFlag2 = false;
+// green is not needed because they share an extra life
+var blueFlag2 = false;
+var purpleFlag2 = false;
+
+// for how often the user touches a powerup
+var pointMultiplier = 1;
+
+hitPower = function(){
+	var px = user.x - powerCircle.x;
+	var py = user.y - powerCircle.y;
+	var distance = Math.sqrt(px * px + py * py);
+	// console.log(distance);
+
+	if (distance <= user.radius + powerCircle.radius){
+		var currentLevel = levelCount;
+		//console.log(pointMultiplier);
+		//pointMultiplier += 1;
+
+		if (currentColour == RED){
+			console.log("red");
+			if (levelCount % 5 == 4){
+				// canvas.width/1000 is min speed
+				if (user.x_speed > canvas.width/1000){
+					user.x_speed -= canvas.width/3333;
+					pointMultiplier += 0.1;
+					// decreases speed every 1 in 5 
+				}
+			}else{
+				// canvas.width/133 is max speed
+				if (user.x_speed < canvas.width/133){
+					user.x_speed += canvas.width/3333;
+					pointMultiplier += 0.1;
+				}
+			}
+			redFlag = true;
+			// increases speed
+		}
+		
+		if (currentColour == ORANGE){
+			console.log("orange");
+			if (user.radius > canvas.height/50){
+				user.radius -= 1;
+				if (pointMultiplier > 1){
+					pointMultiplier -= 0.1;
+				}
+			}
+			orangeFlag = true;
+			// decreases size of player
+		}
+		
+		if (currentColour == YELLOW){
+			console.log("yellow");
+			if (user.radius < canvas.height/3){
+				user.radius += 1;
+				pointMultiplier += 0.2;
+			}
+			yellowFlag = true;
+			// increases size of player
+		}
+		
+		if (currentColour == GREEN){
+			console.log("green");
+			greenFlag = true;
+			if (pointMultiplier > 1){
+				pointMultiplier -= 0.1;
+			}
+
+			// go over the level number in green to show the user that they have an extra life
+			context.fillStyle = GREY;
+			context.fillRect(0,0,canvas.width,canvas.height/20);
+			
+			var fontsize = canvas.height/30
+			var fontsizeString = fontsize.toString();
+			context.font = fontsizeString+"px Comic Sans MS";
+			context.fillStyle = GREEN;
+			context.fillText("safety!",canvas.height/80,canvas.height/25);
+			// anti-pink
+			// gives you an extra life (1 up)
+		}
+		
+		if (currentColour == BLUE){
+			console.log("blue");
+			if (levelCount % 5 == 0){
+				if (user.y_speed < canvas.height/416){
+					user.y_speed += canvas.height/20000;
+					pointMultiplier += 0.1;
+					// more gravity every one in 5 levels
+				}
+			}else{
+				if (user.y_speed > canvas.height/2000){
+					user.y_speed -= canvas.height/20000;
+					pointMultiplier += 0.1;
+				}
+			}
+			blueFlag = true;
+			// less gravity
+		}
+		
+		if (currentColour == PURPLE){
+			console.log("purple");
+			pointMultiplier += 0.1;
+			purpleFlag = true;
+			// just gives points
+		}
+	}
+
+	if (multiplayerFlag){
+		var px = user2.x - powerCircle.x;
+		var py = user2.y - powerCircle.y;
+		var distance2 = Math.sqrt(px * px + py * py);
+		// console.log(distance);
+
+		if (distance2 <= user2.radius + powerCircle.radius){
+			var currentLevel = levelCount;
+			//console.log(pointMultiplier);
+			//pointMultiplier += 1;
+
+			if (currentColour == RED){
+				console.log("red");
+				if (levelCount % 5 == 4){
+					// canvas.width/1000 is min speed
+					if (user2.x_speed > canvas.width/1000){
+						user2.x_speed -= canvas.width/3333;
+						pointMultiplier += 0.1;
+						// decreases speed every 1 in 5 
+					}
+				}else{
+					// canvas.width/133 is max speed
+					if (user2.x_speed < canvas.width/133){
+						user2.x_speed += canvas.width/3333;
+						pointMultiplier += 0.1;
+					}
+				}
+				redFlag2 = true;
+				// increases speed
+			}
+		
+			if (currentColour == ORANGE){
+				console.log("orange");
+				if (user2.radius > canvas.height/50){
+					user2.radius -= 1;
+					if (pointMultiplier > 1){
+						pointMultiplier -= 0.1;
+					}
+				}
+				orangeFlag2 = true;
+				// decreases size of player
+			}
+			
+			if (currentColour == YELLOW){
+				console.log("yellow");
+				if (user2.radius < canvas.height/3){
+					user2.radius += 1;
+					pointMultiplier += 0.2;
+				}
+				yellowFlag2 = true;
+				// increases size of player
+			}
+		
+			if (currentColour == GREEN){
+				console.log("green");
+				greenFlag = true;
+				if (pointMultiplier > 1){
+					pointMultiplier -= 0.1;
+				}
+
+				// go over the level number in green to show the user that they have an extra life
+				context.fillStyle = GREY;
+				context.fillRect(0,0,canvas.width,canvas.height/20);
+			
+				var fontsize = canvas.height/30
+				var fontsizeString = fontsize.toString();
+				context.font = fontsizeString+"px Comic Sans MS";
+				context.fillStyle = GREEN;
+				context.fillText("safety!",canvas.height/80,canvas.height/25);
+				// anti-pink
+				// gives you an extra life (1 up)
+			}
+		
+			if (currentColour == BLUE){
+				console.log("blue");
+				if (levelCount % 5 == 0){
+					if (user2.y_speed < canvas.height/416){
+						user2.y_speed += canvas.height/20000;
+						pointMultiplier += 0.1;
+						// more gravity every one in 5 levels
+					}
+				}else{
+					if (user2.y_speed > canvas.height/2000){
+						user2.y_speed -= canvas.height/20000;
+						pointMultiplier += 0.1;
+					}
+				}
+				blueFlag2 = true;
+				// less gravity
+			}
+		
+			if (currentColour == PURPLE){
+				console.log("purple");
+				pointMultiplier += 0.1;
+				purpleFlag2 = true;
+				// just gives points
+			}
+		}
+	}
+}
+
+// gives it somewhere in the list of colours to start
+var colourStart = Math.floor(Math.random()*5);
+
+circlePower = function(){
+	colours = [RED,ORANGE,YELLOW,GREEN,BLUE,PURPLE];
+
+	var linePlacement = canvas.height/18;
+	var thickness = canvas.height/80;
+	
+	colourStart += 1;
+	if (colourStart > 5){
+		colourStart = 0;
+	}
+	
+	currentColour = colours[colourStart];
+	
+	if (levelCount !== 1 && levelCount !== 0 && levelCount){
+		powerCircle.x = Math.random()*(canvas.width/6*5)+canvas.width/7
+		powerCircle.y = (Math.random()*(canvas.height-(powerCircle.radius + linePlacement + thickness)*2))+ powerCircle.radius + linePlacement + thickness
+
+		context.beginPath();
+		context.fillStyle = (currentColour);
+		context.arc(powerCircle.x,powerCircle.y,pinkCircle.radius,0,2*Math.PI);
+		context.fill();
+	}
+}
+
+
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("death");
+
+var deathFlag = false;
+
+death = function(){
+
+	for (let p=0; p<coords.length; p++){
+
+		var dx = user.x - coords[p][0];
+		var dy = user.y - coords[p][1];
+		var distance = Math.sqrt(dx * dx + dy * dy);
+		// console.log(distance);
+
+		if (multiplayerFlag){
+			var dx = user2.x - coords[p][0];
+			var dy = user2.y - coords[p][1];
+			var distance2 = Math.sqrt(dx * dx + dy * dy);
+		}else{
+			var distance2 = canvas.width + canvas.height
+		}
+
+		if (((distance <= user.radius + pinkCircle.radius) || (distance2 <= user2.radius + pinkCircle.radius)) && greenFlag == false){
+			
+			if (distance <= user.radius + pinkCircle.radius){
+				userDeathCount += 1;
+			}
+			if (distance2 <= user2.radius + pinkCircle.radius){
+				user2DeathCount += 1;
+			}
+			
+			deathFlag = true;
+			theAfterlife();
+		}
+		if (((distance <= user.radius + pinkCircle.radius) || (distance2 <= user2.radius + pinkCircle.radius)) && greenFlag == true){
+			// removes the circle the user hit from the list of coordinates that'll kill the user
+			coords.splice(p,1);
+
+			greenFlag = false;
+
+
+			// go over the level number in pink
+			context.fillStyle = GREY;
+			context.fillRect(0,0,canvas.width,canvas.height/20);
+			
+			var fontsize = canvas.height/30
+			var fontsizeString = fontsize.toString();
+			context.font = fontsizeString+"px Comic Sans MS";
+			context.fillStyle = PINK;
+			context.fillText("life lost :(",canvas.width/80,canvas.height/25);
+		}
+	}
+}
+
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("theAfterlife");
+
+theAfterlife = function(){
+	pointMultiplier = Math.round(pointMultiplier, 2);
+	var score = pointMultiplier * (((levelCount-1)*levelCount) + levelCount) + levelCount;
+	console.log(pointMultiplier);
+	console.log(levelCount);
+	console.log(score);
+	
+	currentColour = "#111";
+	barriers();
+	
+	// light pink
+	context.fillStyle = ("#fbc");
+	context.fillRect(0, 0, canvas.width, canvas.height);
+	
+	user.x = canvas.width*2;
+
+	if (multiplayerFlag){
+		user2.x = canvas.width*2;
+	}
+
+	// x co-ordinate of the text
+	var textX = canvas.width/80
+
+	context.fillStyle = (PINK);
+
+	var scoreString = "Score: "+score
+	var fontsize = canvas.width/(scoreString.length + canvas.height/80);
+	var fontsizeString = fontsize.toString();
+	context.font = fontsizeString+"px Comic Sans MS";
+	context.fillText(scoreString, textX, (canvas.height/10)*6);
+	context.fillText("Age: "+((levelCount-1).toString()), textX, (canvas.height/10)*4);
+	context.fillText("You died", textX, (canvas.height/10)*2);
+
+	var fontsize = canvas.height/30
+	var fontsizeString = fontsize.toString();
+	context.font = fontsizeString+"px Comic Sans MS";
+	context.direction = "rtl";
+
+	// adds scores to a list, then orders the list from highest to lowest
+	scoreScores.push(score);
+	scoreScores.sort(function(a, b){return b-a});
+	console.log("scores:");
+	console.log(scoreScores);
+	ageScores.push(levelCount-1);
+	ageScores.sort(function(a, b){return b-a});
+	console.log("ages:");
+	console.log(ageScores);
+
+	// filling a list with the outputs required for a scoreboard, in the right order
+	var scoreOutputs = ["Best scores"];
+	for(i = 0; i < 5 ;i++){
+		scoreOutputs.push(scoreScores[i].toString());
+	}
+	scoreOutputs.push("Best ages");
+	for(i = 0; i < 5 ;i++){
+		scoreOutputs.push(ageScores[i].toString());
+	}
+
+	// x co-ordinate of the text
+	var textX = canvas.width - canvas.width/80
+
+	// outputs all strings I want on my scoreboard
+	for(i = 0; i < 12 ;i++){
+		context.fillText(scoreOutputs[i],textX,(canvas.height/20)*(i+2));
+	}
+
+	if (tapFlag){
+		context.fillText("Press anywhere to play again",textX,canvas.height - canvas.height/10);
+	}else{
+		context.fillText("Press enter to play again",textX,canvas.height - canvas.height/10);
+	}
+	context.direction = "ltr";
+	
+	
+	//var highScore = document.cookie;
+
+	//document.cookie = "High score: "+score;
+
+	//console.log("slow down");
+	
+	
+	//setTimeout(function(){location.reload();},10000);
+	
+	//if (deathFlag == false){
+	//	setTimeout(function(){
+	//		console.log("hgvbs,xbliruvgfblb");
+	//		reset();
+	//	},10000);
+	//}
+	
+	if (multiplayerFlag){
+		context.fillText("player 1 deaths: "+userDeathCount.toString(),canvas.width/80,canvas.height/1.2);
+		context.fillText("player 2 deaths: "+user2DeathCount.toString(),canvas.width/80,canvas.height/1.1);
+	}else{
+		context.fillText("Deaths: "+userDeathCount.toString(),canvas.width/80,canvas.height/1.3);
+	}
+	
+}
+
+
+
+
+
+// made by Dave Fish
+// 04.11.19
+
+startFlag = true;
+startDetect = function(){
+	instructions();	
+	context.fillText("press up, down, left, right",canvas.height/100,canvas.height/25);
+	if (tapFlag || controller.up || controller.down || controller.left || controller.right){
+		startFlag = false;
+		console.log("lets do it");
+		loop();
+	}
+	
+	if (startFlag){
+		window.requestAnimationFrame(startDetect);
+	}
+}
+
+
+instructionFlag = true;
+startInstructions = function(){
+	var fontsize = canvas.height/20
+	var fontsizeString = fontsize.toString();
+	context.font = fontsizeString+"px Comic Sans MS";
+	context.fillStyle = PINK;
+	context.fillText("press space or enter to play",canvas.width/80,canvas.height/2);
+	context.fillText("I made this game for my A level compsci project :)",canvas.width/80,canvas.height/4);
+	if (controller.start || controller.restart){
+		instructionFlag = false;
+		console.log("aight then");
+		context.fillStyle = GREY;
+		context.fillRect(0, 0, canvas.width, canvas.height);
+		context.fillStyle = WHITE
+		context.fillText("press left and right arrows",canvas.width/7,canvas.height/1.5)
+		setTimeout(multiplayerSelect(),2000);
+	}
+
+	if (tapFlag){
+		instructionFlag = false;
+		console.log("aight then");
+		setTimeout(startDetect(),2000);
+	}
+	
+	if (instructionFlag){
+		window.requestAnimationFrame(startInstructions);
+	}
+}
+
+startInstructions();
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+reset = function(){
+	levelString = 0;
+	levelCount = 0;
+	level = 0;
+	score = 0;	 
+	deathFlag = false;
+	pointMultiplier = 1;
+	score = 0;
+	
+	user.radius = canvas.height/30;
+	user.x_velocity = 0;
+	user.y = canvas.height/5;
+	user.y_velocity = 0;
+	user.x_speed = canvas.width/1000;
+	user.y_speed = canvas.height/666;
+	user.speed = 0;
+
+	if (multiplayerFlag){
+		user2.radius = canvas.height/30;
+		user2.x_velocity = 0;
+		user2.y = canvas.height/5;
+		user2.y_velocity = 0;
+		user2.x_speed = canvas.width/1000;
+		user2.y_speed = canvas.height/666;
+		user2.speed = 0;
+	}
+	
+	redFlag = false;
+	orangeFlag = false;
+	yellowFlag = false;
+	blueFlag = false;
+	purpleFlag = false;
+	
+	redFlag2 = false;
+	orangeFlag2 = false;
+	yellowFlag2 = false;
+	blueFlag2 = false;
+	purpleFlag2 = false;
+	
+	currentColour = GREY;
+	powerCircle.x = 0;
+	powerCircle.y = 0;
+	
+	console.log("cleared.");
+	//refreshPage();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// made by Dave Fish
+// 02.11.19
+
+console.log("mainLoop");
+var speedPoints = 0;
+
+loop = function() {
+
+	//if (dadddyman){
+
+		user.x_velocity += canvas.width/1750;
+
+		if (multiplayerFlag){
+			user2.x_velocity += canvas.width/1750;
+		}
+
+		if (controller.up/*&& user.jumping == false */) {
+			user.y_velocity -= canvas.height/400;
+			user.jumping = true;
+		}
+
+		if (controller.left) {
+			user.x_velocity -= canvas.width/2000;
+		}
+
+		if (controller.right) {
+			user.x_velocity += canvas.width/666;
+			if(speedPoints < 500){
+				pointMultiplier += 0.01;
+				speedPoints += 1;
+			}
+		}
+
+		if (controller.down) {
+			user.y_velocity += canvas.height/400;
+		}
+		
+
+
+		//var gravity = 1.5
+		user.y_velocity += user.y_speed;// gravity
+		user.x += user.x_velocity * user.x_speed;
+		user.y += user.y_velocity;
+		user.x_velocity *= 0.85;// friction
+		user.y_velocity *= 0.85;// friction
+
+
+		if (multiplayerFlag){
+			if (controller.up2/*&& user.jumping == false */) {
+				user2.y_velocity -= canvas.height/400;
+				user2.jumping = true;
+			}
+	
+			if (controller.left2) {
+				user2.x_velocity -= canvas.width/2000;
+			}
+	
+			if (controller.right2) {
+				user2.x_velocity += canvas.width/666;
+				if(speedPoints < 500){
+					pointMultiplier += 0.01;
+					speedPoints += 1;
+				}
+			}
+	
+			if (controller.down2) {
+				user2.y_velocity += canvas.height/400;
+			}
+			
+	
+	
+			//var gravity = 1.5
+			user2.y_velocity += user2.y_speed;// gravity
+			user2.x += user2.x_velocity * user2.x_speed;
+			user2.y += user2.y_velocity;
+			user2.x_velocity *= 0.85;// friction
+			user2.y_velocity *= 0.85;// friction
+		}
+
+		// it means circle
+		drawUser();
+
+		// draws and defines the ceiling and floor
+		barriers();
+
+		// literally the refresh page function, kill me
+		if (deathFlag == false){
+			refreshPage();
+		}else{
+			if (controller.restart){
+				reset();
+			}
+		}
+
+		
+		// if the user hasn't failed, the game will continue
+		death();
+
+		// for when the user is colliding with a coloured circle
+		hitPower();
+
+		// call update when the browser is ready to draw again
+		window.requestAnimationFrame(loop);
+		//}
+};
+
+
+
+		</script>
 </body>
 </html>
