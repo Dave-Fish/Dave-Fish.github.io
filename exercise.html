@@ -44,18 +44,20 @@
             "high knees\n",
         ]
 
+        images = [
+            "exerciseImages/v4-728px-Work-Out-at-Home-Using-Hand-Weights-Step-5.jpg.jpeg"
+        ]
+        for (let i = 6; i < 23; i++){
+            images.push("exerciseImages/Work-Out-at-Home-Using-Hand-Weights-Step-"+i+".360p.gif")
+        }
+
         rowing = "rowing machine\n";
 
         function waaaa(){
-            newStr = "";
-            if(randInt(0,2)==0){
-                newStr = newStr + rowing + "<br>" + exercises[randInt(0,exercises.length)];
-            }else{
-                for (let index = 0; index < 3; index++) {
-                    newStr = newStr + exercises[randInt(0,exercises.length)] + "<br>"; 
-                }
-            }
+            newStr = exercises[randInt(0,exercises.length)] + "or";
+            
             document.getElementById("new").innerHTML = newStr;
+            document.getElementById("demo").src = images[randInt(0,images.length)];
         }
     </script>
 </head>
@@ -69,11 +71,13 @@
         <a href="index.html">home</a>
     </menu>
 
-    <button type="button" onclick="waaaa()">Click Me!</button>
+    <button type="button" onclick="waaaa()" class="center">Click Me!</button>
 
-    <p id="new"> 
+    <p id="new" class="center"> 
         dave<br>davies
     </p>
+
+    <img src="row_row_row_your_box_-_Copy.png" id="demo" class="center">
 
 </body>
 </html>
