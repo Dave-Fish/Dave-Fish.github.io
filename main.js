@@ -78,7 +78,7 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
     this.width = width;
     this.minWidth = this.width;
     this.colour = colour;
-    this.opacity = opacity;
+    this.opacity = 0;
     this.fish = fish;
 
 
@@ -121,8 +121,19 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
             mouse.y - this.y - this.width/2 < maxDistance && mouse.y - this.y - this.width/2 > -maxDistance){
                 //this.colour = colours[0];
                 this.colour = current_colour;
+            }
         }
-    }
+
+        if(this.width > (Math.random()*(maxFishSize)+100)){
+            this.opacity+=0.0005;
+        }else{
+            this.opacity-=0.0003;
+        }
+        // if(this.opacity>1){
+        //     this.opacity = 1;
+        // }
+
+        context.globalAlpha = this.opacity;
 
         this.draw();
     }
@@ -165,12 +176,14 @@ palms = new Image();
 palms.src = "palm.png";
 
 function animate(){
+    context.globalAlpha = 1;
     requestAnimationFrame(animate);
     context.fillStyle = "#222";
     context.fillRect(0, 0, canvas.width, canvas.height);
     for(i=0; i<fishArray.length; i++){
         fishArray[i].update();
     }
+    context.globalAlpha = 1;
 
     d = new Date();
     if(d.getSeconds()==0){
@@ -180,6 +193,7 @@ function animate(){
     context.beginPath();
     context.shadowBlur = 10;
     context.shadowColor = current_colour;
+    // where the hell did 6298811545 come from
     context.drawImage(palms, 0, canvas.height-(canvas.width/1.6298811545)+canvas.width/10, canvas.width, canvas.width/1.6298811545);
     context.fill();
 }
