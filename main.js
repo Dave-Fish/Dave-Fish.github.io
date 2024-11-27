@@ -78,7 +78,7 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
     this.width = width;
     this.minWidth = this.width;
     this.colour = colour;
-    this.opacity = 0;
+    this.opacity = opacity;
     this.fish = fish;
 
 
@@ -124,11 +124,13 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
             }
         }
 
-        if(this.width > (Math.random()*(maxFishSize)+100)){
-            this.opacity+=0.0005;
-        }else{
-            this.opacity-=0.0003;
-        }
+        // if(opacity > Math.random()){
+        //     this.opacity+=0.0005;
+        // }else{
+        //     this.opacity-=0.0003;
+        // }
+        //this.opacity += (Math.random()-0.5) * ((maxFishSize+100)/this.width) /100
+        //this.opacity = (maxFishSize+100) / this.width;
         // if(this.opacity>1){
         //     this.opacity = 1;
         // }
@@ -154,8 +156,8 @@ for (i=0; i<fishCount; i++){
         }
     }
     
-    
-    var width = (Math.random()*(maxFishSize)+100);
+    var opacity = Math.random();
+    var width = (opacity*(maxFishSize)+100);
     var x = Math.random() * (canvas.width);
     var y = Math.random() * (canvas.height);
     var dx = ((Math.random() + 0.3));
@@ -165,7 +167,7 @@ for (i=0; i<fishCount; i++){
     }else{
         var colour = colours[randInt(0,colours.length)];
     }
-    var opacity = Math.random();
+    
 
     fishArray.push(new Fish(x, y, dx, dy, width, colour, opacity, fish));
 }
