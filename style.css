@@ -242,3 +242,11 @@ tr:nth-child(even) {
 {
 	text-align: center;
 }
+
+
+
+participant {
+    display: inline-block;
+    padding-left: 10%;
+    padding-right: 10%;
+}

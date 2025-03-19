@@ -78,7 +78,7 @@ function Fish(x, y, dx, dy, width, colour, opacity, fish){
     this.width = width;
     this.minWidth = this.width;
     this.colour = colour;
-    this.opacity = opacity;
+    this.opacity = 0.1;
     this.fish = fish;
 
 
