@@ -114,9 +114,6 @@ form{
     outline: none;
 }
 
-.active, .collapsible:hover {
-}
-
 .content {
     padding: 0 18px;
     max-height: 0;
