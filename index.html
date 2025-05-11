@@ -31,10 +31,18 @@
         <a id="big" href="me.html">dave<br>davies<a>
     </name>
 
-    <div class="webring">
-        <a href="https://aberwebr.ing/dave/left"><-</a>
-        <a href="https://aberwebr.ing/"> aber_webring </a>
-        <a href="https://aberwebr.ing/dave/right">-></a>
+    <div id="webring" style="position: fixed;
+    top: 90%;
+    left: 0;
+    width: 100%;
+    font-size: 2vmax;
+    margin-top: 0%;
+    text-align: center;
+    z-index: 3;
+    padding: 0%;">
+        <a href="https://aberwebr.ing/dave/left">🡰</a>
+        <a href="https://aberwebr.ing/"> aber webring </a>
+        <a href="https://aberwebr.ing/dave/right">🡲</a>
     </div>
 
     <script>
@@ -78,6 +86,7 @@
                         things_to_colour[i].style.color = "#eee";
                     }
                 }
+                document.getElementsById("webring").style.color = current_colour;
             }
         }
 
