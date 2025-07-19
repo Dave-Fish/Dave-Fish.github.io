@@ -1,0 +1,54 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dave Davies">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Dave Davies</title>
+	<link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+    </style>
+</head>
+<body>
+    <canvas>
+        <script src="main.js"></script>
+        <script type="text/javascript">
+            // game window size calculations (kill me)
+            // so I want it to be a consistent aspect ratio to not make my life a ball ache later
+            // probably goint to be 3 by 4, might change that later (16 by 9 better for mobile?)
+            var gameWidth, heightMultiplier = 9;
+            var gameHeight, widthMultiplier = 16;
+
+            if (canvas.width > canvas.height){
+                gameHeight = canvas.height - 20;
+                gameWidth = gameHeight * (heightMultiplier/widthMultiplier);
+            }else{
+                gameWidth = canvas.width - 20;
+                gameHeight = gameWidth * (widthMultiplier/heightMultiplier);
+            }
+
+
+            // the looping stuff
+            function lilGame(){
+                requestAnimationFrame(lilGame);
+                context.fillStyle = "#eee";
+                context.fillRect((canvas.width-gameWidth)/2, (canvas.height-gameHeight)/2, gameWidth, gameHeight);
+            }
+
+            lilGame();
+            
+        </script>
+    </canvas>
+    <overlay></overlay>
+    
+
+    <menu>
+        <a href="index.html">home</a>
+    </menu>
+
+
+    
+
+</body>
+</html>

@@ -2,7 +2,7 @@ console.log("main");
 
 canvas = document.querySelector('canvas');
 
-var context, controller, user, loop;
+var context, controller;
 
 context = document.querySelector("canvas").getContext("2d");
 

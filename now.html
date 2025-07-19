@@ -86,5 +86,23 @@
 
         
     </script> -->
+    <script>
+        // cjs, or commonJS
+        const PKAPI = require('pkapi.js').default;
+
+        // esm
+        import PKAPI from 'pkapi.js';
+
+        // shown values are defaults!
+        const api = new PKAPI({
+            base_url: "https://api.pluralkit.me", // base api url
+            version: 2, // api version
+            token: undefined // for authing requests. only set if you're using this for a single system!
+        })
+
+        var system = await api.getSystem({system: 'kqvoc'});
+
+        
+    </script>
 </body>
 </html>
