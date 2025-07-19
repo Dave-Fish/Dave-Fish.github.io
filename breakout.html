@@ -32,6 +32,7 @@
             // the looping stuff
             function lilGame(){
                 requestAnimationFrame(lilGame);
+                context.globalAlpha = 0.1;
                 context.fillStyle = "#eee";
                 context.fillRect((canvas.width-gameWidth)/2, (canvas.height-gameHeight)/2, gameWidth, gameHeight);
             }
