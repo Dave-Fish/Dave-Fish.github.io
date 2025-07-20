@@ -106,7 +106,7 @@
                     if(this.hits == 0){
                         context.globalAlpha = 0;
                     }else{
-                        context.globalAlpha = 0.5 + (0.5*(1/(maxhits/this.hits)));
+                        context.globalAlpha = 0.2 + (0.8*(1/(maxhits/this.hits)));
                     }
                     context.fillStyle = "#fff";
                     context.fillRect(this.x, this.y, gameWidth/10, gameWidth/10);
@@ -206,7 +206,7 @@
                 
                         for (var i = 0; i < 9; i++){
                             if(Math.random() > 0.5){
-                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*circleWaveCount*circleWaveCount)+1));
+                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*(circleWaveCount*circleWaveCount))+1));
                             }
                         }
                         moveDownCount += 1;
