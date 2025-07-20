@@ -45,17 +45,31 @@
                 mouse.x = event.x;
                 mouse.y = event.y;
 
+                if (mouse.x < circleX + smalCircleRadius*2 &&
+                    mouse.x > circleX - smalCircleRadius*2 &&
+                    mouse.y < circleY + smalCircleRadius*2 &&
+                    mouse.y > circleY - smalCircleRadius*2 &&
+                    circleArray.length > 1
+                ){
+                    for(i=0; i<circleArray.length; i++){
+                        circleArray[i].dx = 0;
+                        //circleArray[i].dy = 10;
+                    }
+                }else
+
                 if (mouse.x <= gameBoundaryLeft || mouse.y <= gameLine
                     || mouse.x >= gameBoundaryRight || mouse.y >= circleY){
                     mouse.x = undefined;
                     mouse.y = undefined;
-                }else if(circleArray.length < 3 && !gameOver){
+                }else if(circleArray.length < 1 && !gameOver){
                     for(var i = 0; i < 10+circleWaveCount; i++){
                         
                         setTimeout(() => circleArray.push(new bouncyCircle((mouse.x-circleX)/10, (mouse.y-circleY)/10)), 10 * i);
                     }
                     setTimeout(() => circleWaveCount++, 100);
                 }
+
+                
                 console.log("x = ",mouse.x,"    y = ",mouse.y);
             })
 
@@ -201,7 +215,7 @@
                 
                         for (var i = 0; i < 9; i++){
                             if(Math.random() > 0.5){
-                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*(circleWaveCount*circleWaveCount))+1));
+                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*(circleWaveCount))+10+circleWaveCount));
                             }
                         }
 
