@@ -99,7 +99,8 @@
                 this.y = ((canvas.height-gameHeight)/2)+(y*(gameWidth/9));
                 this.hits = hits;
 
-                //console.log(this.hits);
+                
+                console.log(this.hits);
 
                 this.update = function(){
                     if(this.hits == 0){
@@ -107,7 +108,7 @@
                     }else{
                         context.globalAlpha = 0.5 + (0.5*(1/(maxhits/this.hits)));
                     }
-                    context.fillStyle = "#000";
+                    context.fillStyle = "#fff";
                     context.fillRect(this.x, this.y, gameWidth/10, gameWidth/10);
                 }
             }
@@ -189,6 +190,7 @@
                     circleArray = [];
 
                     if (moveDownCount < circleWaveCount){
+                        console.log("ooooooooooooo",circleWaveCount);
                         for(i=0; i<squareArray.length; i++){
                             squareArray[i].y += gameWidth/9;
                             if (squareArray[i].y+gameWidth/9 > gameLine && squareArray[i].hits >= 1){
