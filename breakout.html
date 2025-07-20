@@ -93,7 +93,11 @@
                 this.hits = hits;
 
                 this.update = function(){
-                    context.globalAlpha = this.hits;
+                    if(this.hits == 0){
+                        context.globalAlpha = 0;
+                    }else{
+                        context.globalAlpha = 1;
+                    }
                     context.fillStyle = "#000";
                     context.fillRect(this.x, this.y, gameWidth/10, gameWidth/10);
                 }
@@ -101,7 +105,7 @@
 
             for (var i = 0; i < 9; i++){
                 for (var j = 0; j < 9; j++){
-                    squareArray.push(new blocks(i,j,1));
+                    squareArray.push(new blocks(i,j,10));
                 }
             }
             
@@ -143,6 +147,15 @@
                             circleArray[i].y + smalCircleRadius >= squareArray[j].y &&
                             squareArray[j].hits >= 1){
                                 squareArray[j].hits -= 1;
+
+                                if(circleArray[i].x - smalCircleRadius <= squareArray[j].x + gameWidth/10 ||
+                                    circleArray[i].x + smalCircleRadius >= squareArray[j].x){
+                                        circleArray[i].dx = -circleArray[i].dx;
+                                }
+                                if(circleArray[i].y - smalCircleRadius <= squareArray[j].y + gameWidth/10 ||
+                                    circleArray[i].y + smalCircleRadius >= squareArray[j].y){
+                                        circleArray[i].dy = -circleArray[i].dy;
+                                }
                         }
                     }
 
