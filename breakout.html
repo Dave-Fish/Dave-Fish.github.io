@@ -28,13 +28,86 @@
                 gameHeight = gameWidth * (widthMultiplier/heightMultiplier);
             }
 
+            var gameBoundaryLeft = (canvas.width-gameWidth)/2;
+            var gameBoundaryRight = (canvas.width-gameWidth)/2 + gameWidth;
+
+            var gameLine = gameHeight*0.75;
+            var circleX = canvas.width/2;
+            var circleY = gameHeight-(gameHeight/widthMultiplier/2);
+
+            window.addEventListener('click',function(event){
+                mouse.x = event.x;
+                mouse.y = event.y;
+
+                if (mouse.x <= gameBoundaryLeft || mouse.y <= gameLine
+                    || mouse.x >= gameBoundaryRight || mouse.y >= circleY){
+                    mouse.x = undefined;
+                    mouse.y = undefined;
+                }else{
+                    circleArray.push(new bouncyCircle((mouse.x-circleX)/10, (mouse.y-circleY)/10));
+                }
+
+                console.log("x = ",mouse.x,"    y = ",mouse.y);
+
+                
+            })
+
+            var circleArray = [];
+
+            function bouncyCircle(pressdx, pressdy){
+                this.x = circleX;
+                this.y = circleY;
+                this.dx = pressdx;
+                this.dy = pressdy;
+
+                this.update = function(){
+                    context.globalAlpha = 1;
+                    context.beginPath();
+                    context.arc(this.x, this.y, gameHeight/widthMultiplier/2/2, 0, 2*Math.PI);
+                    context.fillStyle="#000";
+                    context.fill();
+
+                    if (this.x > gameBoundaryRight || this.x < gameBoundaryLeft){
+                        this.dx = -this.dx;
+                    }
+                    if (this.y < (canvas.height-gameHeight)/2){
+                        this.dy = -this.dy;
+                    }
+                    if (this.y < gameHeight){
+
+                    }
+
+                    this.x += this.dx;
+                    this.y += this.dy;
+
+                }
+
+            }
+            
+            
 
             // the looping stuff
             function lilGame(){
                 requestAnimationFrame(lilGame);
+
+
                 context.globalAlpha = 0.1;
-                context.fillStyle = "#eee";
-                context.fillRect((canvas.width-gameWidth)/2, (canvas.height-gameHeight)/2, gameWidth, gameHeight);
+                context.fillStyle = "#fff";
+                context.fillRect(gameBoundaryLeft, (canvas.height-gameHeight)/2, gameWidth, gameHeight);
+
+                context.globalAlpha = 1;
+                context.beginPath();
+                context.arc(circleX, circleY, gameHeight/widthMultiplier/2, 0, 2*Math.PI);
+                context.stroke();
+                context.beginPath();
+                context.moveTo((canvas.width-gameWidth)/2,gameLine);
+                context.lineTo((canvas.width-gameWidth)/2+gameWidth,gameLine);
+                context.stroke();
+
+                for(i=0; i<circleArray.length; i++){
+                    circleArray[i].update();
+                }
+
             }
 
             lilGame();
