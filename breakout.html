@@ -99,7 +99,7 @@
                 this.y = ((canvas.height-gameHeight)/2)+(y*(gameWidth/9));
                 this.hits = hits;
 
-                
+                //console.log(this.hits);
 
                 this.update = function(){
                     if(this.hits == 0){
@@ -116,7 +116,7 @@
                 for (var j = 0; j < 5; j++){
                     if(Math.random() > 0.5){
                         // starter block strength
-                        squareArray.push(new blocks(i,j,Math.floor(Math.random()*10*circleWaveCount)));
+                        squareArray.push(new blocks(i,j,Math.floor(Math.random()*10)+1));
                     }
                 }
             }
@@ -204,7 +204,7 @@
                 
                         for (var i = 0; i < 9; i++){
                             if(Math.random() > 0.5){
-                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*circleWaveCount*circleWaveCount)));
+                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*circleWaveCount*circleWaveCount)+1));
                             }
                         }
                         moveDownCount += 1;
