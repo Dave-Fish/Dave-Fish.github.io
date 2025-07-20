@@ -34,6 +34,7 @@
             var gameLine = gameHeight*0.75;
             var circleX = canvas.width/2;
             var circleY = gameHeight-(gameHeight/widthMultiplier/2);
+            var smalCircleRadius = gameHeight/widthMultiplier/2/2;
 
             window.addEventListener('click',function(event){
                 mouse.x = event.x;
@@ -64,7 +65,7 @@
                 this.update = function(){
                     context.globalAlpha = 1;
                     context.beginPath();
-                    context.arc(this.x, this.y, gameHeight/widthMultiplier/2/2, 0, 2*Math.PI);
+                    context.arc(this.x, this.y, smalCircleRadius, 0, 2*Math.PI);
                     context.fillStyle="#000";
                     context.fill();
 
@@ -92,7 +93,7 @@
                 this.hits = hits;
 
                 this.update = function(){
-                    context.globalAlpha = 1;
+                    context.globalAlpha = this.hits;
                     context.fillStyle = "#000";
                     context.fillRect(this.x, this.y, gameWidth/10, gameWidth/10);
                 }
@@ -133,7 +134,19 @@
                         onScreen = true;
                     }
 
-                    //if (circleArray[i])
+                    // collision detection with any object in the squares array
+                    // this is gonna SUCK
+                    for(j=0; j<squareArray.length; j++){
+                        if (circleArray[i].x - smalCircleRadius <= squareArray[j].x + gameWidth/10 &&
+                            circleArray[i].x + smalCircleRadius >= squareArray[j].x &&
+                            circleArray[i].y - smalCircleRadius <= squareArray[j].y + gameWidth/10 &&
+                            circleArray[i].y + smalCircleRadius >= squareArray[j].y &&
+                            squareArray[j].hits >= 1){
+                                squareArray[j].hits -= 1;
+                        }
+                    }
+
+                    
                 }
                 if (!onScreen){
                     circleArray = [];
@@ -144,7 +157,6 @@
                 for(i=0; i<squareArray.length; i++){
                     squareArray[i].update();
                 }
-
             }
 
             lilGame();
