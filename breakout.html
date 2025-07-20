@@ -215,7 +215,7 @@
                 
                         for (var i = 0; i < 9; i++){
                             if(Math.random() > 0.5){
-                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*(circleWaveCount))+10+circleWaveCount));
+                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*(circleWaveCount*circleWaveCount))+10));
                             }
                         }
 
