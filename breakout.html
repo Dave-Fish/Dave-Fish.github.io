@@ -43,13 +43,14 @@
                     || mouse.x >= gameBoundaryRight || mouse.y >= circleY){
                     mouse.x = undefined;
                     mouse.y = undefined;
-                }else{
-                    circleArray.push(new bouncyCircle((mouse.x-circleX)/10, (mouse.y-circleY)/10));
+                }else if(circleArray.length < 3){
+                    for(var i = 0; i < 100; i++){
+                        
+                        setTimeout(() => circleArray.push(new bouncyCircle((mouse.x-circleX)/10, (mouse.y-circleY)/10)), 10 * i);
+                    }
+                    
                 }
-
                 console.log("x = ",mouse.x,"    y = ",mouse.y);
-
-                
             })
 
             var circleArray = [];
@@ -73,8 +74,8 @@
                     if (this.y < (canvas.height-gameHeight)/2){
                         this.dy = -this.dy;
                     }
-                    if (this.y < gameHeight){
-
+                    if (this.dy > -1 && this.y > gameLine){
+                        this.y = 100000000;
                     }
 
                     this.x += this.dx;
@@ -82,6 +83,25 @@
 
                 }
 
+            }
+
+            var squareArray = [];
+            function blocks(x, y, hits){
+                this.x = gameBoundaryLeft+(x*(gameWidth/9));
+                this.y = ((canvas.height-gameHeight)/2)+(y*(gameWidth/9));
+                this.hits = hits;
+
+                this.update = function(){
+                    context.globalAlpha = 1;
+                    context.fillStyle = "#000";
+                    context.fillRect(this.x, this.y, gameWidth/10, gameWidth/10);
+                }
+            }
+
+            for (var i = 0; i < 9; i++){
+                for (var j = 0; j < 9; j++){
+                    squareArray.push(new blocks(i,j,1));
+                }
             }
             
             
@@ -104,8 +124,25 @@
                 context.lineTo((canvas.width-gameWidth)/2+gameWidth,gameLine);
                 context.stroke();
 
+                
+                var onScreen = false;
+                
                 for(i=0; i<circleArray.length; i++){
                     circleArray[i].update();
+                    if (circleArray[i].y < circleY){
+                        onScreen = true;
+                    }
+
+                    if (circleArray[i])
+                }
+                if (!onScreen){
+                    circleArray = [];
+                }
+
+                console.log(circleArray);
+
+                for(i=0; i<squareArray.length; i++){
+                    squareArray[i].update();
                 }
 
             }
