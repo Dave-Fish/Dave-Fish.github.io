@@ -14,6 +14,8 @@
     <canvas>
         <script src="main.js"></script>
         <script type="text/javascript">
+            var gameOver = false;
+
             // game window size calculations (kill me)
             // so I want it to be a consistent aspect ratio to not make my life a ball ache later
             // probably goint to be 3 by 4, might change that later (16 by 9 better for mobile?)
@@ -36,7 +38,7 @@
             var circleY = gameHeight-(gameHeight/widthMultiplier/2);
             var smalCircleRadius = gameHeight/widthMultiplier/2/2;
 
-            var circleWaveCount = 0;
+            var circleWaveCount = 1;
             var moveDownCount = 0;
 
             window.addEventListener('click',function(event){
@@ -47,8 +49,8 @@
                     || mouse.x >= gameBoundaryRight || mouse.y >= circleY){
                     mouse.x = undefined;
                     mouse.y = undefined;
-                }else if(circleArray.length < 3){
-                    for(var i = 0; i < 100; i++){
+                }else if(circleArray.length < 3 && !gameOver){
+                    for(var i = 0; i < 10+circleWaveCount; i++){
                         
                         setTimeout(() => circleArray.push(new bouncyCircle((mouse.x-circleX)/10, (mouse.y-circleY)/10)), 10 * i);
                     }
@@ -108,9 +110,10 @@
             }
 
             for (var i = 0; i < 9; i++){
-                for (var j = 0; j < 9; j++){
+                for (var j = 0; j < 5; j++){
                     if(Math.random() > 0.5){
-                        squareArray.push(new blocks(i,j,Math.floor(Math.random()*100)));
+                        // starter block strength
+                        squareArray.push(new blocks(i,j,Math.floor(Math.random()*10*circleWaveCount)));
                     }
                 }
             }
@@ -120,7 +123,7 @@
             // the looping stuff
             function lilGame(){
                 requestAnimationFrame(lilGame);
-
+                
 
                 context.globalAlpha = 0.1;
                 context.fillStyle = "#fff";
@@ -185,10 +188,14 @@
                     if (moveDownCount < circleWaveCount){
                         for(i=0; i<squareArray.length; i++){
                             squareArray[i].y += gameWidth/9;
+                            if (squareArray[i].y+gameWidth/9 > gameLine && squareArray[i].hits >= 1){
+                                document.getElementById("big").innerHTML = "score:\n"+circleWaveCount;
+                                gameOver = true;
+                            }
                         }
                         for (var i = 0; i < 9; i++){
                             if(Math.random() > 0.5){
-                                squareArray.push(new blocks(i,0,10));
+                                squareArray.push(new blocks(i,0,Math.floor(Math.random()*circleWaveCount*circleWaveCount)));
                             }
                         }
                         moveDownCount += 1;
@@ -216,6 +223,10 @@
     <menu>
         <a href="index.html">home</a>
     </menu>
+
+    <name>
+        <a id="big" href="breakout.html"><a>
+    </name>
 
 
     
