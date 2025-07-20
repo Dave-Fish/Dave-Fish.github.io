@@ -93,16 +93,19 @@
             }
 
             var squareArray = [];
+            var maxhits = 0;
             function blocks(x, y, hits){
                 this.x = gameBoundaryLeft+(x*(gameWidth/9));
                 this.y = ((canvas.height-gameHeight)/2)+(y*(gameWidth/9));
                 this.hits = hits;
 
+                
+
                 this.update = function(){
                     if(this.hits == 0){
                         context.globalAlpha = 0;
                     }else{
-                        context.globalAlpha = 1;
+                        context.globalAlpha = 0.5 + (0.5*(1/(maxhits/this.hits)));
                     }
                     context.fillStyle = "#000";
                     context.fillRect(this.x, this.y, gameWidth/10, gameWidth/10);
@@ -193,6 +196,12 @@
                                 gameOver = true;
                             }
                         }
+                        squareArray.forEach(e => {
+                            if (e.hits > maxhits){
+                                maxhits = e.hits;
+                            }
+                        });
+                
                         for (var i = 0; i < 9; i++){
                             if(Math.random() > 0.5){
                                 squareArray.push(new blocks(i,0,Math.floor(Math.random()*circleWaveCount*circleWaveCount)));
