@@ -510,6 +510,11 @@
             console.log(routineTime);
             }
             toDo.forEach(thing => {
+                var para = document.createElement("p");
+                var textNode = document.createTextNode(thing.name);
+                para.appendChild(textNode);
+                document.body.appendChild(para).className = "center";
+
                 let img = document.createElement('img');
                 img.src = thing.picture;
                 document.getElementById('body').appendChild(img).className = "center";
@@ -545,6 +550,10 @@
                         setTimeout(() => breatheIn.play(), 10000*i +3000);
                         setTimeout(() => breatheOut.play(), 10000*i +8000);
                         setTimeout(() => x.style.background = "#ece", 10000*i +8000);
+                        if (thing == CatCow){
+                            setTimeout(() => img.src = "Dog.png", 10000*i +3000);
+                            setTimeout(() => img.src = "Cat.png", 10000*i +8000);
+                        }
                     }
                     setTimeout(() => x.style.background = "#222", 1000*thing.duration +4000);
                 }
@@ -554,6 +563,34 @@
                     var textNode = document.createTextNode("Swap Sides");
                     para.appendChild(textNode);
                     document.body.appendChild(para);
+
+                    var x = document.createElement("BUTTON");
+                    x.className = "center";
+                    x.style.height = "20vmax"
+                    x.style.fontSize = "20em"
+                    document.body.appendChild(x);
+                    var breatheIn = new Audio("0518-0718.mp4");
+                    var breatheOut = new Audio("0125-0325.mp4");
+                    x.onclick = function() {
+                        for (let i = 0; i < 3; i++){
+                            setTimeout(() => x.textContent = String(3-i), 1000*i);
+                        }
+                        for (let i = 0; i < thing.duration+1; i++){
+                            setTimeout(() => x.textContent = String(i), 1000*i +3000);
+                        }
+                        x.style.background = "#222";
+                        for (let i = 0; i < Math.floor(thing.duration/10); i++){
+                            setTimeout(() => x.style.background = "#cec", 10000*i +3000);
+                            setTimeout(() => breatheIn.play(), 10000*i +3000);
+                            setTimeout(() => breatheOut.play(), 10000*i +8000);
+                            setTimeout(() => x.style.background = "#ece", 10000*i +8000);
+                            if (thing == CatCow){
+                                setTimeout(() => img.src = "Dog.png", 10000*i +3000);
+                                setTimeout(() => img.src = "Cat.png", 10000*i +8000);
+                            }
+                        }
+                        setTimeout(() => x.style.background = "#222", 1000*thing.duration +4000);
+                    }
                 }
 
                 let node = document.createTextNode(thing.benefits);
