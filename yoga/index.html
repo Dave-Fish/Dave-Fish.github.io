@@ -1,0 +1,579 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dave Davies">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Dave's yoga</title>
+	<link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="C:\Users\User\Documents\Hobby code\websites\Dave-Fish.github.io\style.css">
+    <style>
+        button, input{
+            align-self: center;
+            align-content: center;
+            align-items: center;
+            color: #f2a;
+            background-color: #0000;
+            z-index: 5;
+            font-size: 3vmax;
+        }
+        p{
+            font-size: 4vmax;
+        }
+    </style>
+    <script>
+        function randInt(x, y){
+            return(Math.floor((Math.random()*(y-x))));
+        }
+
+        function Pose(picture, name, alternateNames, category, subCategory, description, benefits, duration, asymetric, toThis, fromThis){
+            this.name = name;
+            this.alternateNames = alternateNames;
+            this.category = category;
+            this.subCategory = subCategory;
+            this.description = description;
+            this.benefits = benefits;
+            this.duration = duration; 
+            this.asymetric = asymetric;
+            this.picture = picture;
+            this.toThis = toThis;
+            this.fromThis = fromThis;
+            this.occurences = 0;
+        }
+        
+        poses = [];
+        // making all the poses (nightmare time!)
+        const Turtle = new Pose(
+            "Turtle.png",
+            "Wind Removing",
+            ["Pavanamuktasana", "Apanasana", "Wind Relieving", "Supine Knees to Chest"],
+            "Supine",
+            "Forward Bend",
+            "From a supine position, lying on your back, the knees are bent and pulled into the chest. The arms are wrapped around the knees. The gaze is inward.",
+            "Releases the back and the spine. A good counterpose after a backbend.",
+            60,
+            false, 
+            ["Happy Baby", "Corpse", "Waterfall", "Supine Tabletop", "Supine Spinal Twist", "Wind Removing with Head Tucked"],
+            ["Happy Baby", "Corpse", "Waterfall", "Supine Tabletop", "Supine Spinal Twist", "Wind Removing with Head Tucked", "One Legged Wind Removing"],
+        )
+        poses.push(Turtle);
+        const TurtleHeadTucked = new Pose(
+            "TurtleHeadTucked.png",
+            "Wind Removing with Head Tucked",
+            ["pavanamuktasana", "apanasana", "Ball"],
+            "Supine",
+            "Forward Bend",
+            "Lying on your back, hug your knees into your chest and wrap your hands or forearms around your shin to squeeze them in tighter. Press your lower back into the ground. Lift your head off the ground and bring your forehead to your knees. Squeeze into a tight ball.",
+            "Releases the back and spine.",
+            20,
+            false,
+            ["Low Boat", "Corpse", "Extended Corpse", "Wind Removing"],
+            ["Low Boat", "Corpse", "Extended Corpse", "Wind Removing", "One Legged Wind Removing with Knee to Forehead"],
+        )
+        poses.push(TurtleHeadTucked);
+        const WindRemovingHalf_L = new Pose(
+            "WindRemovingHalf_L.png",
+            "One Legged Wind Removing",
+            ["eka pada pavanamuktasana", "eka pada apanasana", "One Legged Wind Relieving"],
+            "Supine",
+            "Forward Bend",
+            "From a supine position lying on your back, pull one knee into the chest with the hands clasped around the bent knee to the level of pressure desired (gas trapped in the large intestine may be released in this posture). The other leg is extended straight and the gaze is natural and forward.",
+            "Releases gas trapped in large intestine. Stretches the cervical spine (neck). Improves the digestion system. Aides in elimination.",
+            30,
+            true,
+            ["Corpse", "Supine Spinal Twist", "Wind Removing", "One Legged Wind Removing with Knee to Forehead"],
+            ["Corpse", "Supine Spinal Twist", "One Legged Wind Removing with Knee to Forehead"]
+        )
+        poses.push(WindRemovingHalf_L);
+        const WindRemovingHalfHeadTucked_L = new Pose(
+            "WindRemovingHalfHeadTucked_L.png",
+            "One Legged Wind Removing with Knee to Forehead",
+            ["eka pada pavanamuktasana", "eka pada apanasana"],
+            "Supine",
+            "Forward Bend",
+            "Begin in Wind Removing with Head Tucked. Keep one knee in toward your chest and extend the opposite leg straight out allowing the heel to find the earth. Keep the hips squared and feel a nice stretch in the lower back.",
+            "Releases the back and spine.",
+            20,
+            true,
+            ["Wind Removing with Head Tucked", "One Legged Wind Removing"],
+            ["One Legged Wind Removing"]
+        )
+        poses.push(WindRemovingHalfHeadTucked_L);
+        const CorpseDoubleLegRaise = new Pose(
+            "CorpseDoubleLegRaise.png",
+            "Waterfall",
+            ["supta dandasana", "viparita karani", "Legs Up the Wall", "Supine Staff", "Waterfall Rejuvenation"],
+            "Supine",
+            "Balancing",
+            "From a supine position, with the back relaxed onto the earth, the legs extend toward the sky without any tension behind the knees. The arms rest by the side body and the palms open toward the sky in a receptive mode. Hold this position or gently sway the legs from side to side. The eyes are closed and the gaze is inward.",
+            "Releases spine and lower back and heals the body.",
+            30,
+            false,
+            ["Happy Baby", "Corpse", "Supine Tabletop", "Supine Straddle", "Wind Removing"],
+            ["Happy Baby", "Corpse", "Plow", "Supported Shoulder Stand", "Half Supported Shoulder Stand", "Supine Tabletop", "Wind Removing"]
+        )
+        poses.push(CorpseDoubleLegRaise);
+        const Banana_R = new Pose(
+            "Banana_R.png",
+            "Banana",
+            ["supta nitambasana", "Supine Crescent Moon", "Supine Half Moon"],
+            "Supine",
+            "Lateral Bend",
+            "Start from Corpse pose. Bring your hands overhead, interlace your fingers or catch the opposite wrist. Extend your spine and keep your legs together. With your glutes and hips connected to the floor, walk your feet and upper body to one side. When your body becomes more flexible, arch a little more, keeping both hips on the floor. Come back to center.",
+            "Strengthens the spine and rib cage in a lateral flexion. Stretches the oblique stomach muscles and intercostal muscles between the ribs.",
+            20,
+            true,
+            ["Extended Corpse"],
+            ["Extended Corpse"]
+        )
+        poses.push(Banana_R);
+        const BoundAngle = new Pose(
+            "BoundAngle.png",
+            "Bound Angle",
+            ["baddha konasana", "bhadrasana", "Butterfly", "Cobbler's", "Gracious"],
+            "Seated",
+            "Neutral",
+            "In sitting position, bend both knees and drop the knees to each side, opening the hips. Bring the soles of the feet together and bring the heels as close to the groin as possible, keeping the knees close to the ground. The hands may reach down and grasp and maneuver the feet so that the soles are facing upwards and the heels and little toes are connected. The shoulders should be pulled back and no rounding of the spine.",
+            "Opens the hips and groins. Stretches the shoulders, rib cage and back. Stimulates the abdominal organs, lungs and heart.",
+            45,
+            false,
+            ["Bound Angle 1", "Bound Angle 2", "Box", "Seated"],
+            ["Bound Angle 1", "Bound Angle 2", "Lift Up", "Seated with Legs Crossed", "Seated"]
+        )
+        poses.push(BoundAngle);
+        const BoundAngleForward = new Pose(
+            "BoundAngleForward.png",
+            "Bound Angle 1",
+            ["baddha konasana a", "Extended Bound Angle", "Folded Butterfly"],
+            "Seated",
+            "Forward Bend",
+            "Bend both knees and pull your heels toward your pelvis. Drop your knees out to the sides and press the soles of your feet together. Bring your heels as close to your pelvis as possible and try to keep the outer edges of the feet firmly on the floor. If you can, use your hands to open the soles of your feet upward. Keeping the pose, begin to lengthen your spine up, hinge forward from your hips and keep your sit bones rooted.",
+            "Stretches the inner thighs, groins, and knees.",
+            40,
+            false,
+            ["Bound Angle"],
+            ["Bound Angle"]
+        )
+        poses.push(BoundAngleForward);
+        const BoundAngleII  = new Pose(
+            "BoundAngleII.png",
+            "Bound Angle 2",
+            ["baddha konasana b"],
+            "Seated",
+            "Forward Bend",
+            "Bend both knees and pull your heels toward your pelvis. Drop your knees out to the sides and press the soles of your feet together. Bring your heels as close to your pelvis as possible and try to keep the outer edges of the feet firmly on the floor. If you can, use your hands to open the soles of your feet upward. Keeping the pose, begin to round your spine as to bring your forehead to touch your toes. Keep your sit bones rooted.",
+            "Stretches the inner thighs, groins, and knees.",
+            25,
+            false,
+            ["Bound Angle"],
+            ["Bound Angle"]
+        )
+        poses.push(BoundAngleII);
+        const SupineBoundAngle = new Pose(
+            "SupineBoundAngle.png",
+            "Supine Bound Angle",
+            ["supta baddha konasana"],
+            "Supine",
+            "Neutral",
+            "In supine position, bend both knees and drop the knees to each side, opening the hips. Bring the soles of the feet together and bring the heels as close to the groin as possible, keeping the knees close to the ground.",
+            "Opens the hips and groins.",
+            60,
+            false,
+            ["Corpse", "Extended Supine Bound Angle"],
+            ["Corpse", "Extended Supine Bound Angle"]
+        )
+        poses.push(SupineBoundAngle);
+        const SupineBoundAngleExtended = new Pose(
+            "SupineBoundAngleExtended.png",
+            "Extended Supine Bound Angle",
+            ["utthita supta baddha konasana"],
+            "Supine",
+            "Neutral",
+            "From Supine Bound Angle, reach your arms overhead with the palms facing up. Relax your shoulders and lower back toward the ground. Continue to allow your knees to fall open.",
+            "Opens the hips and groins. Stretches the shoulders, rib cage and back. Stimulates the abdominal organs, lungs and heart.",
+            50,
+            false,
+            ["Supine Bound Angle"],
+            ["Supine Bound Angle"]
+        )
+        poses.push(SupineBoundAngleExtended);
+        const BoxNeutral = new Pose(
+            "BoxNeutral.png",
+            "Box",
+            ["chakravakasana", "Table", "Table Top", "All Fours", "Ruddy Goose"],
+            "Arm Leg Support",
+            "Neutral",
+            "From a kneeling position, the knees and arms form a box with the spine and neck in a neutral position. The hips and shoulders are squared to the earth and the palms are rooted with the weight of the body equally distributed between the heel of the hands and the top of the knees. The joints are stacked with the wrists, elbows and shoulders in a straight line. The gaze is down.",
+            "Increases abdominal strength. Warms up the joints, muscles of arms and the legs.",
+            5,
+            false,
+            ["Revolved Child's", "Box with Arm Extension", "Kneeling with Prayer Hands", "Kneeling with Hands on Hips", 
+            "Cat/Cow", "Extended Child's", "Child's", "Wide Child's",
+            "Reverse Corpse with Arms On Sides", "Reverse Corpse with Hands Under Shoulders", "Downward-Facing Dog", 
+            "Supported Headstand with Toes on the Ground", "Hero", "Shoelace", "Lunge on the Knee", "Half Pigeon",
+            "Rabbit", "Seated", "One Legged Table", "Thunderbolt", "Toe Squat"],
+            ["Bound Angle", "Revolved Child's", "Box with Arm Extension", "Kneeling with Prayer Hands", "Kneeling with Hands on Hips", 
+            "Cat/Cow", "Extended Child's", "Child's", "Wide Child's",
+            "Reverse Corpse with Arms On Sides", "Reverse Corpse with Hands Under Shoulders", "Dolphin",
+            "Easy", "Hero", "Half Pigeon", "Rabbit", "Seated", "Sphinx", "One Legged Table", "Thunderbolt", "Toe Squat"]
+        )
+        poses.push(BoxNeutral);
+        const BoxTwist_R = new Pose(
+            "BoxTwist_R.png",
+            "Box with Arm Extension",
+            [],
+            "Arm Leg Support",
+            "Twist",
+            "From Box, root down into one hand and reach the opposite arm straight into the sky. Extend your rib cage upwards and try to stack your top shoulder in line over your bottom shoulder. Take the gaze toward the top hand.",
+            "Helps with grounding, balance, and spinal extension.",
+            25,
+            true,
+            ["Box"],
+            ["Revolved Child's", "Box"]
+        )
+        poses.push(BoxTwist_R);
+        const TableLegUp_L = new Pose(
+            "TableLegUp_L.png",
+            "One Legged Table",
+            ["One Legged Table Top", "One Legged Box"],
+            "Arm Leg Support",
+            "Balancing",
+            "From Box, one knee is resting squared to the earth. The other leg is extended and reaches up toward the sky. The gaze is down.",
+            "Tones and strengthens the standing leg. Improves flexibility. Opens the hips.",
+            20,
+            true,
+            ["Box", "Balancing Table", "Table with Knee to Forehead"],
+            ["Box", "Balancing Table", "Table with Knee to Forehead", "Tiger"]
+        )
+        poses.push(TableLegUp_L);
+        const CatBalance_L = new Pose(
+            "CatBalance_L.png",
+            "Balancing Table",
+            ["utthita chakravakasana", "utthita marjariasana", "Balancing Table Top", "Balancing the Cat", "Bird Dog", "Sunbird", "Ruddy Goose"],
+            "Arm Leg Support",
+            "Balancing",
+            "From Box, extend one foot toward the back, knee is straight, hips squared to the floor. Slowly extend the opposite arm forward, keep the hand and neck in line with the spine.",
+            "Stretches the extended leg and arm. Strengthens the hips and shoulders. Improves flexibility and balance.",
+            10,
+            true,
+            ["Awkward Airplane", "Kneeling Bow", "Box", "Kneeling Elbow to Knee Crunch", "One Legged Table"],
+            ["Awkward Airplane", "Kneeling Bow", "Box", "Kneeling Elbow to Knee Crunch", "One Legged Table"]
+        )
+        poses.push(CatBalance_L);
+        const AwkwardAirplane_L = new Pose(
+            "AwkwardAirplane_L.png",
+            "Awkward Airplane",
+            [],
+            "Arm Leg Support",
+            "Neutral",
+            "Begin in Balancing Table. Send your floating leg out to the side while simultaneously sending your floating arm to the opposite side. Ground down into your palm, stabilize through your core and engage your gluteus medius on your floating leg. Try to align your floating leg hip level. Point your knee cap and toes forward by opening your hip.",
+            "Strengthens the core and hip mobility. Improves balance and focus.",
+            10,
+            true,
+            ["Balancing Table"],
+            ["Balancing Table"]
+        )
+        poses.push(AwkwardAirplane_L);
+        const TableKneeToForehead_L = new Pose(
+            "TableKneeToForehead_L.png",
+            "Table with Knee to Forehead",
+            ["Table Top with Knee to Forehead", "Box with Knee to Forehead"],
+            "Arm Leg Support",
+            "Balancing",
+            "From Box, one knee is pulled into the chest or to the forehead as flexibility allows. The belly is pulled up and in. The back is arched in a Cobra position with the chin tucked. The gaze is toward the back.",
+            "Calms the brain and helps relieve stress and mild depression. Energizes the body. Stretches the shoulders, neck, hamstrings, calves, arches, and hands. Strengthens the arms and legs. Helps relieve the symptoms of menopause. Relieves menstrual discomfort when done with the head supported. Helps prevent osteoporosis. Improves digestion. Relieves headache, insomnia, back pain, and fatigue. Therapeutic for high blood pressure, asthma, flat feet, sciatica, and sinusitis. Warms up the ankles and the toes. Strengthens abdominal muscles.",
+            20,
+            true,
+            ["One Legged Table", "Tiger"],
+            ["One Legged Table", "Tiger"]
+        )
+        poses.push(TableKneeToForehead_L);
+        const Caterpillar = new Pose(
+            "Caterpillar.png",
+            "Caterpillar",
+            [],
+            "Seated",
+            "Forward Bend",
+            "Begin in a seated position with your legs straight in front. Fold forward over the legs, allowing the back to round. Hands can be on the floor, or may catch your shins, ankles, or toes. Sit on a blanket to support this pose if needed.",
+            "Stretches the spine and kidneys, compresses the stomach to improve digestion.",
+            30,
+            false,
+            ["Seated"],
+            ["Seated"]
+        )
+        poses.push(Caterpillar);
+        const Butterfly = new Pose(
+            "Butterfly.png",
+            "Butterfly",
+            [],
+            "Seated",
+            "Forward Bend",
+            "From a seated position, bring the soles of the feet together and slide them away from the groin to form a diamond shape. Hinge forward and bring the forehead toward the heels, allowing the back to round. Hands can rest on your feet or on the floor. Allow your neck to relax and close your eyes, and breathe. A block can be placed between the feet to rest the forehead on.",
+            "Stretches the lower back and adductor muscles.",
+            30,
+            false,
+            ["Seated", "Bound Angle"],
+            ["Seated", "Bound Angle"]
+        )
+        poses.push(Butterfly);
+        const CatCow = new Pose(
+            "Cat.png",
+            "Cat/Cow",
+            ["marjariasana", "bidalasana"],
+            "Arm Leg Support",
+            "Forward Bend",
+            "From Box, shift some weight to the palms. The wrists, elbows and shoulders are in one line. The abdomen is pulled in and up with the spine arched in a strong Cobra spine. The crown of the head is toward the earth and the neck is relaxed. The gaze is between the arms toward the belly. Then from Box, the ribcage is lifted with a gentle sway in the low back. The tailbone lifts up into dog tilt. The eyes are soft and the gaze is to the sky. Swap between the two with every breath, inhaling as the gaze is lifted and exhaling as it is lowered.",
+            "Relieves the spine and neck. Energizes the body. Removes fatigue. Improves breathing and the circulation of blood to the brain. Rejuvenates the entire body.",
+            60,
+            false,
+            ["Box"],
+            ["Box", "Downward-Facing Dog"]
+        )
+        poses.push(CatCow);
+        const Chair = new Pose(
+            "Chair.png",
+            "Chair",
+            ["utkatasana", "Fierce"],
+            "Standing",
+            "Balancing",
+            "From a standing position, the feet are together and rooted into the earth with toes actively lifted. The knees are bent and the weight of the body is on the heels of the feet. The pelvis is tucked in and the ribcage is lifted. The neck is a natural extension of the spine. The arms are lifted up toward the sky with the elbows straight and the biceps by the ears. The hands can be together or separated and facing each other with the fingers spread wide. The gaze is forward.",
+            "Strengthens the ankles, thighs, calves, and spine. Stretches shoulders and chest. Stimulates the abdominal organs, diaphragm, and heart. Reduces flat feet. Energizes the entire body.",
+            20,
+            false,
+            ["Chair with Gaze Up", "Chair with Prayer Hands", "Chair with Open Arm Twist", "Standing Forward Bend", "Standing Forward Bend with Shoulder Opener", "Crescent Lunge Halfway Fold", "Mountain with Prayer Hands", "Mountain"],
+            ["Chair with Gaze Up", "Chair with Prayer Hands", "Chair with Open Arm Twist", "Standing Forward Bend", "Standing Forward Bend with Shoulder Opener", "Mountain with Arms Up and Backbend", "Mountain with Prayer Hands", "Mountain"]            
+        )
+        poses.push(Chair);
+        const ChairLookingUp = new Pose(
+            "ChairLookingUp.png",
+            "Chair with Gaze Up",
+            ["utkatasana"],
+            "Standing",
+            "Balancing",
+            "From Chair, sit to your lowest point by shifting your weight into your heels. Bring your palms to touch overhead and take your eye gaze to your thumbs. Your heart and ribcage is lifted and your tailbone is rooted downward.",
+            "Strengthens the ankles, thighs, calves and spine. Stretches shoulders and chest.",
+            10,
+            false,
+            [],
+            ["Chair", "Chair with Prayer Hands", "Standing Forward Bend", "Standing Forward Bend with Shoulder Opener", "Halfway Lift", "Mountain with Prayer Hands", "Mountain", "Mountain with Arms Up and Backbend"]
+        )
+        poses.push(ChairLookingUp);
+        const ChairPrayer = new Pose(
+            "ChairPrayer.png",
+            "Chair with Prayer Hands",
+            [],
+            "Standing",
+            "Balancing",
+            "From Chair, the hands come together at the heart in prayer position. The gaze is forward.",
+            "Strengthens the ankles, thighs, calves, and spine. Stimulates the abdominal organs, diaphragm, and the heart. Reduces flat feet.",
+            10,
+            false,
+            [],
+            ["Chair", "Chair with Gaze Up", "Revolved Chair", "Figure Four", "Mountain with Prayer Hands", "Mountain", "Mountain with Arms Up and Backbend", "Squatting Toe Balance"]
+        )
+        poses.push(ChairPrayer);
+        const ChairSideTwist_R = new Pose(
+            "ChairSideTwist_R.png",
+            "Chair with Open Arm Twist",
+            [],
+            "Standing",
+            "Twist",
+            "From Chair, one arm reaches back and the other reaches forward. The ribcage is lifted and the heart is open. The hips and knees stay squared to the front and the twist comes from the midsection. The gaze is toward the back hand, unless it hurts your neck, then the gaze can be forward.",
+            "Increases the flexibility of the spine and back. Strengthens the legs. Increases flexibility of the hip and knee joints. Improves balance.",
+            15,
+            true,
+            [],
+            ["Chair"]
+        )
+        poses.push(ChairSideTwist_R);
+        const Awkward = new Pose(
+            "Awkward.png",
+            "Awkward",
+            ["utkatasana"],
+            "Standing",
+            "Balancing",
+            "From a standing position the heels come up and the arms are extended forward and parallel to the earth. The fingers are together and the palms are facing down. The knees are bent. The pelvis is contracted under, the rib cage is lifted up and the chin is gently tucked toward the sternum. Bandhas are engaged. The gaze is to the front.",
+            "Improves overall body strength. Opens pelvis. Strengthens and tones the leg muscles. Relieves menstrual cramping. Reduces fat pocket under the buttocks. Aligns the skeletal system. Good for arthritis conditions. Improves digestion. Relieves joint pain. Relieves sciatica. Improves flexibility in the toes and the ankles. Exercises the liver, the intestines and the pancreas.",
+            25,
+            false,
+            [],
+            ["Mountain with Prayer Hands", "Mountain"]
+        )
+        poses.push(Awkward);
+        const FigureFour_L = new Pose(
+            "FigureFour_L.png",
+            "Figure Four",
+            ["eka pada utkatasana", "Standing Pigeon", "One Legged Chair"],
+            "Standing",
+            "Balancing",
+            "Begin in Mountain with Prayer Hands and lift one leg to a table top position while keeping your opposite foot rooted on the earth. Outer rotate the knee of your floating leg and place your ankle on top of the opposite thigh, above your knee. You can use your hands to slide your shin closer up. Begin to shift your weight back as if you are sitting in a chair and send some weight to the heel of your grounding foot. Flex the foot of your crossed ankle and keep outer rotating your knee as you hinge your hips back deeper. Keep your chest lifted. Hands can come to your heart and find a focal point to gaze at.",
+            "Strengthen quadriceps, the ankle and foot muscles. Encourages core stability. Stretches the outer hip and glute muscles and improves balance and concentration.",
+            15,
+            true,
+            [],
+            ["Chair with Prayer Hands", "Revolved Figure Four", "Mountain with Prayer Hands", "Mountain", "Flying Pigeon", "One Legged Mountain", "Tree with Arms Up", "Tree"]
+        )
+        poses.push(FigureFour_L);
+        const ChairTwist_L = new Pose(
+            "ChairTwist_L.png",
+            "Revolved Chair",
+            ["parivritta utkatasana"],
+            "Standing",
+            "Twist",
+            "From Chair with Prayer Hands, the upper body twists to one side with the heart opening toward the sky. The bottom elbow is on the outside of the opposite knee and the upper elbow reaches toward the sky. Gaze is toward the sky or to the earth if the neck is sensitive.",
+            "Stretches the lower back. Increases the flexibility of the spine and back. Stretches the shoulders. Challenges the balance. Powerful detoxification of toxic food, drink, thoughts, etc.",
+            10,
+            true,
+            [],
+            ["Chair with Prayer Hands", "Bound Revolved Chair", "Revolved Chair with Arms Extended", "Side Crow (Preparation)", "Revolved Crescent Lunge", "Revolved Squatting Toe Balance"]
+        )
+        poses.push(ChairTwist_L);
+        const ChildTraditional = new Pose(
+            "ChildTraditional.png",
+            "Child's",
+            ["balasana"],
+            "Prone",
+            "Forward Bend",
+            "From a kneeling position, the toes and knees are together with most of the weight of the body resting on the heels of the feet. The arms are extended back resting alongside the legs. The forehead rests softly onto the earth. The gaze is down and inward.",
+            "Gently stretches the hips, thighs, and ankles. Calms the brain and helps relieve stress and fatigue. Relieves back and neck pain when done with head and torso supported.",
+            60,
+            false,
+            [],
+            ["Box","Extended Child's", "Rabbit"]
+        )
+        poses.push(ChildTraditional);
+
+        function waaaa(){
+            totalTime = document.getElementsByName("searchTxt")[0].value;
+            // for (var i = 0; i < Number(document.getElementsByName("searchTxt")[0].value); i++){
+            //     let img = document.createElement('img');
+            //     img.src = 'chair.png';
+            //     document.getElementById('body').appendChild(img).className = "center";
+            // }
+
+            toDo = [CatCow];
+            routineTime = -60;
+            while (routineTime < totalTime){
+                if (randInt(0,5) != 1){
+                    samePosition = []
+                    poses.forEach(pose => {
+                        if (pose.category == toDo[toDo.length-1].category){
+                            samePosition.push(pose);
+                        }
+                    });
+                    samePosition.push(toDo[toDo.length-1].fromThis);
+                    intersection = samePosition.filter(x => poses.includes(x));
+                    console.log(intersection);
+
+                    lowest = 100;
+                    intersection.forEach(pose => {
+                        if (pose.occurences < lowest){
+                            lowest = pose.occurences;
+                        }
+                    });
+                    toDoPossibilities = [];
+                    intersection.forEach(pose => {
+                        if (pose.occurences == lowest){
+                            toDoPossibilities.push(pose);
+                        }
+                    });
+                    poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
+                    
+                }else{
+                    lowest = 100;
+                    poses.forEach(pose => {
+                        if (pose.occurences < lowest){
+                            lowest = pose.occurences;
+                        }
+                    });
+                    toDoPossibilities = [];
+                    poses.forEach(pose => {
+                        if (pose.occurences == lowest){
+                            toDoPossibilities.push(pose);
+                        }
+                    });
+                    poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
+                }
+                toDo.push(poseToPush);
+                poseToPush.occurences++;
+
+                routineTime = 0;
+                toDo.forEach(thing => {
+                    if (thing.asymetric){
+                        routineTime += thing.duration
+                    }
+                    routineTime += thing.duration;
+                }
+                
+            )
+            console.log(routineTime);
+            }
+            toDo.forEach(thing => {
+                let img = document.createElement('img');
+                img.src = thing.picture;
+                document.getElementById('body').appendChild(img).className = "center";
+                console.log(thing.name);
+                
+                var para = document.createElement("p");
+                var textNode = document.createTextNode(thing.description);
+                para.appendChild(textNode);
+                document.body.appendChild(para);
+
+                var para = document.createElement("p"); 
+                var timerNode = document.createTextNode("Hold for "+String(thing.duration)+" seconds");
+                para.appendChild(timerNode);
+                document.body.appendChild(para);
+
+                var x = document.createElement("BUTTON");
+                x.className = "center";
+                x.style.height = "20vmax"
+                x.style.fontSize = "20em"
+                document.body.appendChild(x);
+                var breatheIn = new Audio("0518-0718.mp4");
+                var breatheOut = new Audio("0125-0325.mp4");
+                x.onclick = function() {
+                    for (let i = 0; i < 3; i++){
+                        setTimeout(() => x.textContent = String(3-i), 1000*i);
+                    }
+                    for (let i = 0; i < thing.duration+1; i++){
+                        setTimeout(() => x.textContent = String(i), 1000*i +3000);
+                    }
+                    x.style.background = "#222";
+                    for (let i = 0; i < Math.floor(thing.duration/10); i++){
+                        setTimeout(() => x.style.background = "#cec", 10000*i +3000);
+                        setTimeout(() => breatheIn.play(), 10000*i +3000);
+                        setTimeout(() => breatheOut.play(), 10000*i +8000);
+                        setTimeout(() => x.style.background = "#ece", 10000*i +8000);
+                    }
+                    setTimeout(() => x.style.background = "#222", 1000*thing.duration +4000);
+                }
+
+                if (thing.asymetric){
+                    var para = document.createElement("p");
+                    var textNode = document.createTextNode("Swap Sides");
+                    para.appendChild(textNode);
+                    document.body.appendChild(para);
+                }
+
+                let node = document.createTextNode(thing.benefits);
+                document.getElementById('body').appendChild(node).className = "center";
+            });
+        }
+    </script>
+</head>
+<body id="body">
+    <!-- <canvas>
+        <script src="../main.js"></script>
+    </canvas> -->
+    
+
+    <menu>
+        <a href="../index.html">home</a>
+    </menu>
+
+    <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="center" placeholder="How many seconds yoga? (Int) Then"/>
+    <button type="button" onclick="waaaa()" class="center">Click me!</button>
+
+    
+</body>
+</html>
