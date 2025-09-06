@@ -654,12 +654,99 @@
             ]
         )
         poses.push(WarriorIKneeling_L);
+        const Sphinx = new Pose(
+            "Sphinx.png",
+            "Sphinx",
+            ["salamba bhujangasana", "naraviralasana"],
+            "Prone",
+            "Backbend",
+            "From a prone position with the pelvic bowl is firmly contracted interiorly toward the center line of the body while the pubis is tucked under. The legs are extended back and the tops of the feet are flat. The palms are flat and the elbows are on the mat, stacked right below the shoulders. On an inhalation, lift the sternum and extend the neck away from shoulders with the elbows, palms and pelvic bone firmly attached to the mat.",
+            "Strengthens the spine. Stretches the chest, the lungs, the shoulders and the abdomen. Stimulates the abdominal organs. Opens the heart and the lungs.",
+            50,
+            false,
+            [],
+            ["Reverse Corpse with Arms On Sides","Reverse Corpse","Reverse Corpse with Hands Under Shoulders",
+                "Half Frog","Sphinx with Neck Stretch"
+            ]
+        )
+        poses.push(Sphinx);
+        const SphinxNeckStretch_R = new Pose(
+            "SphinxNeckStretch_R.png",
+            "Sphinx with Neck Stretch",
+            [],
+            "Prone",
+            "Backbend",
+            "Come into your Sphinx with your palms flat and your elbows in line with your shoulders. On an inhalation, lift your sternum and extend your neck away and take your gaze to one direction. Keep your palms and pelvic bone firmly attached to the mat and your legs and heels active.",
+            "Strengthens the spine. Stretches the chest, the shoulders and the abdomen.",
+            30,
+            true,
+            [],
+            ["Sphinx"]
+        )
+        poses.push(SphinxNeckStretch_R);
+        const SupineSpinalTwist_L = new Pose(
+            "SupineSpinalTwist_L.png",
+            "Supine Spinal Twist",
+            ["supta matsyendrasana"],
+            "Supine",
+            "Twist",
+            "From a supine position, bend one knee and cross it outside of the opposite foot. Use your hand to put slight pressure on the bent knee to push down toward the floor. Keep both shoulders squared and rooted to the earth. Extend the opposite hand and gaze toward the hand. For a deeper stretch, start to straighten the bent leg into Revolved Supine Hand to Big Toe.",
+            "Stretches the back muscles and spine. Stimulates the kidneys, abdominal organs, urinary bladders and intestines. Releases stress. If the knee is straightened, it stretches the hamstrings and strengthens the legs.",
+            30,
+            true,
+            [],
+            ["Corpse","Wind Removing","One Legged Wind Removing"]
+        )
+        poses.push(SupineSpinalTwist_L);
+        const SupineBellyTwist_L = new Pose(
+            "SupineBellyTwist_L.png",
+            "Supine Belly Twist",
+            ["jathara parivartanasana", "Supine Abdominal Twist"],
+            "Supine",
+            "Twist",
+            "From a supine position, bend both knees and bring them inward toward your chest. Extend your arms out to a T-shape and drop your bent knees to one direction. Take your face to the opposite direction and soften. Repeat on the opposite side.",
+            "Stretches the back muscles and spine. Relaxes the lower back, spine and hips.",
+            50,
+            true,
+            [],
+            ["Supine Tabletop"]
+        )
+        poses.push(SupineBellyTwist_L);
+        const PigeonHalf_L = new Pose(
+            "PigeonHalf_L.png",
+            "Half Pigeon",
+            ["ardha kapotasana", "Swan"],
+            "Seated",
+            "Backbend",
+            "From a lounging position, the hips are parallel and squared to the earth with the front knee bent in a 90-degree angle and flat on the earth. The front foot rests close to the groin. The back leg is extended with the knee and the back foot squared, parallel and pressed firmly into the earth. The ribcage is lifted. The heart is open. Fingers rest on the earth by the side body. The gaze is forward.",
+            "Stretches the thighs, groin, psoas, abdomen, chest, shoulders, and neck. Stimulates the abdominal organs. Opens the shoulders and chest.",
+            30,
+            true,
+            [],
+            ["Box","Three Legged Downward-Facing Dog","Fire Log","Shoelace","Sleeping Swan","Mermaid","One Legged King Pigeon","Front Splits"]
+        )
+        poses.push(PigeonHalf_L);
+        const BlissfulBaby = new Pose(
+            "BlissfulBaby.png",
+            "Happy Baby",
+            ["ananda balasana", "Blissful Baby", "Dead Bug"],
+            "Supine",
+            "Balancing",
+            "From a supine position, on your back, the knees are bent slightly wider than the hips. The ankles and shins track the knees in a 90-degree angle perpendicular to the earth. The hands grip the inside sole of the flexed feet (if you have difficultly holding the feet loop a strap over each sole) and push the knees down, coaxing the thighs in toward the torso, lengthening the spine, releasing the tail bone toward the earth and extending the base of the skull away from the back of the neck. The gaze is up toward the sky.",
+            "Gently stretches the inner groins and the back spine. Calms the brain and helps relieve stress and fatigue.",
+            30,
+            false,
+            [],
+            ["Corpse","Waterfall", "Supine Straddle","Wind Removing", "Sleeping Yogi"]
+        )
+        poses.push(BlissfulBaby);
+        
 
 
 
 
         function waaaa(){
-            totalTime = document.getElementsByName("searchTxt")[0].value;
+            
             // for (var i = 0; i < Number(document.getElementsByName("searchTxt")[0].value); i++){
             //     let img = document.createElement('img');
             //     img.src = 'chair.png';
@@ -668,40 +755,101 @@
 
             toDo = [CatCow];
             CatCow.occurences++;
+            // for if i'm measuring amount of poses with time
+            totalTime = document.getElementsByName("searchTxt")[0].value;
             routineTime = -60;
-            while (routineTime < totalTime){
-                if (randInt(0,5) != 1){
-                    samePosition = []
-                    poses.forEach(pose => {
-                        if (pose.category == toDo[toDo.length-1].category){
-                            samePosition.push(pose);
-                        }
-                    });
-                    samePosition.push(toDo[toDo.length-1].fromThis);
-                    intersection = samePosition.filter(x => poses.includes(x));
-                    console.log(intersection);
 
-                    lowest = 100;
-                    intersection.forEach(pose => {
-                        if (pose.occurences < lowest){
-                            lowest = pose.occurences;
-                        }
-                    });
-                    toDoPossibilities = [];
-                    intersection.forEach(pose => {
-                        if (pose.occurences == lowest){
-                            toDoPossibilities.push(pose);
-                        }
-                    });
-                    poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
+            // for if I'm measuring the amount of poses with numbers
+            totalPoses = document.getElementsByName("searchTxt")[0].value;
+
+            connected = 0;
+            notConnected = 0;
+            // if using time: while (routineTime < totalTime){
+            while (toDo.length < totalPoses){
+
+                // if I want every 1 in 5 to not be connected
+                // if (randInt(0,5) != 1){
+                //     samePosition = []
+                //     poses.forEach(pose => {
+                //         if (pose.category == toDo[toDo.length-1].category){
+                //             samePosition.push(pose);
+                //         }
+                //     });
+                //     samePosition.push(toDo[toDo.length-1].fromThis);
+                //     intersection = samePosition.filter(x => poses.includes(x));
+                //     //console.log(intersection);
+
+                //     lowest = 100;
+                //     intersection.forEach(pose => {
+                //         if (pose.occurences < lowest){
+                //             lowest = pose.occurences;
+                //         }
+                //     });
+                //     toDoPossibilities = [];
+                //     intersection.forEach(pose => {
+                //         if (pose.occurences == lowest){
+                //             toDoPossibilities.push(pose);
+                //         }
+                //     });
+                //     poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
                     
-                }else{
-                    lowest = 100;
+                // }else{
+                //     lowest = 100;
+                //     poses.forEach(pose => {
+                //         if (pose.occurences < lowest){
+                //             lowest = pose.occurences;
+                //         }
+                //     });
+                //     toDoPossibilities = [];
+                //     poses.forEach(pose => {
+                //         if (pose.occurences == lowest){
+                //             toDoPossibilities.push(pose);
+                //         }
+                //     });
+                //     poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
+                // }
+
+
+
+                // if I want to have decreasing likelihood of same pose
+                // PLUS prioritise going through all poses so that there are no repeats
+                lowest = 100;
                     poses.forEach(pose => {
                         if (pose.occurences < lowest){
                             lowest = pose.occurences;
                         }
                     });
+                connectedPoses = [];
+                for (let i = 0; i < 5; i++){
+                    connectedPoses.push(toDo.at(-1).fromThis);
+                }
+                poses.forEach(pose => {
+                        if (pose.category == toDo.at(-1).category){
+                            connectedPoses.push(pose);
+                        }
+                        if (pose.category == toDo.at(-1).category && pose.subCategory != toDo.at(-1).subCategory){
+                            for (let i = 0; i < 3; i++){
+                                connectedPoses.push(pose);
+                            }
+                        }
+                    });
+                // gets rid of any poses that have been before (or have been twice if they've all been done)
+                filtered = connectedPoses.filter(function(el) { return el.occurences == lowest; }); 
+
+                // console.log("poses that would be good:",filtered)
+
+                check = toDo.at(-1).category;
+                sameCategory = 0;
+                while (toDo.at(-1).category == check && sameCategory < (toDo.length)-1){
+                    sameCategory++;
+                    check = toDo[toDo.length-1-sameCategory].category;
+                }
+                if (Math.random()/2 < 1/sameCategory && filtered.length > 0){
+                    poseToPush = filtered[randInt(0, filtered.length)]
+                    console.log("next pose:",poseToPush,"was connected")
+                    connected++;
+                }
+                else{
                     toDoPossibilities = [];
                     poses.forEach(pose => {
                         if (pose.occurences == lowest){
@@ -709,7 +857,15 @@
                         }
                     });
                     poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
+                    console.log("next pose:",poseToPush,"was NOT connected")
+                    notConnected++;
                 }
+                
+
+
+
+
+
                 toDo.push(poseToPush);
                 poseToPush.occurences++;
 
@@ -811,6 +967,9 @@
                 let node = document.createTextNode(thing.benefits);
                 document.getElementById('body').appendChild(node).className = "center";
             });
+
+            console.log("connected", connected);
+            console.log("not connected", notConnected);
         }
     </script>
 </head>
@@ -824,8 +983,13 @@
         <a href="../index.html">home</a>
     </menu>
 
-    <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="center" placeholder="How many seconds yoga? (Int) Then"/>
+    <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="center" placeholder="How many poses? (Int) Then"/>
     <button type="button" onclick="waaaa()" class="center">Click me!</button>
+    <p>
+        When you're ready to start a pose, press the rectangle button.
+
+        There is a 3 second count down, then green indicates to breathe in, and pink indicates to breathe out. They have sound effects. if there is a Swap button, do the pose again but replacing every right for left and every left for right.
+    </p>
 
     
 </body>
