@@ -44,7 +44,7 @@
             this.occurences = 0;
         }
         
-        poses = [];
+        var poses = [];
         // making all the poses (nightmare time!)
         const Turtle = new Pose(
             "Turtle.png",
@@ -576,51 +576,51 @@
             ["Corpse"]
         )
         poses.push(CorpseConstructive);
-        const CorpseFrontArmsForward = new Pose(
-            "CorpseFrontArmsForward.png",
-            "Reverse Corpse",
-            ["advasana"],
-            "Prone",
-            "Neutral",
-            "From a prone position, relax down onto your belly, legs extended straight back. Forehead and chin are centered allowing for a neutral neck and spine. Extend your arms overhead, palms facing down.",
-            "Relaxes the body.",
-            30,
-            false,
-            [],
-            ["Reverse Corpse with Arms On Sides", "Reverse Corpse with Hands Under Shoulders", "Half Locust with Opposite Arm Extended", "Locust III", "Half Bow (Preparation)", "Sphinx"]
-        )
-        poses.push(CorpseFrontArmsForward);
-        const CorpseFrontPrayer = new Pose(
-            "CorpseFrontPrayer.png",
-            "Reverse Corpse with Prayer Hands",
-            ["pranama"],
-            "Prone",
-            "Neutral",
-            "Lie all the way down onto your belly and extend your legs straight back. Widen out your elbows and bring your hands in prayer. Rest your Third Eye Center, the space between your eyes, on your prayer palms. Relax your neck, belly, glutes and legs. Allow your heels to soften to the sides. Rest and breathe.",
-            "Relaxes the body and calms the mind.",
-            50,
-            false,
-            [],
-            ["Reverse Corpse with Arms On Sides", "Reverse Corpse", "Reverse Corpse with Hands Under Shoulders"]
-        )
-        poses.push(CorpseFrontPrayer);
-        const CorpseFront = new Pose(
-            "CorpseFront.png",
-            "Reverse Corpse with Arms On Sides",
-            ["advasana"],
-            "Prone",
-            "Neutral",
-            "From a prone position with the pelvis tucked under, the body is relaxed and lying facedown onto the earth. The forehead rests softly on the earth with the arms by the side body and the palms pressed down. The hips are squared to the earth and the knees and ankles are touching. The tops of the feet are relaxed and the big toes are connected. The gaze is inward and toward the earth.",
-            "Calms the brain and helps relieve stress and mild depression. Relaxes the body. Reduces headache, fatigue and insomnia. Helps to lower blood pressure.",
-            20,
-            false,
-            [],
-            ["Bow (Preparation)", "Box", "Reverse Corpse", "Reverse Corpse with Hands Under Shoulders", "Reverse Corpse with Ear to Mat",
-                "Frog (Preparation)", "Locust I", "Inverted Locust", "Half Locust", "Locust II", "Plank", "Half Bow (Preparation)",
-                "Snake", "Sphinx"
-            ]
-        )
-        poses.push(CorpseFront);
+        // const CorpseFrontArmsForward = new Pose(
+        //     "CorpseFrontArmsForward.png",
+        //     "Reverse Corpse",
+        //     ["advasana"],
+        //     "Prone",
+        //     "Neutral",
+        //     "From a prone position, relax down onto your belly, legs extended straight back. Forehead and chin are centered allowing for a neutral neck and spine. Extend your arms overhead, palms facing down.",
+        //     "Relaxes the body.",
+        //     30,
+        //     false,
+        //     [],
+        //     ["Reverse Corpse with Arms On Sides", "Reverse Corpse with Hands Under Shoulders", "Half Locust with Opposite Arm Extended", "Locust III", "Half Bow (Preparation)", "Sphinx"]
+        // )
+        // poses.push(CorpseFrontArmsForward);
+        // const CorpseFrontPrayer = new Pose(
+        //     "CorpseFrontPrayer.png",
+        //     "Reverse Corpse with Prayer Hands",
+        //     ["pranama"],
+        //     "Prone",
+        //     "Neutral",
+        //     "Lie all the way down onto your belly and extend your legs straight back. Widen out your elbows and bring your hands in prayer. Rest your Third Eye Center, the space between your eyes, on your prayer palms. Relax your neck, belly, glutes and legs. Allow your heels to soften to the sides. Rest and breathe.",
+        //     "Relaxes the body and calms the mind.",
+        //     50,
+        //     false,
+        //     [],
+        //     ["Reverse Corpse with Arms On Sides", "Reverse Corpse", "Reverse Corpse with Hands Under Shoulders"]
+        // )
+        // poses.push(CorpseFrontPrayer);
+        // const CorpseFront = new Pose(
+        //     "CorpseFront.png",
+        //     "Reverse Corpse with Arms On Sides",
+        //     ["advasana"],
+        //     "Prone",
+        //     "Neutral",
+        //     "From a prone position with the pelvis tucked under, the body is relaxed and lying facedown onto the earth. The forehead rests softly on the earth with the arms by the side body and the palms pressed down. The hips are squared to the earth and the knees and ankles are touching. The tops of the feet are relaxed and the big toes are connected. The gaze is inward and toward the earth.",
+        //     "Calms the brain and helps relieve stress and mild depression. Relaxes the body. Reduces headache, fatigue and insomnia. Helps to lower blood pressure.",
+        //     20,
+        //     false,
+        //     [],
+        //     ["Bow (Preparation)", "Box", "Reverse Corpse", "Reverse Corpse with Hands Under Shoulders", "Reverse Corpse with Ear to Mat",
+        //         "Frog (Preparation)", "Locust I", "Inverted Locust", "Half Locust", "Locust II", "Plank", "Half Bow (Preparation)",
+        //         "Snake", "Sphinx"
+        //     ]
+        // )
+        // poses.push(CorpseFront);
         const CorpseFrontNeckStretch_L = new Pose(
             "CorpseFrontNeckStretch_L.png",
             "Reverse Corpse with Ear to Mat",
@@ -820,6 +820,7 @@
         poses.push(LungeKneelingArmUp_L);
 
 
+        supine.enabled = true;
 
         function waaaa(){
             
@@ -896,7 +897,7 @@
                         }
                     });
                 connectedPoses = [];
-                for (let i = 0; i < 5; i++){
+                for (let i = 0; i < Math.round(totalPoses/4); i++){
                     connectedPoses.push(toDo.at(-1).fromThis);
                 }
                 poses.forEach(pose => {
@@ -984,6 +985,7 @@
                 document.body.appendChild(x);
                 var breatheIn = new Audio("0518-0718.mp4");
                 var breatheOut = new Audio("0125-0325.mp4");
+                var done = new Audio("0067-0267.mp4");
                 x.onclick = function() {
                     for (let i = 0; i < 3; i++){
                         setTimeout(() => x.textContent = String(3-i), 1000*i);
@@ -1003,6 +1005,7 @@
                         }
                     }
                     setTimeout(() => x.style.background = "#222", 1000*thing.duration +4000);
+                    setTimeout(() => done.play(), 1000*thing.duration +3000);
                 }
 
                 if (thing.asymetric){
@@ -1047,6 +1050,87 @@
             console.log("connected", connected);
             console.log("not connected", notConnected);
         }
+
+        function settings(){
+            positions = []
+            poses.forEach(pose => {
+                if (!positions.includes(pose.category)){
+                    positions.push(pose.category);
+                }
+            });
+            console.log(poses)
+            console.log(positions)
+
+            var supine = document.createElement("button");
+            supine.name = "supine"
+            supine.textContent = "supine"
+            document.body.appendChild(supine);
+            supine.onclick = function(){
+                console.log("supine");
+                if (supine.enabled){
+                    supine.style.background = "ecc";
+                    supine.enabled = false;
+                }else{
+                    supine.style.background = "cec";
+                    supine.enabled = true;
+                }
+                console.log(supine.enabled)
+                
+            }
+
+            // buttons_clicked = []
+            // buttons = []
+            // for (var i = 0; i < positions.length; i++) {
+            //     var btn = document.createElement("button");
+            //     var t = document.createTextNode(positions[i]);
+            //     btn.appendChild(t);
+            //     document.body.appendChild(btn);
+            //     buttons.push(btn);
+            //     buttons_clicked.push(false);
+            // }
+            // console.log(buttons);
+
+            // for (var i = 0; i < positions.length; i++) {
+            //     buttons[i].onclick = function(){
+            //         console.log(buttons[i].t)
+            //         buttons[i].style.background = "ecc";
+            //     }
+            // }
+
+
+
+            // enabled = []
+            // positions.forEach(position => {
+            //     var butt = document.createElement("button");
+            //     butt.name = position.toString().replaceAll(" ","_")
+            //     butt.textContent = position.toString()
+            //     butt.enabledaa = false;
+            //     // position.toString().replaceAll(" ","_")
+            //     document.body.appendChild(butt);
+            //     enabled.push(butt)
+            // })
+            // for (var i = 0; i < enabled.length; i++){
+            //     enabled[i].onclick = function(){
+            //         console.log(enabled[i].name)
+            //         //if ()
+            //         enabled[i].style.background = "ecc"
+            //     }
+            // }
+            // positions.forEach(position => {
+            //     var butt = document.createElement("button");
+            //     butt.name = position.toString().replaceAll(" ","_")
+            //     butt.textContent = position.toString()
+            //     // position.toString().replaceAll(" ","_")
+            //     document.body.appendChild(butt);
+            //     console.log("bals")
+            //     butt.onclick = function(){
+            //         console.log("www")
+            //         if ()
+            //         butt.style.background = "ecc"
+            //     }
+            // })
+            
+        }
     </script>
 </head>
 <body id="body">
@@ -1059,8 +1143,10 @@
         <a href="../index.html">home</a>
     </menu>
 
+    <button type="button" onclick="settings()">Settings</button>
     <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="center" placeholder="How many poses? (Int) Then"/>
     <button type="button" onclick="waaaa()" class="center">Click me!</button>
+
     <p>
         When you're ready to start a pose, press the rectangle button.
 
