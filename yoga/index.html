@@ -820,7 +820,11 @@
         poses.push(LungeKneelingArmUp_L);
 
 
-        supine.enabled = true;
+        var supineFlag = true;
+        var seatedFlag = true;
+        var supportFlag= true;
+        var standingFlag = true;
+        var proneFlag = true;
 
         function waaaa(){
             
@@ -886,7 +890,22 @@
                 //     poseToPush = toDoPossibilities[randInt(0, toDoPossibilities.length)]
                 // }
 
-
+                // gets rid of poses that are in a category I don't wanna do
+                if (!proneFlag){
+                    poses = poses.filter(item => !(item.category == "Prone"))
+                }
+                if (!seatedFlag){
+                    poses = poses.filter(item => !(item.category == "Seated"))
+                }
+                if (!supineFlag){
+                    poses = poses.filter(item => !(item.category == "Supine"))
+                }
+                if (!supportFlag){
+                    poses = poses.filter(item => !(item.category == "Arm Leg Support"))
+                }
+                if (!standingFlag){
+                    poses = poses.filter(item => !(item.category == "Standing"))
+                }
 
                 // if I want to have decreasing likelihood of same pose
                 // PLUS prioritise going through all poses so that there are no repeats
@@ -897,19 +916,19 @@
                         }
                     });
                 connectedPoses = [];
-                for (let i = 0; i < Math.round(totalPoses/4); i++){
+                for (let i = 0; i < Math.round(totalPoses/2); i++){
                     connectedPoses.push(toDo.at(-1).fromThis);
                 }
                 poses.forEach(pose => {
-                        if (pose.category == toDo.at(-1).category){
+                    if (pose.category == toDo.at(-1).category){
+                        connectedPoses.push(pose);
+                    }
+                    if (pose.category == toDo.at(-1).category && pose.subCategory != toDo.at(-1).subCategory){
+                        for (let i = 0; i < totalPoses; i++){
                             connectedPoses.push(pose);
                         }
-                        if (pose.category == toDo.at(-1).category && pose.subCategory != toDo.at(-1).subCategory){
-                            for (let i = 0; i < 3; i++){
-                                connectedPoses.push(pose);
-                            }
-                        }
-                    });
+                    }
+                });
                 // gets rid of any poses that have been before (or have been twice if they've all been done)
                 filtered = connectedPoses.filter(function(el) { return el.occurences == lowest; }); 
 
@@ -1054,8 +1073,8 @@
         function settings(){
             positions = []
             poses.forEach(pose => {
-                if (!positions.includes(pose.category)){
-                    positions.push(pose.category);
+                if (!positions.includes(pose.subCategory)){
+                    positions.push(pose.subCategory);
                 }
             });
             console.log(poses)
@@ -1063,20 +1082,88 @@
 
             var supine = document.createElement("button");
             supine.name = "supine"
-            supine.textContent = "supine"
+            supine.textContent = "Supine"
             document.body.appendChild(supine);
             supine.onclick = function(){
                 console.log("supine");
-                if (supine.enabled){
-                    supine.style.background = "ecc";
-                    supine.enabled = false;
+                if (supineFlag){
+                    supine.style.background = "#000";
+                    supineFlag = false;
                 }else{
-                    supine.style.background = "cec";
-                    supine.enabled = true;
+                    supine.style.background = "#222";
+                    supineFlag = true;
                 }
-                console.log(supine.enabled)
-                
+                console.log(supineFlag)
             }
+
+            var seated = document.createElement("button");
+            seated.name = "seated"
+            seated.textContent = "Seated"
+            document.body.appendChild(seated);
+            seated.onclick = function(){
+                console.log("seated");
+                if (seatedFlag){
+                    seated.style.background = "#000";
+                    seatedFlag = false;
+                }else{
+                    seated.style.background = "#222";
+                    seatedFlag = true;
+                }
+                console.log(seatedFlag)
+            }
+
+            var support = document.createElement("button");
+            support.name = "support"
+            support.textContent = "Support"
+            document.body.appendChild(support);
+            support.onclick = function(){
+                console.log("support");
+                if (supportFlag){
+                    support.style.background = "#000";
+                    supportFlag = false;
+                }else{
+                    support.style.background = "#222";
+                    supportFlag = true;
+                }
+                console.log(supportFlag)
+            }
+
+            var standing = document.createElement("button");
+            standing.name = "standing"
+            standing.textContent = "Standing"
+            document.body.appendChild(standing);
+            standing.onclick = function(){
+                console.log("standing");
+                if (standingFlag){
+                    standing.style.background = "#000";
+                    standingFlag = false;
+                }else{
+                    standing.style.background = "#222";
+                    standingFlag = true;
+                }
+                console.log(standingFlag)
+            }
+
+            var prone = document.createElement("button");
+            prone.name = "prone"
+            prone.textContent = "Prone"
+            document.body.appendChild(prone);
+            prone.onclick = function(){
+                console.log("prone");
+                if (proneFlag){
+                    prone.style.background = "#000";
+                    proneFlag = false;
+                }else{
+                    prone.style.background = "#222";
+                    proneFlag = true;
+                }
+                console.log(proneFlag)
+            }
+
+            var p = document.createElement("p");
+            p.textContent = "Click a button to enable/disable stretches of that type"
+            document.body.appendChild(p);
+
 
             // buttons_clicked = []
             // buttons = []
