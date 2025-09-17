@@ -826,6 +826,13 @@
         var standingFlag = true;
         var proneFlag = true;
 
+        var forwardFlag = true;
+        var balancingFlag = true;
+        var lateralFlag = true;
+        var neutralFlag = true;
+        var twistFlag = true;
+        var backbendFlag = true;
+
         function waaaa(){
             
             // for (var i = 0; i < Number(document.getElementsByName("searchTxt")[0].value); i++){
@@ -891,20 +898,16 @@
                 // }
 
                 // gets rid of poses that are in a category I don't wanna do
-                if (!proneFlag){
-                    poses = poses.filter(item => !(item.category == "Prone"))
-                }
-                if (!seatedFlag){
-                    poses = poses.filter(item => !(item.category == "Seated"))
-                }
-                if (!supineFlag){
-                    poses = poses.filter(item => !(item.category == "Supine"))
-                }
-                if (!supportFlag){
-                    poses = poses.filter(item => !(item.category == "Arm Leg Support"))
-                }
-                if (!standingFlag){
-                    poses = poses.filter(item => !(item.category == "Standing"))
+                flags = [proneFlag, seatedFlag, supineFlag, supportFlag, standingFlag,
+                    forwardFlag, balancingFlag, lateralFlag, neutralFlag, twistFlag, backbendFlag 
+                ]
+                flagsText = ["Prone", "Seated", "Supine", "Support", "Standing",
+                    "Forward Bend", "Balancing", "Lateral Bend", "Neutral", "Twist", "Backbend"
+                ]
+                for (var i = 0; i < 11; i++){
+                    if (!flags[i]){
+                        poses = poses.filter(item => !(item.category == flagsText[i]));
+                    }
                 }
 
                 // if I want to have decreasing likelihood of same pose
@@ -1163,6 +1166,102 @@
             var p = document.createElement("p");
             p.textContent = "Click a button to enable/disable stretches of that type"
             document.body.appendChild(p);
+
+            var forward = document.createElement("button");
+            forward.name = "forward"
+            forward.textContent = "Forward Bend"
+            document.body.appendChild(forward);
+            forward.onclick = function(){
+                console.log("forward");
+                if (forwardFlag){
+                    forward.style.background = "#000";
+                    forwardFlag = false;
+                }else{
+                    forward.style.background = "#222";
+                    forwardFlag = true;
+                }
+                console.log(forwardFlag)
+            }
+
+            var balancing = document.createElement("button");
+            balancing.name = "balancing"
+            balancing.textContent = "Balancing"
+            document.body.appendChild(balancing);
+            balancing.onclick = function(){
+                console.log("balancing");
+                if (balancingFlag){
+                    balancing.style.background = "#000";
+                    balancingFlag = false;
+                }else{
+                    balancing.style.background = "#222";
+                    balancingFlag = true;
+                }
+                console.log(balancingFlag)
+            }
+
+            var lateral = document.createElement("button");
+            lateral.name = "lateral"
+            lateral.textContent = "Lateral"
+            document.body.appendChild(lateral);
+            lateral.onclick = function(){
+                console.log("lateral");
+                if (lateralFlag){
+                    lateral.style.background = "#000";
+                    lateralFlag = false;
+                }else{
+                    lateral.style.background = "#222";
+                    lateralFlag = true;
+                }
+                console.log(lateralFlag)
+            }
+
+            var neutral = document.createElement("button");
+            neutral.name = "neutral"
+            neutral.textContent = "Neutral"
+            document.body.appendChild(neutral);
+            neutral.onclick = function(){
+                console.log("neutral");
+                if (neutralFlag){
+                    neutral.style.background = "#000";
+                    neutralFlag = false;
+                }else{
+                    neutral.style.background = "#222";
+                    neutralFlag = true;
+                }
+                console.log(neutralFlag)
+            }
+
+            var twist = document.createElement("button");
+            twist.name = "twist"
+            twist.textContent = "Twist"
+            document.body.appendChild(twist);
+            twist.onclick = function(){
+                console.log("twist");
+                if (twistFlag){
+                    twist.style.background = "#000";
+                    twistFlag = false;
+                }else{
+                    twist.style.background = "#222";
+                    twistFlag = true;
+                }
+                console.log(twistFlag)
+            }
+
+            var backbend = document.createElement("button");
+            backbend.name = "backbend"
+            backbend.textContent = "Backbend"
+            document.body.appendChild(backbend);
+            backbend.onclick = function(){
+                console.log("backbend");
+                if (backbendFlag){
+                    backbend.style.background = "#000";
+                    backbendFlag = false;
+                }else{
+                    backbend.style.background = "#222";
+                    backbendFlag = true;
+                }
+                console.log(backbendFlag)
+            }
 
 
             // buttons_clicked = []
