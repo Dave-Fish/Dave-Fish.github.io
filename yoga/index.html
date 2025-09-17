@@ -908,6 +908,9 @@
                     if (!flags[i]){
                         poses = poses.filter(item => !(item.category == flagsText[i]));
                     }
+                    if (!flags[i]){
+                        poses = poses.filter(item => !(item.subCategory == flagsText[i]));
+                    }
                 }
 
                 // if I want to have decreasing likelihood of same pose
