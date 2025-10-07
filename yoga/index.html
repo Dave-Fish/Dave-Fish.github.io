@@ -988,6 +988,11 @@
                 para.appendChild(textNode);
                 document.body.appendChild(para).className = "center";
 
+                var para = document.createElement("p");
+                var textNode = document.createTextNode(thing.category + " " + thing.subCategory);
+                para.appendChild(textNode);
+                document.body.appendChild(para).className = "center";
+
                 let img = document.createElement('img');
                 img.src = thing.picture;
                 document.getElementById('body').appendChild(img).className = "center";
@@ -1065,6 +1070,7 @@
                             }
                         }
                         setTimeout(() => y.style.background = "#222", 1000*thing.duration +4000);
+                        setTimeout(() => done.play(), 1000*thing.duration +3000);
                     }
                 }
 
@@ -1167,7 +1173,7 @@
             }
 
             var p = document.createElement("p");
-            p.textContent = "Click a button to enable/disable stretches of that type"
+            p.textContent = "Click a button to disable/enable stretches of that type"
             document.body.appendChild(p);
 
             var forward = document.createElement("button");
