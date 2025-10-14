@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>DOM Demo</title>
+  </head>
+  <script>
+    window.onload = function(){
+        document.getElementById('changeColorBtn').onclick = function() {
+      var colors = ['#f99', '#9f9', '#99f', '#ff9', '#9ff', '#f9f'];
+      var idx = Math.floor(Math.random() * colors.length);
+      document.getElementById("myBox").style.background = colors[idx];
+    };
+    document.getElementById('changeTextBtn').onclick = function() {
+      document.getElementById("myBox").textContent = "colors[idx]";
+    };
+    }
+    
+    </script>
+  <body>
+    <button id="changeColorBtn">Change Color</button>
+    <button id="changeTextBtn">Change Color</button>
+    <div id="myBox" style="width: 150px; height: 150px; background: lightgrey; margin-top: 20px;"></div>
+
+    <canvas width="700" id="c" height="400" style="border:1px dotted"
+            onClick="trianglesCanvasNameSpace.draw_stuff(); trianglesCanvasNameSpace.draw_more_stuff()">
+    </canvas>
+    <canvas id="colours_canv" width="255px" height="255" onClick="draw_transparent_red_box()"></canvas>
+    <script>
+        const trianglesCanvasNameSpace = function () { // anonymous function limits the scope of vars, consts and lets
+            // n, c_canvas and c_context are only visible within the scope of the anonymous function
+            var n = 10;
+            const c_canvas = document.getElementById('c');
+            const c_context = c_canvas.getContext('2d');
+
+            function draw_triangle(ctx) {
+                ctx.moveTo(10, 10);
+                ctx.lineTo(10, 200);
+                ctx.lineTo(180, 140);
+                ctx.closePath();
+                ctx.stroke();
+            }
+
+            function draw_more_stuff() {
+
+                const xo = 150;
+                const yo = 180;
+
+                for (let i = 0; i < n; i++) {
+                    c_context.save();
+                    c_context.translate(xo, yo);
+                    c_context.strokeStyle = "#3f3";
+                    c_context.rotate(i * 2 * Math.PI / n);
+                    draw_triangle(c_context);
+                    c_context.restore();
+                }
+                Math.floor(Math.random() * 2);
+            }
+
+            function draw_stuff() {
+
+                c_context.clearRect(0, 0, c_canvas.width, c_canvas.height);
+                const xo = 350;
+                const yo = 200;
+                for (let i = 0; i < n; i++) {
+                    c_context.save();
+                    c_context.translate(xo, yo);
+                    c_context.strokeStyle = "#f33";
+                    c_context.rotate(i * 2 * Math.PI / n);
+                    draw_triangle(c_context);
+                    c_context.restore();
+                }
+                n = Math.floor(Math.random() * 5);
+            }
+
+            return {
+                draw_stuff: draw_stuff,
+                draw_more_stuff: draw_more_stuff // return a JavaScript object that contains the two functions that we want to be visible outside this scope
+            }
+        }() // calling the anonymous function () when these slides are loaded means that the value of trianglesCanvasNameSpace is the object that was returned
+    </script>
+
+<script>
+    function draw_transparent_red_box() {
+        const c_canvas = document.getElementById("colours_canv");
+        const c_context = c_canvas.getContext("2d");
+        c_context.fillStyle = "rgba(255,0,0,0.5)";
+        c_context.fillRect(50, 50, 100, 100);
+    }
+
+    function colour_boxes() {
+        const c_canvas = document.getElementById("colours_canv");
+        const c_context = c_canvas.getContext("2d");
+        const sz = 16; //size of square
+        for (let cx = 3; cx < c_canvas.width; cx += 20) {
+            for (let cy = 3; cy < c_canvas.height; cy += 20) {
+
+                c_context.fillStyle = "rgb(0," + cy + "," + cx + ")";
+                c_context.fillRect(cx, cy, sz, sz);
+            }
+        }
+    }
+
+    colour_boxes();
+</script>
+
+
+<canvas id="tcanv" width="300" height="225" onClick="write_something_in_colour('Aber Comp Sci');"></canvas>
+<script>
+    function write_something(text) {
+        let a_canvas = document.getElementById("tcanv");
+        let ctx = a_canvas.getContext("2d");
+        ctx.fillText(text, 10, 10);
+    }
+
+    function write_something_in_colour(text) {
+        let c_canvas = document.getElementById("tcanv");
+        let ctx = c_canvas.getContext("2d");
+        ctx.clearRect(0, 0, c_canvas.width, c_canvas.height);
+        ctx.font = "bold italic 40px serif";
+        ctx.shadowColor = "#555";
+        ctx.shadowOffsetX = 6;
+        ctx.shadowOffsetY = 3;
+        ctx.shadowBlur = 2;
+        let y = 0;
+        for (let x = 0; x < 170; x += 20) {
+            y += 30;
+            ctx.strokeStyle = "rgb(210,100," + 2 * x + ")";
+            ctx.fillStyle = "rgb(210,200," + 2 * x + ")";
+            ctx.strokeText(text, x, y);
+            ctx.fillText(text, x, y);
+        }
+    }
+</script>
+<p>
+
+</p>
+
+<canvas id="square_canv_rqa" width="255" height="200" onClick="draw_bouncing_box_requestAnimationFrame(20,20,false);"></canvas>
+<script>
+    function draw_bouncing_box_requestAnimationFrame(start_x,start_y,clear_screen) {
+
+      let dx=1; // change in x
+      let dy=1; // change in y
+      let cx=start_x; // canvas x position, top left of box to draw
+      let cy=start_y; // canvas y position, top right of box to draw
+      const canv = document.getElementById("square_canv_rqa");
+      const ctx = canv.getContext("2d");
+      
+     function draw_b_box() {
+        // check we don't
+        // disappear off the edge
+        // if we do, just change direction
+        // here the constant "20" is the width of the box
+        if (clear_screen) {
+          ctx.clearRect(0, 0, canv.width, canv.height);
+        }
+        if (cx>=(canv.width-20)) {
+            dx=-1;
+        } else if (cy>=(canv.height-20)) {
+            dy=-1;
+        } else if (cy<=0) {
+            dy=1;
+        } else if (cx<=0) {
+            dx=1;
+        }
+
+        cx+=dx;
+        cy+=dy;
+
+        ctx.fillStyle="rgba("+cx*2+",0,"+cy*2+",0.2)";
+        // and finally, draw a rectangle
+        ctx.fillRect(cx, cy, 20, 20);
+        requestAnimationFrame(draw_b_box)
+      }
+
+      draw_b_box(); 
+
+    }
+  </script>
+
+
+<canvas id="square_canv_si" width="255" height="200" onClick="draw_bouncing_box_setInterval(20,20,false);"></canvas>
+<script>
+    function draw_bouncing_box_setInterval(start_x,start_y,clear_screen) {
+       let cx=start_x; // canvas x position, top left of box to draw
+       let cy=start_y; // canvas y position, top right of box to draw
+       const canv = document.getElementById("square_canv_si");
+       const ctx = canv.getContext("2d");
+       
+      function draw_b_box() {
+         // check we don't
+         // disappear off the edge
+         // if we do, just change direction
+         // here the constant "20" is the width of the box
+         if (clear_screen) {
+           ctx.clearRect(0, 0, canv.width, canv.height);
+         }
+
+         if (cx>=(canv.width-20)) {
+             cx=1;
+         } else if (cy>=(canv.height-20)) {
+             cy=1;
+         } else if (cy<=0) {
+             cy=1;
+         } else if (cx<=0) {
+             cx=1;
+         }
+
+         cx = Math.random()* canv.width;
+         cy = Math.random()* canv.height;
+
+         ctx.fillStyle="rgba("+cx*2+",0,"+cy*2+",0.2)";
+         // and finally, draw a rectangle
+         ctx.fillRect(cx, cy, 20, 20);
+
+       }
+     
+      setInterval(draw_b_box, 100)
+      
+    }
+  </script>
+
+
+<canvas id="notifBadgeDemoS3" width="50" height="50"
+      style="display:block;margin: 10px 0 10px 0; background:transparent; border:1px solid #ccc; border-radius:12px;">
+    </canvas>
+    <input type="number" id="notifInputS3" min="1" max="99" value="5" style="width:38px; margin-bottom:4px;">
+    <button
+      style="margin: 10px 0 18px 0;"
+      onclick="
+        let n = document.getElementById('notifInputS3').value;
+        let c = document.getElementById('notifBadgeDemoS3');
+        let ctx = c.getContext('2d');
+        ctx.clearRect(0,0,50,50);
+        ctx.beginPath();
+        ctx.arc(25,25,18,0,2*Math.PI);
+        ctx.fillStyle='#e03131';
+        ctx.fill();
+        ctx.strokeStyle='#fff1f1';
+        ctx.lineWidth=2;
+        ctx.stroke();
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(n, 25, 25);
+      ">
+      Update
+    </button>
+
+
+    <canvas id="notifBadgeDemoS5" width="50" height="50"
+      style="display:block;margin: 10px 0 10px 0; background:transparent; border:1px solid #ccc; border-radius:12px;"></canvas>
+    <input type="color" id="badgeColorS5" value="#e03131" style="width:38px;">
+    <input type="number" id="notifInputS5" min="1" max="99" value="9" style="width:38px;">
+    <button
+      style="margin: 10px 0 18px 0;"
+      onclick="
+        let n = document.getElementById('notifInputS5').value;
+        let color = document.getElementById('badgeColorS5').value;
+        let c = document.getElementById('notifBadgeDemoS5');
+        let ctx = c.getContext('2d');
+        ctx.clearRect(0,0,50,50);
+        ctx.beginPath();
+        ctx.arc(25,25,18,0,2*Math.PI);
+        ctx.fillStyle=color;
+        ctx.fill();
+        ctx.strokeStyle='#fff1f1';
+        ctx.lineWidth=2;
+        ctx.stroke();
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(n, 25, 25);
+      ">
+      Show
+    </button>
+
+
+    <canvas id="successCheck" width="60" height="60"
+      style="display:block; margin: 12px 0 10px 0; background:transparent; border:1px solid #ccc; border-radius:10px;">
+    </canvas>
+    <button id="playCheck" style="margin-bottom:18px;">
+      Animate Checkmark
+    </button>
+    <script>
+        if (!window._successCheckDemo) {
+          function animateCheckmark() {
+            const c = document.getElementById('successCheck');
+            if (!c) return;
+            const ctx = c.getContext('2d');
+            ctx.clearRect(0, 0, 60, 60);
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "#43c652";
+            let prog = 0;
+            function draw() {
+              ctx.clearRect(0,0,60,60);
+              ctx.save();
+              ctx.beginPath();
+              ctx.arc(30,30,28,0,Math.PI*2);
+              ctx.globalAlpha=0.12; ctx.stroke();
+              ctx.globalAlpha=1;
+              ctx.beginPath();
+              if(prog < 0.5) {
+                ctx.moveTo(18,34);
+                ctx.lineTo(18+10*prog*2,34+10*prog*2);
+              } else {
+                ctx.moveTo(18,34);
+                ctx.lineTo(28,44);
+                ctx.lineTo(28+16*(prog-0.5)*2,44-24*(prog-0.5)*2);
+              }
+              ctx.strokeStyle = "#43c652";
+              ctx.lineWidth = 5;
+              ctx.stroke();
+              ctx.restore();
+              prog += 0.06;
+              if (prog < 1) requestAnimationFrame(draw);
+            }
+            draw();
+          }
+          document.getElementById('playCheck').onclick = animateCheckmark;
+          window._successCheckDemo = true;
+        }
+      </script>
+      
+
+      <input type="file" id="avatarInput" accept="image/*" style="display:inline-block; margin-bottom:10px;">
+    <br>
+    <canvas id="avatarPreview" width="100" height="100"
+      style="border-radius:50%; border:1px solid #ccc; vertical-align:middle; margin-top:0.5em;" aria-label="Avatar Preview">
+    </canvas>
+    <script>
+        if (!window._avatarDemo) {
+          document.getElementById('avatarInput').addEventListener('change', function(evt) {
+            const file = evt.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const img = new Image();
+              img.onload = function() {
+                const c = document.getElementById('avatarPreview');
+                const ctx = c.getContext('2d');
+                ctx.clearRect(0,0,100,100);
+                let dim = Math.min(img.width,img.height);
+                let sx = (img.width-dim)/2, sy=(img.height-dim)/2;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(50,50,50,0,2*Math.PI);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(img, sx, sy, dim, dim, 0, 0, 100, 100);
+                ctx.restore();
+              }
+              img.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+          });
+          window._avatarDemo = true;
+        }
+      </script>
+
+  </body>
+</html>
