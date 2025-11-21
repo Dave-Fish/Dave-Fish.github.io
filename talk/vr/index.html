@@ -13,13 +13,13 @@
     </style>
 </head>
 <body>
-    <div class="slide">
+    <section class="slide">
         <p class="highlight">hello</p>
-    </div>
-    
-    <div class="slide">
+    </section>
+
+    <section class="slide">
         <p class="highlight">aaaaaaaaaa</p>
-    </div>
+    </section>
     
     <script>
         var hue = Math.floor(Math.random()*360);
@@ -53,6 +53,16 @@
         }
 
         colourAnimate();
+
+
+
+
+
+        var currentSlide = 1;
+        var slides = document.getElementsByClassName("slide");
+
+        
+
     </script>
 </body>
 </html>
