@@ -25,20 +25,23 @@
   <body>
     <script type="module" src="/main.js"></script>
   </body>
-<!-- Import the component -->
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
-<!-- Use it like any other HTML element -->
-<model-viewer
-  id="mv-ball"
-   src="ball.glb"
-  camera-controls
-></model-viewer>
+    <!-- Import the component -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+    <!-- Use it like any other HTML element -->
+    <model-viewer
+    id="mv-ball"
+    src="ball.glb"
+    camera-controls
+    ></model-viewer>
 
-<model-viewer
-  id="mv-wall"
-   src="wall.glb"
-  camera-controls
-></model-viewer>
+    <model-viewer
+    id="mv-wall"
+    src="wall.glb"
+    camera-controls
+    ></model-viewer>
+
+
+    <canvas></canvas>
 </html>
 

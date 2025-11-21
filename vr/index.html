@@ -1,0 +1,122 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dave Davies">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Spatial Frequency and Visual Comfort in VR</title>
+	<link rel="icon" type="image/png" href="../face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        body{
+            background-color: "#eee";
+        }
+        p{
+            font-size: medium;
+        }
+        h1{
+            font-size: 10vmax;
+        }
+    </style>
+</head>
+<body>
+
+    <name>
+        <h1 class="highlight">Spatial Frequency and Visual Comfort in Virtual Reality<h1>
+    </name>
+
+    <p class="highlight">hello</p>
+
+    <p class="highlight">aaaaaaaaaa</p>
+
+    <script>
+        var hue = Math.floor(Math.random()*360);
+        console.log(hue);
+        var saturation = "100%";
+        var lightness = "57%";
+
+        function colourAnimate(){
+            //console.log(hue);
+            requestAnimationFrame(colourAnimate);
+
+            if(hue >= 360){
+                hue -= 360;
+            }
+
+            if(hue < 50){
+                hue += 0.01;
+            }else if(hue > 60 && hue < 150){
+                hue += 0.3;
+            }else if(hue > 200 && hue < 300){
+                hue+= 0.1;
+            }else{
+                hue += 0.02;
+            }
+            colour = 'hsl('+hue+','+saturation+','+lightness+')';
+
+            highlighters = document.getElementsByClassName("highlight");
+            for(let i = 0; i < highlighters.length; i++){
+                highlighters[i].style.textShadow = "0px 0px 10px "+colour;
+            }
+        }
+
+        colourAnimate();
+
+
+        controller = {
+            keyListener:function(event){
+                var key_state = (event.type == "keydown")?true:false;
+                switch(event.keyCode){
+                    case 37: // left key
+                    location.href = 'balls.html';
+                    break;
+                    case 39: // right key
+                    location.href = 'balls.html';
+                    break;
+                }
+            }
+        };
+        window.addEventListener("keydown", controller.keyListener);
+        window.addEventListener("keyup", controller.keyListener);
+
+
+        // swiped for swiping https://stackoverflow.com/questions/62823062/adding-a-simple-left-right-swipe-gesture
+        window.addEventListener('touchstart', function (event) {
+            touchstartX = event.changedTouches[0].screenX;
+            touchstartY = event.changedTouches[0].screenY;
+        }, false);
+        window.addEventListener('touchend', function (event) {
+            touchendX = event.changedTouches[0].screenX;
+            touchendY = event.changedTouches[0].screenY;
+            handleGesture();
+        }, false);
+
+        function handleGesture() {
+            if (touchendX < touchstartX) {
+                console.log('Swiped Left');
+                location.href = 'ad.html';
+            }
+            if (touchendX > touchstartX) {
+                console.log('Swiped Right');
+                location.href = 'balls.html';
+            }
+            if (touchendY < touchstartY) {
+                console.log('Swiped Up');
+            }
+            if (touchendY > touchstartY) {
+                console.log('Swiped Down');
+            }
+            if (touchendY === touchstartY) {
+                console.log('Tap');
+            }
+        }
+
+
+        // var currentSlide = 1;
+        // var slides = document.getElementsByClassName("slide");
+
+        
+
+    </script>
+</body>
+</html>
