@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <title>My first three.js app</title>
     <style>
-      body { margin: 0; }
+        body { margin: 0; }
+        model-viewer {
+        width: 800px;
+        height: 600px;
+        }
     </style>
     <script type="importmap">
         {
@@ -23,8 +27,15 @@
 <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
 <!-- Use it like any other HTML element -->
 <model-viewer
-  id="mv-shark"
+  id="mv-ball"
    src="ball.glb"
   camera-controls
-></model-viewer></html>
+></model-viewer>
+
+<model-viewer
+  id="mv-wall"
+   src="wall.glb"
+  camera-controls
+></model-viewer>
+</html>
 
