@@ -22,7 +22,7 @@
 <body>
 
     <name>
-        <h1 class="highlight">Spatial Frequency and Visual Comfort in Virtual Reality<h1>
+        <h1 class="highlight">Contents<h1>
     </name>
 
     <p class="highlight">hello</p>
@@ -68,10 +68,10 @@
                 var key_state = (event.type == "keydown")?true:false;
                 switch(event.keyCode){
                     case 37: // left key
-                    location.href = 'contents.html';
+                    location.href = 'ad.html';
                     break;
                     case 39: // right key
-                    location.href = 'balls.html';
+                    location.href = 'index.html';
                     break;
                 }
             }
@@ -94,11 +94,11 @@
         function handleGesture() {
             if (touchendX < touchstartX-200) {
                 console.log('Swiped Left');
-                location.href = 'contents.html';
+                location.href = 'ad.html';
             }
             if (touchendX > touchstartX+200) {
                 console.log('Swiped Right');
-                location.href = 'balls.html';
+                location.href = 'index.html';
             }
             if (touchendY < touchstartY) {
                 console.log('Swiped Up');
