@@ -22,20 +22,9 @@
 <body>
 
     <name>
-        <h1 class="highlight">Contents<h1>
+        <h1 class="highlight">Virtual Reality<h1>
     </name>
 
-    <p class="highlight">Spatial Frequency</p>
-    <p class="highlight">Visual Comfort</p>
-    <p class="highlight">Virtual Reality</p>
-
-    <p class="highlight">the experiment</p>
-    <ul>
-        <li>planning</li>
-        <li>participants</li>
-    </ul>
-    
-    <p class="highlight">results</p>
 
     <script>
         var hue = Math.floor(Math.random()*360);
@@ -76,10 +65,10 @@
                 var key_state = (event.type == "keydown")?true:false;
                 switch(event.keyCode){
                     case 37: // left key
-                    location.href = 'index.html';
+                    location.href = 'visualComfort.html';
                     break;
                     case 39: // right key
-                    location.href = 'spatialFrequency.html';
+                    location.href = 'ad.html';
                     break;
                 }
             }
@@ -102,11 +91,11 @@
         function handleGesture() {
             if (touchendX < touchstartX-200) {
                 console.log('Swiped Left');
-                location.href = 'spatialFrequency.html';
+                location.href = 'ad.html';
             }
             if (touchendX > touchstartX+200) {
                 console.log('Swiped Right');
-                location.href = 'index.html';
+                location.href = 'visualComfort.html';
             }
             if (touchendY < touchstartY) {
                 console.log('Swiped Up');
