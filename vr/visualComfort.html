@@ -27,6 +27,11 @@
 
 
     <script>
+        previousPage = "spatialFrequency.html";
+        nextPage = "virtualReality.html";
+
+
+
         var hue = Math.floor(Math.random()*360);
         console.log(hue);
         var saturation = "100%";
@@ -65,10 +70,10 @@
                 var key_state = (event.type == "keydown")?true:false;
                 switch(event.keyCode){
                     case 37: // left key
-                    location.href = 'spatialFrequency.html';
+                    location.href = previousPage;
                     break;
                     case 39: // right key
-                    location.href = 'virtualReality.html';
+                    location.href = nextPage;
                     break;
                 }
             }
@@ -91,11 +96,11 @@
         function handleGesture() {
             if (touchendX < touchstartX-200) {
                 console.log('Swiped Left');
-                location.href = 'virtualReality.html';
+                location.href = nextPage;
             }
             if (touchendX > touchstartX+200) {
                 console.log('Swiped Right');
-                location.href = 'spatialFrequency.html';
+                location.href = previousPage;
             }
             if (touchendY < touchstartY) {
                 console.log('Swiped Up');
