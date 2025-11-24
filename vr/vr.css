@@ -1,0 +1,26 @@
+p{
+    font-size: medium;
+    color: #111111;
+}
+
+h1{
+    font-size: 10vmax;
+    color: #11111190;
+}
+
+.space{
+    height: 100vh;
+}
+
+body{
+    background-color: #aed;
+}
+
+a{
+    color: #111111;
+}
+
+model-viewer {
+    width: 900px;
+    height: 600px;
+}
