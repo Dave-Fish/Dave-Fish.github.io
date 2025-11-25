@@ -1,15 +1,15 @@
 h1{
-    font-size: 18vh;
+    font-size: 18vmin;
     color: #11111190;
     margin: 0%;
-    padding-top: 5vh;
-    padding-left: 5vh;
+    padding-top: 5vmin;
+    padding-left: 5vmin;
 }
 
 h3, table{
-    font-size: 6vh;
+    font-size: 6vmin;
     margin: 0%;
-    padding-left: 20vh;
+    padding-left: 20vmin;
 }
 
 .space{
