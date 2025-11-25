@@ -33,8 +33,9 @@ a{
 }
 
 model-viewer {
-    width: 900px;
-    height: 600px;
+    display: block;
+    margin: auto;
+    width: 50%;
 }
 
 hr{
