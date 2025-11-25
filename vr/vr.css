@@ -36,6 +36,7 @@ model-viewer {
     display: block;
     margin: auto;
     width: 50%;
+    height: 50vh;
 }
 
 hr{
