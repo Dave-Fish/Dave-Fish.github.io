@@ -246,7 +246,7 @@
                                         });
                                             
                                     }
-                                    
+
                                     var fresh = [];
                                     if (board != turn && empty.includes(coors)){
                                         fresh.push(coors);
@@ -339,68 +339,70 @@
                                 }
                             }
                             empty0 = 0;
-                                empty1 = 1;
-                                empty.forEach(element => {
-                                    if(element[2] == 1){
-                                        empty1++;
+                            empty1 = 0;
+                            empty.forEach(element => {
+                                if(element[2] == 1){
+                                    empty1++;
+                                    console.log(element)
+                                }else{
+                                    empty0++;
+                                }
+                            });
+                            console.log("empties",empty0, empty1)
+                            if (empty0 == 0 || empty1 == 0){
+                                console.log("done!")
+                                points0 = 0;
+                                points1 = 0;
+                                seed.forEach(element => {
+                                    if(element[2] == 0){
+                                        points1++;
                                     }else{
-                                        empty0++;
+                                        points0++
                                     }
                                 });
-                                if (empty0 == 0 || empty1 == 0){
-                                    console.log("done!")
-                                    points0 = 0;
-                                    points1 = 0;
-                                    seed.forEach(element => {
-                                        if(element[2] == 0){
-                                            points1++;
-                                        }else{
-                                            points0++
-                                        }
-                                    });
-                                    sprout.forEach(element => {
-                                        if(element[2] == 0){
-                                            points1+=2;
-                                        }else{
-                                            points0+=2;
-                                        }
-                                    });
-                                    crop.forEach(element => {
-                                        if(element[2] == 0){
-                                            points1+=3;
-                                        }else{
-                                            points0+=3;
-                                        }
-                                    });
-                                    defend.forEach(element => {
-                                        if(element[2] == 1){
-                                            points1++;
-                                        }else{
-                                            points0++;
-                                        }
-                                    });
-                                    var parad = document.createElement("h1"); 
-                                    var timerNode = document.createTextNode("Player 1 score: "+String(points0));
-                                    parad.appendChild(timerNode);
-                                    document.body.appendChild(parad);
-                                    var parau = document.createElement("h1"); 
-                                    var timerNode = document.createTextNode("Player 2 score: "+String(points1));
-                                    parau.appendChild(timerNode);
-                                    document.body.appendChild(parau);
-
-                                    if (points0 > points1){
-                                        winner = 0;
-                                    }else if (points0 < points1){
-                                        winner = 1;
+                                sprout.forEach(element => {
+                                    if(element[2] == 0){
+                                        points1+=2;
                                     }else{
-                                        winner = 2;
+                                        points0+=2;
                                     }
-                                    document.getElementById("instructions").innerHTML = "player "+(winner).toString()+" wins!";
-                                    document.getElementById("instructions").style.color = document.getElementById('p'+(winner).toString()+'colour').value;
-                                    //document.getElementsByName("body").style.color = document.getElementById('p'+(winner).toString()+'colour').value;
-                                    empty = [];
-                                    seed = [];
+                                });
+                                crop.forEach(element => {
+                                    if(element[2] == 0){
+                                        points1+=3;
+                                    }else{
+                                        points0+=3;
+                                    }
+                                });
+                                defend.forEach(element => {
+                                    if(element[2] == 1){
+                                        points1++;
+                                    }else{
+                                        points0++;
+                                    }
+                                });
+                                var parad = document.createElement("h1"); 
+                                var timerNode = document.createTextNode("Player 1 score: "+String(points0));
+                                parad.appendChild(timerNode);
+                                document.body.appendChild(parad);
+                                var parau = document.createElement("h1"); 
+                                var timerNode = document.createTextNode("Player 2 score: "+String(points1));
+                                parau.appendChild(timerNode);
+                                document.body.appendChild(parau);
+
+                                if (points0 > points1){
+                                    winner = 0;
+                                }else if (points0 < points1){
+                                    winner = 1;
+                                }else{
+                                    winner = 2;
                                 }
+                                document.getElementById("instructions").innerHTML = "player "+(winner).toString()+" wins!";
+                                document.getElementById("instructions").style.color = document.getElementById('p'+(winner).toString()+'colour').value;
+                                //document.getElementsByName("body").style.color = document.getElementById('p'+(winner).toString()+'colour').value;
+                                empty = [];
+                                seed = [];
+                            }
 
                         }
 
