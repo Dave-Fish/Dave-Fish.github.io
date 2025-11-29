@@ -71,8 +71,9 @@
 
                         if ((i==0 || i==5) && (j==0 || j==7)){
                             defend.push(me)
+                            console.log(defend)
                         }else{
-                            empty.push(i.toString()+j.toString()+board.toString())
+                            empty.push(me)
                         }
 
                         b.onclick = function() {
@@ -197,9 +198,13 @@
                                             attack_possible = true
                                             potential_flips = []
                                             direction.forEach(cell => {
+                                                // is ememy
+                                                console.log(cell)
                                                 if (attack_possible && (seed.includes(cell) || sprout.includes(cell) || crop.includes(cell))){
                                                     potential_flips.push(cell)
+                                                    console.log("FUCK FUCK ")
                                                 }
+                                                // i found another defender!
                                                 else if (attack_possible && (defend.includes(cell))){
                                                     attack_possible = false
                                                     potential_flips.forEach(element => {
@@ -343,7 +348,6 @@
                             empty.forEach(element => {
                                 if(element[2] == 1){
                                     empty1++;
-                                    console.log(element)
                                 }else{
                                     empty0++;
                                 }
