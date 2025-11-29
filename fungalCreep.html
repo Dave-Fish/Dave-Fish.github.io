@@ -12,7 +12,7 @@
 </head>
 <body>
     <menu>
-        <a href="index.html" id="instructions">place 3 non corners per board</a>
+        <a href="index.html" id="instructions">place 3 non corners per board each</a>
     </menu>
     <script>function tableCreate() {
         const body = document.body,
@@ -24,12 +24,20 @@
         tbl1.style.border = '1px solid black';
 
 
-        var turn = 0;
+        var turn = Math.round(Math.random());
         var empty = [];
         var seed = [];
         var sprout = [];
         var crop = [];
         var defend = [];
+
+        function rem(arr, item){
+            //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array-in-javascript
+            var index = arr.indexOf(item);
+            if (index > -1) { // only splice array when item is found
+                arr.splice(index, 1); // 2nd parameter means remove one item only
+            }
+        }
 
 
         for (let board = 0; board < 2; board++){
@@ -97,15 +105,19 @@
                                 }
                             }
 
+                            if (crop.includes(coors) || sprout.includes(coors) || defend.includes(coors)){
+                                valid = false;
+                            }
+
                             
 
                             if (valid){
                                 console.log("valid move")
 
+                                // starting pieces
                                 if (defend.length < 14){
                                     defend.push(coors)
-                                }else{
-                                    document.getElementById("instructions").innerHTML = "player "+(turn+1).toString()+"'s turn";
+                                    rem(empty, coors);
                                 }
 
                                 // ensuring all defending pieces are the right colour
@@ -116,19 +128,20 @@
                                 });
 
 
-
-                                if (board == 0){
-                                    butt.style.backgroundColor = document.getElementById('p0colour').value;
-                                }else{
-                                    butt.style.backgroundColor = document.getElementById('p1colour').value;
+                                if (defend.length >= 14){
+                                    if (board == turn && (empty.includes(coors) || seed.includes(coors))){
+                                    defend.push(coors);
+                                    rem(empty, coors);
+                                    butt.style.backgroundColor = document.getElementById('p'+coors[2]+'colour').value;
                                 }
-                                
-                                
-                                // document.getElementById('p1colour').onchange=function(){
-                                //     // do whatever you want with value
-                                //     alert(this.value);
-                                // }
+                                if (board != turn && empty.includes(coors)){
+                                    crop.push(coors);
+                                    rem(empty, coors);
+                                    butt.style.color = document.getElementById('p'+turn+'colour').value;
+                                    butt.textContent = "3"
+                                }
 
+                                }
 
 
 
@@ -137,6 +150,14 @@
                                     turn = 1;
                                 }else{
                                     turn = 0;
+                                }
+                                if(defend.length >13){
+                                    document.getElementById("instructions").innerHTML = "player "+(turn+1).toString()+"'s turn";
+                                }
+                            }
+                            else{
+                                if(defend.length>14){
+                                    document.getElementById("instructions").innerHTML = "invalid - player "+(turn+1).toString()+"'s turn";
                                 }
                             }
                         }
