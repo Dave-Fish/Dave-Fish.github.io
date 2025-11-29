@@ -1,0 +1,115 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Dave Davies">
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Fungal Creep</title>
+	<link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+    </style>
+</head>
+<body>
+    <script>function tableCreate() {
+        const body = document.body,
+        tbl0 = document.createElement('table');
+        //tbl0.style.width = '40%';
+        tbl0.style.border = '1px solid black';
+        const tbl1 = document.createElement('table');
+        //tbl1.style.width = '40%';
+        tbl1.style.border = '1px solid black';
+
+
+        var turn = 0;
+        var empty = [];
+        var seed = [];
+        var sprout = [];
+        var crop = [];
+        var defend = [];
+
+
+        for (let board = 0; board < 2; board++){
+            for (let i = 0; i < 6; i++) {
+                if (board == 0){
+                    var tr = tbl0.insertRow();
+                }if (board == 1){
+                    var tr = tbl1.insertRow();
+                }
+                
+                for (let j = 0; j < 8; j++) {
+                    var td = tr.insertCell();
+                    var x = document.createElement("BUTTON");
+                        x.className = "center";
+                        x.style.height = "100%"
+                        x.style.width = "100%"
+                        x.style.fontSize = "9vh"
+                        x.style.padding = "0%"
+                        x.style.margin = "0%"
+                        x.textContent="-"
+                        x.id = (i.toString()+j.toString()+board.toString())
+                        x.textContent.style="100%"
+
+                        // making the corners the right colour
+
+                        x.onclick = function() {
+                            console.log(i,j, board)
+                            butt = document.getElementById(i.toString()+j.toString()+board.toString());
+
+                            if (board == 0){
+                                butt.style.backgroundColor = document.getElementById('p0colour').value;
+                            }else{
+                                butt.style.backgroundColor = document.getElementById('p1colour').value;
+                            }
+                            
+                            
+                            // document.getElementById('p1colour').onchange=function(){
+                            //     // do whatever you want with value
+                            //     alert(this.value);
+                            // }
+
+
+
+
+                            // the last thing that happens needs to be player changing
+                            if (turn == 0){
+                                turn = 1;
+                            }else{
+                                turn = 0;
+                            }
+                        }
+
+
+                    
+                    td.appendChild(x);
+                    td.style.border = '1px solid black';
+                    
+                }
+            }
+
+            if (board == 0){
+                body.appendChild(tbl0);
+            }if (board == 1){
+                body.appendChild(tbl1);
+            }
+            //body.appendChild(tbl);
+            var para = document.createElement("p"); 
+            var timerNode = document.createTextNode("Player "+String(board));
+            para.appendChild(timerNode);
+            document.body.appendChild(para);
+
+        }
+        
+      }
+      
+      tableCreate();
+      </script>
+
+<label for="favcolor">Player 1 colour:</label>
+<input type="color" id="p0colour" name="favcolor" value="#008080">
+
+<label for="favcolor">Player 1 colour:</label>
+<input type="color" id="p1colour" name="favcolor" value="#cb94f7">
+      
+</body>
+</html>
