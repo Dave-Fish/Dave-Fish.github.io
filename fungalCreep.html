@@ -57,7 +57,7 @@
                         x.style.fontSize = "9vmin"
                         x.style.padding = "0%"
                         x.style.margin = "0%"
-                        x.textContent="-"
+                        x.textContent="_"
                         me = i.toString()+j.toString()+board.toString()
                         x.id = me
                         x.textContent.style="100%"
@@ -130,16 +130,16 @@
 
                                 if (defend.length >= 14){
                                     if (board == turn && (empty.includes(coors) || seed.includes(coors))){
-                                    defend.push(coors);
-                                    rem(empty, coors);
-                                    butt.style.backgroundColor = document.getElementById('p'+coors[2]+'colour').value;
-                                }
-                                if (board != turn && empty.includes(coors)){
-                                    crop.push(coors);
-                                    rem(empty, coors);
-                                    butt.style.color = document.getElementById('p'+turn+'colour').value;
-                                    butt.textContent = "3"
-                                }
+                                        defend.push(coors);
+                                        rem(empty, coors);
+                                        butt.style.backgroundColor = document.getElementById('p'+coors[2]+'colour').value;
+                                    }
+                                    if (board != turn && empty.includes(coors)){
+                                        crop.push(coors);
+                                        rem(empty, coors);
+                                        butt.style.color = document.getElementById('p'+turn+'colour').value;
+                                        butt.textContent = "3"
+                                    }
 
                                 }
 
@@ -153,11 +153,13 @@
                                 }
                                 if(defend.length >13){
                                     document.getElementById("instructions").innerHTML = "player "+(turn+1).toString()+"'s turn";
+                                    document.getElementById("instructions").style.color = document.getElementById('p'+(turn).toString()+'colour').value;
                                 }
                             }
                             else{
                                 if(defend.length>14){
                                     document.getElementById("instructions").innerHTML = "invalid - player "+(turn+1).toString()+"'s turn";
+                                    document.getElementById("instructions").style.color = document.getElementById('p'+(turn).toString()+'colour').value;
                                 }
                             }
                         }
