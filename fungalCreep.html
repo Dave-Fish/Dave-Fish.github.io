@@ -39,28 +39,30 @@
             }
         }
 
+        boardWidth = 8;
+        boardHeight = 6;
 
         for (let board = 0; board < 2; board++){
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < boardHeight; i++) {
                 if (board == 0){
                     var tr = tbl0.insertRow();
                 }if (board == 1){
                     var tr = tbl1.insertRow();
                 }
                 
-                for (let j = 0; j < 8; j++) {
+                for (let j = 0; j < boardWidth; j++) {
                     var td = tr.insertCell();
-                    var x = document.createElement("BUTTON");
-                        x.className = "center";
-                        x.style.height = "100%"
-                        x.style.width = "100%"
-                        x.style.fontSize = "9vmin"
-                        x.style.padding = "0%"
-                        x.style.margin = "0%"
-                        x.textContent="_"
+                    var b = document.createElement("BUTTON");
+                        b.className = "center";
+                        b.style.height = "100%"
+                        b.style.width = "100%"
+                        b.style.fontSize = "9vmin"
+                        b.style.padding = "0%"
+                        b.style.margin = "0%"
+                        b.textContent="_"
                         me = i.toString()+j.toString()+board.toString()
-                        x.id = me
-                        x.textContent.style="100%"
+                        b.id = me
+                        b.textContent.style="100%"
 
                         
                         // making the corners the right colour
@@ -73,7 +75,7 @@
                             empty.push(i.toString()+j.toString()+board.toString())
                         }
 
-                        x.onclick = function() {
+                        b.onclick = function() {
                             
                             butt = document.getElementById(i.toString()+j.toString()+board.toString());
                             coors = i.toString()+j.toString()+board.toString();
@@ -147,10 +149,102 @@
                                         butt.style.backgroundColor = document.getElementById('p'+coors[2]+'colour').value;
 
                                         // othello update
+
+                                        var x = parseInt(coors[0])
+                                        var y = parseInt(coors[1])
                                         
+                                        // making 8 lists of the directions going away from the piece that's going to do the othelloing
+                                        var x_before = []
+                                        var xy_before_above = []
+                                        var y_above = []
+                                        var xy_after_above = []
+                                        var x_after = []
+                                        var xy_after_below = []
+                                        var y_below = []
+                                        var xy_before_below = []
+                                        var directions = [x_before, xy_before_above, y_above, xy_after_above, x_after, xy_after_below, y_below, xy_before_below]
 
+                                        // adds the coordinates of each cell into its relevant direction
+                                        for (let a = 0; a < x; a++){
+                                            x_before.push(parseInt(x-1-a).toString()+parseInt(y).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < Math.min(x, y); a++){
+                                            xy_before_above.push(parseInt(x-a-1).toString()+parseInt(y-a-1).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < y; a++){
+                                            y_above.push(parseInt(x).toString() + parseInt( y-a-1).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < Math.min(boardWidth-x-1, y); a++){
+                                            xy_after_above.push(parseInt( x+a+1).toString()+ parseInt( y-a-1).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < boardWidth-x-1; a++){
+                                            x_after.push(parseInt( x+a+1).toString() + parseInt( y).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < Math.min(boardWidth-x-1, boardHeight-y-1); a++){
+                                            xy_after_below.push(parseInt( x+a+1).toString() + parseInt( y+a+1).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < boardHeight-y-1; a++){
+                                            y_below.push(parseInt( x).toString() + parseInt( y+a+1).toString()+coors[2])
+                                        }
+                                        for (let a = 0; a < Math.min(x, boardHeight-y-1); a++){
+                                            xy_before_below.push(parseInt( x-a-1).toString() + parseInt( y+a+1).toString()+coors[2])
+                                        }
 
+                                        //goes through and puts any acres that should be claimed in to_flip
+                                        console.log(directions)
+                                        to_flip = []
+                                        directions.forEach(direction => {
+                                            attack_possible = true
+                                            potential_flips = []
+                                            direction.forEach(cell => {
+                                                if (attack_possible && (seed.includes(cell) || sprout.includes(cell) || crop.includes(cell))){
+                                                    potential_flips.push(cell)
+                                                }
+                                                else if (attack_possible && (defend.includes(cell))){
+                                                    attack_possible = false
+                                                    potential_flips.forEach(element => {
+                                                        to_flip.push(element)
+                                                    });
+                                                }
+                                                    
 
+                                                // empty cell? no snack for you :(
+                                                else if (attack_possible && empty.includes(cell)){
+                                                    attack_possible = false
+                                                    potential_flips = []
+                                                }
+                                                    
+                                                });
+                                        });
+                                        // goes through consumed cells and eats them (turns them into defenders)
+                                        to_flip.forEach(cell => {
+                                            if (crop.includes(cell)){
+                                                up = cell[0]+(cell[1]-1)+cell[2]
+                                                down = cell[0]+(parseInt(cell[1])+1)+cell[2]
+                                                left = (cell[0]-1)+(cell[1])+cell[2]
+                                                right = (parseInt(cell[0])+1)+cell[1]+cell[2]
+                                                dirs = [up, down, left, right]
+                                                dirs.forEach(way => {
+                                                    
+                                                    if (seed.includes(way) && !to_flip.includes(way)){
+                                                        empty.push(way);
+                                                        rem(seed, way);
+                                                        
+                                                        document.getElementById(way).style.color = "#000000";
+                                                        document.getElementById(way).textContent = "_";
+                                                    }
+                                                });
+                                            }
+
+                                            defend.push(cell);
+                                            rem(empty, cell);
+                                            rem(seed, cell);
+                                            rem(sprout, cell);
+                                            rem(crop, cell);
+                                            console.log("defense!")
+                                            document.getElementById(cell).style.backgroundColor = document.getElementById('p'+coors[2]+'colour').value;
+                                        });
+                                            
                                     }
                                     
                                     if (board != turn && empty.includes(coors)){
@@ -161,9 +255,6 @@
                                     }
 
                                     
-                                    // othello update
-
-
 
 
                                     // growth update
@@ -185,7 +276,6 @@
 
                                     // 1s growing up
                                     seed.forEach(element => {
-                                        console.log("seed ",element)
                                         if (element[2] == turn){
                                             sprout.push(element)
                                             document.getElementById(element).textContent = "2";
@@ -225,6 +315,8 @@
                                     
                                 }
 
+                                
+
 
                                 // the last thing that happens needs to be player changing
                                 if (turn == 0){
@@ -245,11 +337,75 @@
                                     document.getElementById("instructions").style.color = document.getElementById('p'+(turn).toString()+'colour').value;
                                 }
                             }
+                            empty0 = 0;
+                                empty1 = 1;
+                                empty.forEach(element => {
+                                    if(element[2] == 1){
+                                        empty1++;
+                                    }else{
+                                        empty0++;
+                                    }
+                                });
+                                if (empty0 == 0 || empty1 == 0){
+                                    console.log("done!")
+                                    points0 = 0;
+                                    points1 = 0;
+                                    seed.forEach(element => {
+                                        if(element[2] == 0){
+                                            points1++;
+                                        }else{
+                                            points0++
+                                        }
+                                    });
+                                    sprout.forEach(element => {
+                                        if(element[2] == 0){
+                                            points1+=2;
+                                        }else{
+                                            points0+=2;
+                                        }
+                                    });
+                                    crop.forEach(element => {
+                                        if(element[2] == 0){
+                                            points1+=3;
+                                        }else{
+                                            points0+=3;
+                                        }
+                                    });
+                                    defend.forEach(element => {
+                                        if(element[2] == 1){
+                                            points1++;
+                                        }else{
+                                            points0++;
+                                        }
+                                    });
+                                    var parad = document.createElement("h1"); 
+                                    var timerNode = document.createTextNode("Player 1 score: "+String(points0));
+                                    parad.appendChild(timerNode);
+                                    document.body.appendChild(parad);
+                                    var parau = document.createElement("h1"); 
+                                    var timerNode = document.createTextNode("Player 2 score: "+String(points1));
+                                    parau.appendChild(timerNode);
+                                    document.body.appendChild(parau);
+
+                                    if (points0 > points1){
+                                        winner = 0;
+                                    }else if (points0 < points1){
+                                        winner = 1;
+                                    }else{
+                                        winner = 2;
+                                    }
+                                    document.getElementById("instructions").innerHTML = "player "+(turn+1).toString()+" wins!";
+                                    document.getElementById("instructions").style.color = document.getElementById('p'+(winner).toString()+'colour').value;
+                                    //document.getElementsByName("body").style.color = document.getElementById('p'+(winner).toString()+'colour').value;
+                                    empty = [];
+                                    seed = [];
+                                }
+
                         }
 
 
                     
-                    td.appendChild(x);
+                    td.appendChild(b);
                     td.style.border = '1px solid black';
                     
                 }
