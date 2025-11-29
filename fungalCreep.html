@@ -11,6 +11,9 @@
     </style>
 </head>
 <body>
+    <menu>
+        <a href="index.html" id="instructions">place 3 non corners per board</a>
+    </menu>
     <script>function tableCreate() {
         const body = document.body,
         tbl0 = document.createElement('table');
@@ -43,39 +46,98 @@
                         x.className = "center";
                         x.style.height = "100%"
                         x.style.width = "100%"
-                        x.style.fontSize = "9vh"
+                        x.style.fontSize = "9vmin"
                         x.style.padding = "0%"
                         x.style.margin = "0%"
                         x.textContent="-"
-                        x.id = (i.toString()+j.toString()+board.toString())
+                        me = i.toString()+j.toString()+board.toString()
+                        x.id = me
                         x.textContent.style="100%"
 
+                        
                         // making the corners the right colour
+                        //console.log(empty)
+
+
+                        if ((i==0 || i==5) && (j==0 || j==7)){
+                            defend.push(me)
+                        }else{
+                            empty.push(i.toString()+j.toString()+board.toString())
+                        }
 
                         x.onclick = function() {
-                            console.log(i,j, board)
+                            
                             butt = document.getElementById(i.toString()+j.toString()+board.toString());
+                            coors = i.toString()+j.toString()+board.toString();
+                            console.log(coors)
+                            console.log("turn:",turn)
 
-                            if (board == 0){
-                                butt.style.backgroundColor = document.getElementById('p0colour').value;
-                            }else{
-                                butt.style.backgroundColor = document.getElementById('p1colour').value;
+                            
+
+                            var valid = true;
+
+                            if (defend.length < 14){
+                                owned0 = 0;
+                                owned1 = 0;
+                                defend.forEach(element => {
+                                    if (element[2] == 0){
+                                        owned0++;
+                                    }else{
+                                        owned1++;
+                                    }
+                                });
+                                if (owned0 >= 7 && coors[2] ==0){
+                                    valid = false;
+                                }
+                                if (owned1 >= 7 && coors[2] ==1){
+                                    valid = false;
+                                }
+                                if (defend.includes(coors)){
+                                    valid = false;
+                                }
                             }
+
                             
-                            
-                            // document.getElementById('p1colour').onchange=function(){
-                            //     // do whatever you want with value
-                            //     alert(this.value);
-                            // }
+
+                            if (valid){
+                                console.log("valid move")
+
+                                if (defend.length < 14){
+                                    defend.push(coors)
+                                }else{
+                                    document.getElementById("instructions").innerHTML = "player "+(turn+1).toString()+"'s turn";
+                                }
+
+                                // ensuring all defending pieces are the right colour
+                                defend.forEach(element => {
+                                    cell = document.getElementById(element)
+                                    //console.log(element)
+                                    cell.style.backgroundColor = document.getElementById('p'+element[2]+'colour').value;
+                                });
+
+
+
+                                if (board == 0){
+                                    butt.style.backgroundColor = document.getElementById('p0colour').value;
+                                }else{
+                                    butt.style.backgroundColor = document.getElementById('p1colour').value;
+                                }
+                                
+                                
+                                // document.getElementById('p1colour').onchange=function(){
+                                //     // do whatever you want with value
+                                //     alert(this.value);
+                                // }
 
 
 
 
-                            // the last thing that happens needs to be player changing
-                            if (turn == 0){
-                                turn = 1;
-                            }else{
-                                turn = 0;
+                                // the last thing that happens needs to be player changing
+                                if (turn == 0){
+                                    turn = 1;
+                                }else{
+                                    turn = 0;
+                                }
                             }
                         }
 
@@ -94,7 +156,7 @@
             }
             //body.appendChild(tbl);
             var para = document.createElement("p"); 
-            var timerNode = document.createTextNode("Player "+String(board));
+            var timerNode = document.createTextNode("Player "+String(board+1));
             para.appendChild(timerNode);
             document.body.appendChild(para);
 
@@ -108,7 +170,7 @@
 <label for="favcolor">Player 1 colour:</label>
 <input type="color" id="p0colour" name="favcolor" value="#008080">
 
-<label for="favcolor">Player 1 colour:</label>
+<label for="favcolor">Player 2 colour:</label>
 <input type="color" id="p1colour" name="favcolor" value="#cb94f7">
       
 </body>
