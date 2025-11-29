@@ -108,6 +108,10 @@
                             if (crop.includes(coors) || sprout.includes(coors) || defend.includes(coors)){
                                 valid = false;
                             }
+                            // protects someone writing over their own 1
+                            if (board != turn && seed.includes(coors)){
+                                valid = false;
+                            }
 
                             
 
@@ -129,27 +133,106 @@
 
 
                                 if (defend.length >= 14){
+
+                                    
+                                    var fresh = [];
+
+                                    // placing an attack or defense
+
                                     if (board == turn && (empty.includes(coors) || seed.includes(coors))){
                                         defend.push(coors);
                                         rem(empty, coors);
+                                        rem(seed, coors);
+                                        console.log("defense!")
                                         butt.style.backgroundColor = document.getElementById('p'+coors[2]+'colour').value;
+
+                                        // othello update
+                                        
+
+
+
                                     }
+                                    
                                     if (board != turn && empty.includes(coors)){
-                                        crop.push(coors);
+                                        fresh.push(coors);
                                         rem(empty, coors);
                                         butt.style.color = document.getElementById('p'+turn+'colour').value;
                                         butt.textContent = "3"
                                     }
 
-                                }
+                                    
+                                    // othello update
 
+
+
+
+                                    // growth update
+
+                                
+                                    // 2s growing up
+                                    sprout.forEach(element => {
+                                        if (element[2] == turn){
+                                            //crop.push(element)
+                                            fresh.push(element)
+                                            document.getElementById(element).textContent = "3";
+                                        }
+                                    });
+                                    crop.forEach(element => {
+                                        if (sprout.includes(element)){
+                                            rem(sprout,element);
+                                        }
+                                    });
+
+                                    // 1s growing up
+                                    seed.forEach(element => {
+                                        console.log("seed ",element)
+                                        if (element[2] == turn){
+                                            sprout.push(element)
+                                            document.getElementById(element).textContent = "2";
+                                        }
+                                    });
+                                    sprout.forEach(element => {
+                                        if (seed.includes(element)){
+                                            rem(seed,element);
+                                        }
+                                    });
+
+                                    // 3s having babies
+                                    crop.forEach(element => {
+                                        if (element[2] == turn){
+                                            up = element[0]+(element[1]-1)+element[2]
+                                            down = element[0]+(parseInt(element[1])+1)+element[2]
+                                            left = (element[0]-1)+(element[1])+element[2]
+                                            right = (parseInt(element[0])+1)+element[1]+element[2]
+                                            dirs = [up, down, left, right]
+                                            dirs.forEach(way => {
+                                                
+                                                if (empty.includes(way)){
+                                                    seed.push(way);
+                                                    rem(empty, way);
+                                                    
+                                                    document.getElementById(way).style.color = document.getElementById('p'+other+'colour').value;
+                                                    document.getElementById(way).textContent = "1";
+                                                }
+                                            });
+                                        }
+                                    });
+
+
+                                    fresh.forEach(element => {
+                                        crop.push(element)
+                                    });
+                                    
+                                }
 
 
                                 // the last thing that happens needs to be player changing
                                 if (turn == 0){
                                     turn = 1;
+                                    other = 0;
                                 }else{
                                     turn = 0;
+                                    other = 1;
                                 }
                                 if(defend.length >13){
                                     document.getElementById("instructions").innerHTML = "player "+(turn+1).toString()+"'s turn";
