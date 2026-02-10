@@ -67,13 +67,11 @@
             }
         }
         document.body.touchstart = function(e){
-            if (e.keyCode == 32) {
-                // add your code here.
-                document.getElementById("1").style.background = colours[randInt(0,15)]
-                document.getElementById("2").style.background = colours[randInt(0,15)]
-                document.getElementById("3").style.background = colours[randInt(0,15)]
-                console.log('Space pressed');
-            }
+            // add your code here.
+            document.getElementById("1").style.background = colours[randInt(0,15)]
+            document.getElementById("2").style.background = colours[randInt(0,15)]
+            document.getElementById("3").style.background = colours[randInt(0,15)]
+            console.log('Space pressed');
         }
     </script>
 </body>
