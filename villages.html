@@ -15,22 +15,23 @@
         }
         body, input{
             font-size: 2vmax;
-            color: blanchedalmond;
-            background-color: black;
+            color: #eee;
+            background-color: #444;
         }
     </style>
 </head>
 <body>
 
     <h1>press space</h1>
-    <!-- <p>want your colours to mean something more?</p> -->
     <p>this is a website for my brain world's villages</p>
 
     
     
-    <div id="3" style="width: 99%; position: absolute; height: 100%; top: 0%"></div>
-    <div id="2" style="width: 73%; position: absolute; height: 100%; top: 0%"></div>
-    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%"></div>
+    <div id="3" style="width: 99%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="0" style="width: 74%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="2" style="width: 73%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="4" style="width: 41%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%;"></div>
 
 
     <script>
@@ -56,22 +57,46 @@
             "#808", // maroon
             "#f8b", // pink
         ]
+        
+        doThing = function(){
+            colour1 = colours[randInt(0,15)]
+            colour2 = colours[randInt(0,15)]
+            colour3 = colours[randInt(0,15)]
+
+            document.getElementById("1").style.background = colour1
+            document.getElementById("1").style.color = colour2;
+            if(colour1 == "#048"){
+                document.getElementById("1").innerHTML = "sports city";
+            }else if(colour1 == "#080"){
+                document.getElementById("1").innerHTML = "small village";
+            }else if(colour1 == "#f00"){
+                document.getElementById("1").innerHTML = "politics city";
+            }else if(colour1 == "#88f"){
+                document.getElementById("1").innerHTML = "science city";
+            }else if(colour1 == "#ff0"){
+                document.getElementById("1").innerHTML = "arts city";
+            }else{
+                document.getElementById("1").innerHTML = "town";
+            }
+            
+
+            document.getElementById("2").style.background = colour2
+            document.getElementById("3").style.background = colour3
+
+            document.getElementById("4").style.background = "#444";
+            document.getElementById("0").style.background = "#444";
+            console.log("changed thing");
+        }
 
         document.body.onkeydown = function(e){
             if (e.keyCode == 32) {
-                // add your code here.
-                document.getElementById("1").style.background = colours[randInt(0,15)]
-                document.getElementById("2").style.background = colours[randInt(0,15)]
-                document.getElementById("3").style.background = colours[randInt(0,15)]
+                doThing();
                 console.log('Space pressed');
             }
         }
         document.body.touchstart = function(e){
-            // add your code here.
-            document.getElementById("1").style.background = colours[randInt(0,15)]
-            document.getElementById("2").style.background = colours[randInt(0,15)]
-            document.getElementById("3").style.background = colours[randInt(0,15)]
-            console.log('Space pressed');
+            doThing();
+            console.log('That tickles!');
         }
     </script>
 </body>
