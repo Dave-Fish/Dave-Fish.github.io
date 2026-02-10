@@ -1,0 +1,71 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dave Davies">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Hexy Times</title>
+    <link rel="icon" type="image/png" href="face emoji copy.png" />
+    <style>
+        img{
+            width: 50%;
+        }
+        h1{
+            font-size: 4vmax;
+        }
+        body, input{
+            font-size: 2vmax;
+            color: blanchedalmond;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>press space</h1>
+    <!-- <p>want your colours to mean something more?</p> -->
+    <p>this is a website for my brain world's villages</p>
+
+    
+    
+    <div id="3" style="width: 99%; position: absolute; height: 100%; top: 0%"></div>
+    <div id="2" style="width: 73%; position: absolute; height: 100%; top: 0%"></div>
+    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%"></div>
+
+
+    <script>
+        function randInt(x, y){
+            return(Math.floor((Math.random()*(y-x))));
+        }
+
+
+        colours = [
+            "#fff", // white
+            "#888", // gray
+            "#000", // black
+            "#f00", // red
+            "#840", // brown
+            "#f80", // orange
+            "#ff0", // yellow
+            "#8f0", // lime
+            "#080", // green
+            "#0ff", // cyan
+            "#048", // blue
+            "#88f", // lilac
+            "#f0f", // magenta
+            "#808", // maroon
+            "#f8b", // pink
+        ]
+
+        document.body.onkeydown = function(e){
+            if (e.keyCode == 32) {
+                // add your code here.
+                document.getElementById("1").style.background = colours[randInt(0,15)]
+                document.getElementById("2").style.background = colours[randInt(0,15)]
+                document.getElementById("3").style.background = colours[randInt(0,15)]
+                console.log('Space pressed');
+            }
+        }
+    </script>
+</body>
+</html>
