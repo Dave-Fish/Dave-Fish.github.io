@@ -77,39 +77,43 @@
 
 
             let br = document.createElement('br');
+            let p = document.createElement('p');
             document.getElementById("1").innerHTML = "you live in ma "+colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
             document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
 
             if (colour11[4] == "village"){
                 document.getElementById("1").innerHTML += "it is a "+colour11[4];
                 document.getElementById("1").appendChild(br)
                 document.getElementById("1").innerHTML += "population approx. 400";
             }else if(colour11[4] == "town"){
-                document.getElementById("1").innerHTML += "it is in a "+colour11[4];
-                document.getElementById("1").appendChild(br)
-                document.getElementById("1").innerHTML += "the town of "+colour11[3]+" "+colour22[3];
+                document.getElementById("1").innerHTML += "it is in the town of "+colour11[3]+" "+colour22[3];
                 document.getElementById("1").appendChild(br)
                 document.getElementById("1").innerHTML += "population approx. 7000";
             }else{
-                document.getElementById("1").innerHTML += "it is in a "+colour11[4];
-                document.getElementById("1").appendChild(br)
-                document.getElementById("1").innerHTML += "the city of "+colour11[3];
+                document.getElementById("1").innerHTML += "it is in the city of "+colour11[3];
                 document.getElementById("1").appendChild(br)
                 document.getElementById("1").innerHTML += "population approx. 100,000";
             }
 
             document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
             document.getElementById("1").innerHTML += "its main focus is "+colour33[5];
             document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
             document.getElementById("1").innerHTML += "the people value "+colour11[6];
 
 
 
-
-            document.getElementById("2").innerHTML = "its primary colour is "+colour11[1];
+            document.getElementById("2").innerHTML = "in terms of decorations:";
             document.getElementById("2").appendChild(br)
+            document.getElementById("2").appendChild(p)
+            document.getElementById("2").innerHTML += "its primary colour is "+colour11[1];
+            document.getElementById("2").appendChild(br)
+            document.getElementById("2").appendChild(p)
             document.getElementById("2").innerHTML += "its secondary colour is "+colour22[1];
             document.getElementById("2").appendChild(br)
+            document.getElementById("2").appendChild(p)
             document.getElementById("2").innerHTML += "its tertiary colour is "+colour33[1];
 
 
@@ -120,6 +124,7 @@
 
             document.getElementById("3").innerHTML = colour11[1]+"\n"+colour22[1]+"\n"+colour33[1]
             document.getElementById("3").appendChild(br)
+            document.getElementById("3").appendChild(p)
             document.getElementById("3").innerHTML += colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
             
             
