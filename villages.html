@@ -42,23 +42,21 @@
 
 
         colours = [
-            ["#fff", "white", 0], // white
-            ["#888", "grey", 1], // gray
-            ["#000", "black", 2], // black
-            ["#f00", "red", 3], // red
-            ["#840", "brown", 4], // brown
-            ["#f80", "orange", 5], // orange
-            ["#ff0", "yellow", 6], // yellow
-            ["#8f0", "lime", 7], // lime
-            ["#080", "green", 8], // green
-            ["#0ff", "cyan", 9], // cyan
-            ["#048", "blue", 10], // blue
-            ["#88f", "purple", 11], // purple
-            ["#f0f", "magenta", 12], // magenta
-            ["#808", "violet", 13], // violet
-            ["#f8b", "pink", 14], // pink
-
-            
+            ["#fff", "white",    0, "insa", "town",    "medicine",                  "kindness"], 
+            ["#888", "grey",     1, "seli", "town",    "fires (and stopping them)", "bravery"],
+            ["#000", "black",    2, "lawa", "town",    "police and justice",        "strength"],  
+            ["#f00", "red",      3, "pana", "city",    "governance",                "selflessness"], 
+            ["#840", "brown",    4, "kasi", "village", "natural areas",             "peace"],
+            ["#f80", "orange",   5, "moku", "village", "food",                      "friendliness"], 
+            ["#ff0", "yellow",   6, "musi", "city",    "entertainment",             "joy"],
+            ["#8f0", "lime",     7, "lili", "village", "school",                    "patience"],
+            ["#080", "green",    8, "kili", "village", "agriculture",               "routine"],
+            ["#0ff", "cyan",     9, "pali", "town",    "production",                "creativity"],
+            ["#048", "blue",    10, "kon",  "city",    "exercise and wellbeing",    "good health"],  
+            ["#88f", "purple",  11, "sona", "city",    "science and knowledge",     "intelligence"],  
+            ["#f0f", "magenta", 12, "sewi", "village", "religion",                  "respect"], 
+            ["#808", "violet",  13, "esun", "city",    "consumerism",               "generosity"],
+            ["#f8b", "pink",    14, "kute", "town",    "adult education",           "resiliance"],  
         ]
         
         doThing = function(){
@@ -73,54 +71,61 @@
             villageColours = [colour1, colour2, colour3]
 
             document.getElementById("1").style.background = colour1
-            //document.getElementById("1").style.color = colour2;
-            if(colour11[1] == "green" || colour11[1] == "lime" || colour11[1] == "brown"){
-                document.getElementById("1").innerHTML = colour11[1]+" "+colour22[1]+" "+colour33[1]+" village";
-            }else if(colour1 == "#048"){
-                document.getElementById("1").innerHTML = "sports city";
-            }else if(colour1 == "#f00"){
-                document.getElementById("1").innerHTML = "buisness city";
-            }else if(colour1 == "#88f"){
-                document.getElementById("1").innerHTML = "science city";
-            }else if(colour1 == "#ff0"){
-                document.getElementById("1").innerHTML = "arts city";
+            document.getElementById("2").style.background = colour2
+            document.getElementById("3").style.background = colour3
+
+
+
+            let br = document.createElement('br');
+            document.getElementById("1").innerHTML = "you live in ma "+colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
+            document.getElementById("1").appendChild(br)
+
+            if (colour11[4] == "village"){
+                document.getElementById("1").innerHTML += "it is a "+colour11[4];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "population approx. 400";
+            }else if(colour11[4] == "town"){
+                document.getElementById("1").innerHTML += "it is in a "+colour11[4];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "the town of "+colour11[3]+" "+colour22[3];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "population approx. 7000";
             }else{
-                document.getElementById("1").innerHTML = colour11[1]+" "+colour22[1]+" town";
+                document.getElementById("1").innerHTML += "it is in a "+colour11[4];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "the city of "+colour11[3];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "population approx. 100,000";
             }
+
+            document.getElementById("1").appendChild(br)
+            document.getElementById("1").innerHTML += "its main focus is "+colour33[5];
+            document.getElementById("1").appendChild(br)
+            document.getElementById("1").innerHTML += "the people value "+colour11[6];
+
+
+
+
+            document.getElementById("2").innerHTML = "its primary colour is "+colour11[1];
+            document.getElementById("2").appendChild(br)
+            document.getElementById("2").innerHTML += "its secondary colour is "+colour22[1];
+            document.getElementById("2").appendChild(br)
+            document.getElementById("2").innerHTML += "its tertiary colour is "+colour33[1];
+
+
+
             
 
 
-            document.getElementById("2").style.background = colour2
-            document.getElementById("2").innerHTML = colour11[1]+"\n\n"+colour22[1]+"\n\n"+colour33[1];
+            document.getElementById("3").innerHTML = colour11[1]+"\n"+colour22[1]+"\n"+colour33[1]
+            document.getElementById("3").appendChild(br)
+            document.getElementById("3").innerHTML += colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
+            
+            
 
 
 
-            document.getElementById("3").style.background = colour3
-            //document.getElementById("3").style.color = colour2;
-
-            things = [
-                "hospital",
-                "fire station",
-                "police",
-                "local government building",
-                "natural spaces",
-                "many restaurants",
-                "big theatre/performance venue",
-                "large school",
-                "crop growth area (of one kind)",
-                "baths",
-                "sports centre",
-                "large library",
-                "sonething unique!",
-                "college / university",
-                "children's stuff"
-            ]
-            for(let i = 0; i < colours.length; i++){
-                if (i == colour33[2]){
-                    document.getElementById("3").innerHTML = things[i];
-                }
-            }
-
+            // if light background, dark text and vice versa
             for(let i = 0; i < villageColours.length; i++){
                 if (villageColours[i] == "#fff" || 
                 villageColours[i] == "#ff0" || 
@@ -154,7 +159,9 @@
                 console.log('Space pressed');
             }
         }
-        document.body.ontouchstart = function(e){
+
+        document.body.addEventListener("touchstart", processTouchStart);
+        function processTouchStart(event) {
             doThing();
             console.log('That tickles!');
         }
