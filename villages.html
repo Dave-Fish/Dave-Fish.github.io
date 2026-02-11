@@ -15,6 +15,7 @@
         }
         body, input{
             font-size: 2vmax;
+            text-shadow: 2px 2px 10px #444;
             color: #eee;
             background-color: #444;
         }
@@ -22,16 +23,16 @@
 </head>
 <body>
 
-    <h1>press space</h1>
-    <p>this is a website for my brain world's villages</p>
+    <h1 style="padding: 30px;">press space</h1>
+    <p style="padding: 30px">this is a website for my brain world's villages</p>
 
     
     
-    <div id="3" style="width: 99%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="3" style="width: 99%; position: absolute; height: 100%; top: 0%; text-align: right;"></div>
     <div id="0" style="width: 74%; position: absolute; height: 100%; top: 0%;"></div>
-    <div id="2" style="width: 73%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="2" style="width: 73%; position: absolute; height: 100%; top: 0%; text-align: right;"></div>
     <div id="4" style="width: 41%; position: absolute; height: 100%; top: 0%;"></div>
-    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%; text-align: right;"></div>
 
 
     <script>
@@ -41,47 +42,106 @@
 
 
         colours = [
-            "#fff", // white
-            "#888", // gray
-            "#000", // black
-            "#f00", // red
-            "#840", // brown
-            "#f80", // orange
-            "#ff0", // yellow
-            "#8f0", // lime
-            "#080", // green
-            "#0ff", // cyan
-            "#048", // blue
-            "#88f", // lilac
-            "#f0f", // magenta
-            "#808", // maroon
-            "#f8b", // pink
+            ["#fff", "white", 0], // white
+            ["#888", "grey", 1], // gray
+            ["#000", "black", 2], // black
+            ["#f00", "red", 3], // red
+            ["#840", "brown", 4], // brown
+            ["#f80", "orange", 5], // orange
+            ["#ff0", "yellow", 6], // yellow
+            ["#8f0", "lime", 7], // lime
+            ["#080", "green", 8], // green
+            ["#0ff", "cyan", 9], // cyan
+            ["#048", "blue", 10], // blue
+            ["#88f", "purple", 11], // purple
+            ["#f0f", "magenta", 12], // magenta
+            ["#808", "violet", 13], // violet
+            ["#f8b", "pink", 14], // pink
+
+            
         ]
         
         doThing = function(){
-            colour1 = colours[randInt(0,15)]
-            colour2 = colours[randInt(0,15)]
-            colour3 = colours[randInt(0,15)]
+
+            colour11 = colours[randInt(0,15)]
+            colour22 = colours[randInt(0,15)]
+            colour33 = colours[randInt(0,15)]
+
+            colour1 = colour11[0]
+            colour2 = colour22[0]
+            colour3 = colour33[0]
+            villageColours = [colour1, colour2, colour3]
 
             document.getElementById("1").style.background = colour1
-            document.getElementById("1").style.color = colour2;
-            if(colour1 == "#048"){
+            //document.getElementById("1").style.color = colour2;
+            if(colour11[1] == "green" || colour11[1] == "lime" || colour11[1] == "brown"){
+                document.getElementById("1").innerHTML = colour11[1]+" "+colour22[1]+" "+colour33[1]+" village";
+            }else if(colour1 == "#048"){
                 document.getElementById("1").innerHTML = "sports city";
-            }else if(colour1 == "#080"){
-                document.getElementById("1").innerHTML = "small village";
             }else if(colour1 == "#f00"){
-                document.getElementById("1").innerHTML = "politics city";
+                document.getElementById("1").innerHTML = "buisness city";
             }else if(colour1 == "#88f"){
                 document.getElementById("1").innerHTML = "science city";
             }else if(colour1 == "#ff0"){
                 document.getElementById("1").innerHTML = "arts city";
             }else{
-                document.getElementById("1").innerHTML = "town";
+                document.getElementById("1").innerHTML = colour11[1]+" "+colour22[1]+" town";
             }
             
 
+
             document.getElementById("2").style.background = colour2
+            document.getElementById("2").innerHTML = colour11[1]+"\n\n"+colour22[1]+"\n\n"+colour33[1];
+
+
+
             document.getElementById("3").style.background = colour3
+            //document.getElementById("3").style.color = colour2;
+
+            things = [
+                "hospital",
+                "fire station",
+                "police",
+                "local government building",
+                "natural spaces",
+                "many restaurants",
+                "big theatre/performance venue",
+                "large school",
+                "crop growth area (of one kind)",
+                "baths",
+                "sports centre",
+                "large library",
+                "sonething unique!",
+                "college / university",
+                "children's stuff"
+            ]
+            for(let i = 0; i < colours.length; i++){
+                if (i == colour33[2]){
+                    document.getElementById("3").innerHTML = things[i];
+                }
+            }
+
+            for(let i = 0; i < villageColours.length; i++){
+                if (villageColours[i] == "#fff" || 
+                villageColours[i] == "#ff0" || 
+                villageColours[i] == "#0ff" || 
+                villageColours[i] == "#8f0" || 
+                villageColours[i] == "#f8b" || 
+                villageColours[i] == "#f80"){
+                    document.getElementById((i+1).toString()).style.color = "#000";
+                    document.getElementById((i+1).toString()).style.textShadow = "0px 0px 20px #fff";
+                    
+                }else{
+                    console.log((i+1).toString())
+                    document.getElementById((i+1).toString()).style.color = "#fff";
+                    document.getElementById((i+1).toString()).style.textShadow = "0px 0px 20px #000";
+                }
+            }
+            
+
+            
+            
+
 
             document.getElementById("4").style.background = "#444";
             document.getElementById("0").style.background = "#444";
