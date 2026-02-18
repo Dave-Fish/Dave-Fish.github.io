@@ -18,7 +18,9 @@
             font-size: xx-large;
         }
         p{
-            font-size: large;
+            font-size: x-large;
+            padding-left: 5%;
+            padding-right: 5%;
         }
         img{
             max-inline-size: 50vmin;
@@ -1045,7 +1047,6 @@
                     }
 
                     if (thing.asymetric){
-                        //ra.innerHTML = "Next pose: "+toDo[currentPose].name + " Mirrored"
                         for (let i = 0; i < (inTime+outTime)*thing.duration; i++){
                             setTimeout(() => x.textContent = String(((inTime+outTime)*thing.duration) - i)+" mirrored", (1000*i) + ((inTime+outTime)*thing.duration*1000));
                         }
@@ -1089,8 +1090,8 @@
 
                 var y = document.createElement("BUTTON");
                 y.className = "center";
-                y.style.height = "1em";
-                y.style.fontSize = "3em";
+                y.style.height = "2em";
+                y.style.fontSize = "1em";
                 y.innerHTML = "toggle pause after this pose"
                 document.getElementById("poseInfo").appendChild(y);
                 y.onclick = function() {
