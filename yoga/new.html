@@ -21,7 +21,7 @@
             font-size: large;
         }
         img{
-            max-inline-size: 20%;
+            max-inline-size: 50vmin;
         }
     </style>
     <script>
@@ -999,35 +999,25 @@
                 document.getElementById("starting").innerHTML = "";
                 document.getElementById("poseInfo").innerHTML = "";
 
-                var para = document.createElement("p");
-                var textNode = document.createTextNode(mins +" minutes, " + secs+ " seconds total, "+currentPose.toString()+" poses done");
-                para.appendChild(textNode);
-                document.getElementById("poseInfo").appendChild(para).className = "center";
-
                 var para = document.createElement("h2");
                 var textNode = document.createTextNode(thing.name);
                 para.appendChild(textNode);
                 document.getElementById("poseInfo").appendChild(para).className = "center";
 
                 var para = document.createElement("p");
-                var textNode = document.createTextNode(thing.category + " " + thing.subCategory);
+                var textNode = document.createTextNode(thing.description);
                 para.appendChild(textNode);
-                document.getElementById("poseInfo").appendChild(para).className = "center";
+                document.getElementById("poseInfo").appendChild(para);
 
                 let img = document.createElement('img');
                 img.src = thing.picture;
                 document.getElementById("poseInfo").appendChild(img).className = "center";
                 console.log(thing.name);
 
-                var para = document.createElement("p"); 
-                var timerNode = document.createTextNode("Hold for "+String(thing.duration));
-                para.appendChild(timerNode);
-                document.getElementById("poseInfo").appendChild(para);
-
                 var ra = document.createElement("h2");
-                var textNode = document.createTextNode("Next pose: "+toDo[currentPose+1].name);
+                var textNode = document.createTextNode("Hold for "+String(thing.duration)+".      Next pose: "+toDo[currentPose+1].name);
                 if(thing.asymetric){
-                    textNode = document.createTextNode("Next pose: "+toDo[currentPose].name+" Mirrored");
+                    textNode = document.createTextNode("Hold for "+String(thing.duration)+".      Next pose: "+toDo[currentPose].name+" Mirrored");
                 }
                 ra.appendChild(textNode);
                 document.getElementById("poseInfo").appendChild(ra).className = "center";
@@ -1061,7 +1051,7 @@
                         }
                         setTimeout(() => done.play(), 1000*(inTime+outTime)*thing.duration*swap);
                         setTimeout(() => ra.innerHTML = "Next pose: "+toDo[currentPose].name, 1000*(inTime+outTime)*thing.duration);
-                        setTimeout(() => ra.innerHTML = img.style.boxShadow = "0 0 100px pink", 1000*(inTime+outTime)*thing.duration);
+                        setTimeout(() => img.style.boxShadow = "0 0 100px pink", 1000*(inTime+outTime)*thing.duration);
                     }
 
                     // play the sound and change the colour when breathing
@@ -1091,11 +1081,11 @@
                 }
 
                 
-
                 var para = document.createElement("p");
-                var textNode = document.createTextNode(thing.description);
+                var textNode = document.createTextNode(thing.category + " " + thing.subCategory);
                 para.appendChild(textNode);
-                document.getElementById("poseInfo").appendChild(para);
+                document.getElementById("poseInfo").appendChild(para).className = "center";
+                
 
                 var y = document.createElement("BUTTON");
                 y.className = "center";
@@ -1113,7 +1103,10 @@
                     }
                 }
 
-                
+                var para = document.createElement("p");
+                var textNode = document.createTextNode(mins +" minutes, " + secs+ " seconds total, "+currentPose.toString()+" poses done");
+                para.appendChild(textNode);
+                document.getElementById("poseInfo").appendChild(para).className = "center";
                 
 
                 let node = document.createTextNode(thing.benefits);
