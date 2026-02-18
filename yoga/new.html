@@ -1015,9 +1015,9 @@
                 console.log(thing.name);
 
                 var ra = document.createElement("h2");
-                var textNode = document.createTextNode("Hold for "+String(thing.duration)+".      Next pose: "+toDo[currentPose+1].name);
+                var textNode = document.createTextNode("Hold for "+String(thing.duration)+" Breath(s).      Next pose: "+toDo[currentPose+1].name);
                 if(thing.asymetric){
-                    textNode = document.createTextNode("Hold for "+String(thing.duration)+".      Next pose: "+toDo[currentPose].name+" Mirrored");
+                    textNode = document.createTextNode("Hold for "+String(thing.duration)+" Breath(s).      Next pose: "+toDo[currentPose].name+" Mirrored");
                 }
                 ra.appendChild(textNode);
                 document.getElementById("poseInfo").appendChild(ra).className = "center";
@@ -1045,12 +1045,12 @@
                     }
 
                     if (thing.asymetric){
-                        ra.innerHTML = "Next pose: "+toDo[currentPose].name + " Mirrored"
+                        //ra.innerHTML = "Next pose: "+toDo[currentPose].name + " Mirrored"
                         for (let i = 0; i < (inTime+outTime)*thing.duration; i++){
                             setTimeout(() => x.textContent = String(((inTime+outTime)*thing.duration) - i)+" mirrored", (1000*i) + ((inTime+outTime)*thing.duration*1000));
                         }
                         setTimeout(() => done.play(), 1000*(inTime+outTime)*thing.duration*swap);
-                        setTimeout(() => ra.innerHTML = "Next pose: "+toDo[currentPose].name, 1000*(inTime+outTime)*thing.duration);
+                        setTimeout(() => ra.innerHTML = "Hold for "+String(thing.duration)+" Breath(s).      Next pose: "+toDo[currentPose].name, 1000*(inTime+outTime)*thing.duration);
                         setTimeout(() => img.style.boxShadow = "0 0 100px pink", 1000*(inTime+outTime)*thing.duration);
                     }
 
