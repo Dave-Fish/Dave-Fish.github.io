@@ -863,6 +863,10 @@
         )
         poses.push(Breathe);
 
+        let speech = new SpeechSynthesisUtterance(); 
+        let voices = window.speechSynthesis.getVoices();
+        speech.voice = voices[2]
+
 
         var supineFlag = {val: true};
         var seatedFlag = {val: true};
@@ -880,6 +884,8 @@
         function waaaa(){
             toDo = [Breathe];
             Breathe.occurences++;
+
+            var aiVoice = document.getElementById("voiceCheck").checked;
 
             // for if I'm measuring the amount of poses with numbers
             totalPoses = document.getElementsByName("searchTxt")[0].value;
@@ -1024,6 +1030,8 @@
                 ra.appendChild(textNode);
                 document.getElementById("poseInfo").appendChild(ra).className = "center";
 
+                speech.text = "Next: "+toDo[currentPose+1].name;
+
                 var x = document.createElement("BUTTON");
                 x.className = "center";
                 x.style.height = "1.5em";
@@ -1051,6 +1059,12 @@
                             setTimeout(() => x.textContent = String(((inTime+outTime)*thing.duration) - i)+" mirrored", (1000*i) + ((inTime+outTime)*thing.duration*1000));
                         }
                         setTimeout(() => done.play(), 1000*(inTime+outTime)*thing.duration*swap);
+                        if(aiVoice){
+                            speech.text = "Next: "+toDo[currentPose].name+" Mirrored";
+                            setTimeout(() => speech.text = "Next: "+toDo[currentPose].name, 1000*(((inTime+outTime)*thing.duration*swap)-outTime));
+                            setTimeout(() => window.speechSynthesis.speak(speech), 1000*(((inTime+outTime)*thing.duration*swap)-outTime));
+                            
+                        }
                         setTimeout(() => ra.innerHTML = "Hold for "+String(thing.duration)+" Breath(s).      Next pose: "+toDo[currentPose].name, 1000*(inTime+outTime)*thing.duration);
                         setTimeout(() => img.style.boxShadow = "0 0 100px pink", 1000*(inTime+outTime)*thing.duration);
                     }
@@ -1070,6 +1084,11 @@
                     }
 
                     setTimeout(() => done.play(), 1000*(inTime+outTime)*thing.duration);
+                    if(aiVoice){
+                        
+                        setTimeout(() => window.speechSynthesis.speak(speech), 1000*(((inTime+outTime)*thing.duration)-outTime));
+                    }
+                        
                     
 
                     currentPose++;
@@ -1105,7 +1124,9 @@
                 }
 
                 var para = document.createElement("p");
-                var textNode = document.createTextNode(mins +" minutes, " + secs+ " seconds total, "+currentPose.toString()+" poses done");
+                //var textNode = document.createTextNode(mins +" minutes, " + secs+ " seconds total, "+currentPose.toString()+" poses done");
+                var textNode = document.createTextNode(currentPose.toString()+" poses done");
+                // the time calculations are off and I can't be bothered to fix that in the code right now
                 para.appendChild(textNode);
                 document.getElementById("poseInfo").appendChild(para).className = "center";
                 
@@ -1180,6 +1201,11 @@
         <input id="breatheIn" type="number" value="5" min="1" max="30"/>
         <label for="breatheOut">Out:</label>
         <input id="breatheOut" type="number" value="5" min="1" max="30"/>
+
+        <p></p>
+         <input type="checkbox" id="voiceCheck" width="1em" height="1em">
+         AI voice announcing next pose?
+        (good for if you don't want to keep checking your device and use ears only)
 
         <button type="button" onclick="waaaa()" class="center">Generate routine</button>
         <p><a href="https://dave.fish/yoga/scroll"> old version (that allows for scrolling all poses) here</a></p>
