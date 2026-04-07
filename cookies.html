@@ -44,13 +44,7 @@ function checkCookie() {
 function displayName(){
     let user = getCookie("username");
     if (user != "") {
-        alert("Welcome again " + user);
         document.getElementById("nametime").innerHTML = "ayo " + user;
-    } else {
-        user = prompt("Please enter your name:","");
-        if (user != "" && user != null) {
-            setCookie("username", user, 30);
-        }
     }
 }
 
