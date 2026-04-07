@@ -53,11 +53,17 @@ function displayName(){
         }
     }
 }
+
+function deleteCookie(){
+    setCookie("username", "", -1);
+}
+
 displayName();
 </script>
 </head>
 
 <button type="button" onclick="checkCookie()" class="settings">cookie</button>
+<button type="button" onclick="deleteCookie()" class="settings">cookien't</button>
 <!-- <body onload="checkCookie()"></body> -->
  <p id="nametime">aa </p>
 
