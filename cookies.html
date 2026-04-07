@@ -4,6 +4,8 @@
     <link rel="icon" type="image/png" href="face emoji copy.png" />
     <link rel="stylesheet" type="text/css" href="vr/vr.css">
 <script>
+
+    // code adapted from https://www.w3schools.com/js/js_cookies.asp
 function setCookie(cname,cvalue,exdays) {
   const d = new Date();
   d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -38,9 +40,25 @@ function checkCookie() {
      }
   }
 }
+
+function displayName(){
+    let user = getCookie("username");
+    if (user != "") {
+        alert("Welcome again " + user);
+        document.getElementById("nametime").innerHTML = "ayo " + user;
+    } else {
+        user = prompt("Please enter your name:","");
+        if (user != "" && user != null) {
+            setCookie("username", user, 30);
+        }
+    }
+}
+displayName();
 </script>
 </head>
 
-<body onload="checkCookie()"></body>
+<button type="button" onclick="checkCookie()" class="settings">cookie</button>
+<!-- <body onload="checkCookie()"></body> -->
+ <p id="nametime">aa </p>
 
 </html>
