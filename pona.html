@@ -1,0 +1,101 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dave Davies">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>sitelen tawa</title>
+    <link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+    </style>
+</head>
+<body>
+    <menu>
+        <a href="index.html" id="instructions">sitelen tawa</a>
+    </menu>
+    <canvas id="myCanvas" width="99%" height="90%" style="border:1px solid #000000;">
+    </canvas>
+    <script>
+        var c = document.getElementById("myCanvas");
+        c.width = window.innerWidth;
+        c.height = window.innerHeight*0.99;
+        var ctx = c.getContext("2d");
+        ctx.moveTo(100, 200);
+        ctx.lineTo(300, 500);
+        ctx.stroke();
+
+        ctx.beginPath();
+        // (x, y, width, rotation, amount of circle)
+        ctx.arc(100, 200, 40, 0, 2 * Math.PI);
+        ctx.fill();
+
+
+        function clear(){
+            ctx.clearRect(0, 0, c.width, c.height);
+        }
+
+        function generatePath(){
+
+        }
+
+        function drawPath(){
+
+        }
+
+
+        function component(x, y, size, color) {
+            this.x = x;
+            this.y = y;
+            this.radius = size;
+            this.color = color;
+            dx = 1;
+            dy = 0;
+            if (controller.start){
+                dx = -dx
+            }
+            this.update = function(){
+                ctx.fillStyle = this.color;
+                this.x += dx;
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        controller = {
+            keyListener:function(event){
+                var key_state = (event.type == "keyup")?true:false;
+                switch(event.keyCode){
+                    case 32: // space
+                    controller.reverse = key_state;
+                    console.log("that tickles!")
+                    break;
+                }
+            }
+        };
+
+        window.addEventListener("keydown", controller.keyListener);
+        window.addEventListener("keyup", controller.keyListener);
+
+
+        zoomie = new component(100,200,40,"green");
+        function updateGameArea() {
+            clear();
+            zoomie.update();
+
+            if (controller.reverse){
+                dx = -dx
+            }
+        }
+
+        function animate(){
+            requestAnimationFrame(animate);
+            updateGameArea();
+        }
+
+        animate();
+    </script>
+</body>
+</html>
