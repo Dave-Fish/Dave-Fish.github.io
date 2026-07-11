@@ -7,17 +7,24 @@
     <title>but WHERE do you live?</title>
     <link rel="icon" type="image/png" href="face emoji copy.png" />
     <style>
-        img{
-            width: 50%;
+        body{
+            background-color: #edc;
         }
     </style>
 </head>
 <body>
-    <canvas id="myCanvas" width="500" height="300" style="border:1px solid #000000;">
+    <canvas id="myCanvas">
     </canvas>
     <script>
         var c = document.getElementById("myCanvas");
         var ctx = c.getContext("2d");
+        c.width = window.innerWidth*0.9;
+        c.height = window.innerHeight*0.9;
+
+        window.addEventListener('resize',function(event){
+            c.width = window.innerWidth-5;
+            c.height = window.innerHeight-5;
+        })
         ctx.fillStyle = "#edc";
         ctx.fillRect(0, 0, c.width, c.height);
 
@@ -26,9 +33,19 @@
 
 
         drawPixel = function(hex, x, y){
+            // size of villages
+            s = Math.floor(c.height/150);
+
             ctx.fillStyle = hex;
-            ctx.fillRect(x, y, 1, 1);
+            ctx.fillRect(x, y, s, s);
             occupiedPixels.push(x.toString()+","+y.toString())
+
+            // to add the pixels in the square to occupied
+            for (let i = 0; i < s; i++){
+                for (let j = 0; j < s; j++){
+                    occupiedPixels.push((x+i).toString()+","+(y+j).toString());
+                }
+            }
             console.log(occupiedPixels)
         }
 
@@ -90,6 +107,7 @@
 
         // towns
         towns = []
+        // adds relevant hex codes
         colours.forEach(element => {
             if(element[2] == "town"){
                 towns.push(element[0]);
@@ -97,8 +115,10 @@
         });
         for(let i = 0; i < townSize; i++){
             for(let j = 0; j < towns.length; j++){
+                // random starting point
                 startX = Math.floor(Math.random()*c.width);
                 startY = Math.floor(Math.random()*c.height);
+                // occupied? then pick different coordinates
                 do {
                     startX += move[Math.floor(Math.random()*move.length)]
                     startY += move[Math.floor(Math.random()*move.length)]
