@@ -62,28 +62,48 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
             return(Math.floor(((Math.random()*(y-x))+x)));
         }
 
+        // Source - https://stackoverflow.com/a/2450976
+        // Posted by ChristopheD, modified by community. See post 'Timeline' for change history
+        // Retrieved 2026-07-11, License - CC BY-SA 4.0
+
+        function shuffle(array) {
+        let currentIndex = array.length;
+
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+        }
+
 
         colours = [
-            ["#fff", "white",    0, "my", "town",    "medicine",                  "medical care",        "there is a large hospital",                                                                                                  "there is a small gp surgery or a&e"], 
-            ["#888", "grey",     1, "bu", "town",    "fire/electric power",       "industrial estate",   "there is a large industrial estate",                                                                                         "there is an area for power generation and fire usage"],
-            ["#000", "black",    2, "ty", "town",    "police and justice",        "law facilities",      "there is a sizable police station or prison or court",                                                                       "there is a small building with holding cells and an alert for the police"],  
-            ["#f00", "red",      3, "py", "city",    "governance",                "government building", "there is a government building",                                                                                             "there is a small building for local government and suggestions"], 
-            ["#840", "brown",    4, "be", "village", "natural areas",             "natural area",        "there is a large ",                                                                                                          "there is a small "],
-            ["#f80", "orange",   5, "ba", "village", "food",                      "restaurants",         "there are many restaurants",                                                                                                 "there is a restaurant and a takeaway"], 
-            ["#ff0", "yellow",   6, "bi", "city",    "arts",                      "art",                 "there is a large ",                                                                                                          "there is a small "],
-            ["#8f0", "lime",     7, "ly", "village", "school",                    "school",              "there is a major secondary school",                                                                                          "there is a small primary school"],
-            ["#080", "green",    8, "py", "village", "agriculture",               "agriculture",         "there is a large area for farming ",                                                                                         "there is a community crop garden"],
-            ["#0ff", "cyan",     9, "sy", "town",    "water",                     "pools",               "there is a large centre for water, including a pool, sauna, onsen, and hot tubs",                                            "there is a small water centre"],
-            ["#048", "blue",    10, "bo", "city",    "exercise and wellbeing",    "gym",                 "there is a large sports centre",                                                                                             "there is a small gym"],  
-            ["#88f", "purple",  11, "by", "city",    "science and knowledge",     "research facilities", "there are facilities for research",                                                                                          "there is a small area for sharing research"],  
-            ["#f0f", "magenta", 12, "wy", "village", "religion",                  "place of worship",    "there ",                                                                                                                     "there is a small place of worship"], 
-            ["#808", "violet",  13, "ky", "city",    "consumerism",               "shops",               "there ",                                                                                                                     "there is a small trade centre"],
-            ["#f8b", "pink",    14, "ny", "town",    "adult education",           "adult education",     "there is a centre for adults to learn about certain subjects or skills",                                                     "there is a small local adult skills class"],  
+            ["#fff", "white",    0, "my", "town",    "medicine",                  "medical care",        "there is a large hospital",                                                                                                  "there is a small ",                                                        "there is a very large, specialist hospital",                                                                                     "there is the central hospital in the country, a place for the most intensive of care and the most specific specialities"], 
+            ["#888", "grey",     1, "bu", "town",    "fire/electric power",       "industrial estate",   "there is a large industrial estate",                                                                                         "there is an area for power generation and fire usage",                     "there is a centre for industrial development",                                                                                   "there is the hub of power generation and management for the country"],
+            ["#000", "black",    2, "ty", "town",    "police and justice",        "law facilities",      "there is a sizable police station or prison or court",                                                                       "there is a small building with holding cells and an alert for the police", "there is a major specialist court, that deals with complicated, unique, or serious cases in villages starting with ",            "there is the major building where laws are passed"],  
+            ["#f00", "red",      3, "py", "city",    "governance",                "government building", "there is a government building",                                                                                             "there is a small building for local government and suggestions",           "there is a very large government building, that deals will all of the issues surrounding government in villages starting with ", "there is the major building where the structures of the government are passed"], 
+            ["#840", "brown",    4, "be", "village", "natural areas",             "natural area",        "there is a large ",                                                                                                          "there is a small ",                                                        "there is a very large, and very peaceful ",                                                                                      "the map of zelda: botw/totk has essentially been copy pasted, with all kinds of terrain able to be explored"],
+            ["#f80", "orange",   5, "ba", "village", "food",                      "restaurants",         "there are many restaurants",                                                                                                 "there is a restaurant and a takeaway",                                     "there is a series of restaurants that are well known and heavily stylised",                                                      "the most respected and desired restaurants in the country are found here, and the chefs are highly revered"], 
+            ["#ff0", "yellow",   6, "bi", "city",    "arts",                      "art",                 "there is a large ",                                                                                                          "there is a small ",                                                        "there is a large, and well known ",                                                                                              "this is where the country's film and television studios are found, along with a few other warehouses needed for large art pieces"],
+            ["#8f0", "lime",     7, "ly", "village", "school",                    "school",              "there is a major secondary school",                                                                                          "there is a small primary school",                                          "there is a large secondary school and sixth form for enthusiastic teenagers who want to specialise in ",                         "the whole village is a boarding school, with all residents being under 18 years old"],
+            ["#080", "green",    8, "py", "village", "agriculture",               "agriculture",         "there is a large area for farming ",                                                                                         "there is a community crop garden",                                         "there is an extremely large area for growing an assortment of crops",                                                            "this is the supply centre for agriculture across the country, saving and maintaining seeds and living crops of every variety used throughout the country"],
+            ["#0ff", "cyan",     9, "sy", "town",    "water",                     "pools",               "there is a large centre for water, including a pool, sauna, onsen, and hot tubs",                                            "there is a small ",                                                        "there is a large ",                                                                                                              "this is the centre of water for the country, with the whole village surrounded by a lazy river moat. lining the inside of the moat is a winding fish tank, and lining the inside of that is the houses of the village, submerged below the ground, with the entrances on the inside of the ring of houses. each house is made of two floors, the top one being for living, the bottom one for bed and bathrooms. the top floor looks out over the winding fish tank, the bottom one looks through it, all light entering the bedroom being filtered through the fish and plants. inside this winding ring is an assortment of water park attractions, hot springs, pools, shallow streams running alongside the paths, hot tubs, and saunas."],
+            ["#048", "blue",    10, "bo", "city",    "exercise and wellbeing",    "gym",                 "there is a large sports centre",                                                                                             "there is a small gym",                                                     "there is a large, specialised sport stadium",                                                                                    "this is the centre of the olympic village, containing the country's largest stadium"],  
+            ["#88f", "purple",  11, "by", "city",    "science and knowledge",     "research facilities", "there are facilities for research",                                                                                          "there is a small area for sharing research",                               "there is a hub for sharing research relating to ",                                                                               "this is the centre for research coordination and conferences"],  
+            ["#f0f", "magenta", 12, "wy", "village", "religion",                  "place of worship",    "there ",                                                                                                                     "there is a small place of worship",                                        "there is a large centre for coordinating a religion or spiritual orginisation",                                                  "this is the centre for communication between different religions and beliefs"], 
+            ["#808", "violet",  13, "ky", "city",    "consumerism",               "shops",               "there ",                                                                                                                     "there is a small trade centre",                                            "there is a large shopping mall",                                                                                                 "this is the centre for international trading"],
+            ["#f8b", "pink",    14, "ny", "town",    "adult education",           "adult education",     "there is a centre for adults to learn about certain subjects or skills",                                                     "there is a small local adult skills class",                                "there is a large university for skills involving ",                                                                              "this is the centre for coordination of education, both adult and child"],  
         ]
                
         whiteCommoditiesSmall = ["gp surgery", "a&e"]
         blackCommoditiesLarge = ["police station", "prison", "court of law"]
-        brownCommodities = ["woods", "forest", "lake", "desert", "mountain", "river", "cliffside"]
+        brownCommodities = ["woods", "forest", "lake", "desert area", "mountain", "cliffside"]
         yellowCommodities = ["arts centre", "art gallery", "theatre", "concert hall", "crafts centre", "performance space", "studio"]
         greenCropsLarge = [
             "rice", "wheat", "oats", "maize", "rice", "wheat", "oats", "maize",
@@ -93,6 +113,8 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
             "legumes", "beans",
             "spices", "sugar cane", "nuts"
         ]
+        cyanCommoditiesSmall = ["swimming pool", "onsen", "sauna", "area of hot tubs", "river"]
+        cyanCommoditiesMassive = ["wild swimming lagoon", "water park", "aquarium"]
         magentaCommoditiesLarge = ["is one large place of worship", "are a few small places of worship"]
         violetCommoditiesLarge = ["is a large moneyless shopping centre, for people giving or obtaining products", "are many small moneyless shops, for people giving or obraining products"]
 
@@ -157,6 +179,15 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
             colour3 = colour33[0]
             villageColours = [colour1, colour2, colour3]
 
+            triple = false;
+            double = false;
+            if (colour1 == colour2 && colour1 == colour3){
+                triple = true;
+            }
+            if (colour1 == colour2 && !triple){
+                double = true;
+            }
+
             document.getElementById("1").style.background = colour1
             document.getElementById("2").style.background = colour2
             document.getElementById("3").style.background = colour3
@@ -188,41 +219,79 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
 
             larges = ["black", "brown", "yellow", "green", "magenta", "violet"]
             largesText = [blackCommoditiesLarge, brownCommodities, yellowCommodities, greenCropsLarge, magentaCommoditiesLarge, violetCommoditiesLarge]
-            smalls = ["white", "brown", "yellow"]
-            smallsText = [whiteCommoditiesSmall, brownCommodities, yellowCommodities]
+            smalls = ["white", "brown", "yellow", "cyan"]
+            smallsText = [whiteCommoditiesSmall, brownCommodities, yellowCommodities, cyanCommoditiesSmall]
             
-            for (let i = 0; i < 6; i++){
-                if(larges[i] == colour33[1]){
-                    document.getElementById("2").innerHTML += colour33[7]+=largesText[i][randInt(0,largesText[i].length)];
-                }
-            }
-            if(!larges.includes(colour33[1])){
-                document.getElementById("2").innerHTML += colour33[7];
-            }
+            if (triple){
+                document.getElementById("2").innerHTML += colour33[10];
+            }else{
+
             
-            document.getElementById("2").appendChild(br)
-            document.getElementById("2").appendChild(p)
 
-            for (let i = 0; i < 3; i++){
-                if(smalls[i] == colour22[1]){
-                    document.getElementById("2").innerHTML += colour22[8]+=smallsText[i][randInt(0,smallsText[i].length)];
+                for (let i = 0; i < larges.length; i++){
+                    if(larges[i] == colour33[1]){
+                        document.getElementById("2").innerHTML += colour33[7] +=largesText[i][randInt(0,largesText[i].length)];
+                    }
+                }
+                if(!larges.includes(colour33[1])){
+                    document.getElementById("2").innerHTML += colour33[7];
+                }
+                
+                document.getElementById("2").appendChild(br)
+                document.getElementById("2").appendChild(p)
+
+                if (double){ // if the first two colours are the same
+                    document.getElementById("2").innerHTML += colour22[9];
+                    switch(colour22[1]) {
+                        case "black":
+                            // code block
+                            document.getElementById("2").innerHTML += colour33[1];
+                            break;
+                        case "red":
+                            document.getElementById("2").innerHTML += colour33[1];
+                            break;
+                        case "brown":
+                            document.getElementById("2").innerHTML += brownCommodities[randInt(0,brownCommodities.length)];
+                            break;
+                        case "yellow":
+                            document.getElementById("2").innerHTML += yellowCommodities[randInt(0,yellowCommodities.length)];
+                            break;
+                        case "lime":
+                            document.getElementById("2").innerHTML += colour33[5];
+                            break;
+                        case "cyan":
+                            document.getElementById("2").innerHTML += cyanCommoditiesMassive[randInt(0,cyanCommoditiesMassive.length)];
+                            break;
+                        case "purple":
+                            document.getElementById("2").innerHTML += colour33[5];
+                            break;
+                        case "pink":
+                            document.getElementById("2").innerHTML += colour33[5];
+                            break;
+                        default:
+                        }
+                }else{
+                    document.getElementById("2").innerHTML += colour22[8];
+                    for (let i = 0; i < smalls.length; i++){
+                        if(smalls[i] == colour22[1]){
+                            document.getElementById("2").innerHTML += smallsText[i][randInt(0,smallsText[i].length)];
+                            console.log("what does this mean")
+                        }
+                    }
+
+                    document.getElementById("2").appendChild(br)
+                    document.getElementById("2").appendChild(p)
+
+                    document.getElementById("2").innerHTML += colour11[8];
+                    for (let i = 0; i < smalls.length; i++){
+                        if(smalls[i] == colour11[1]){
+                            document.getElementById("2").innerHTML += smallsText[i][randInt(0,smallsText[i].length)];
+                        }
+                    }
                 }
             }
-            if(!smalls.includes(colour22[1])){
-                document.getElementById("2").innerHTML += colour22[8];
-            }
 
-            document.getElementById("2").appendChild(br)
-            document.getElementById("2").appendChild(p)
-
-            for (let i = 0; i < 3; i++){
-                if(smalls[i] == colour11[1]){
-                    document.getElementById("2").innerHTML += colour11[8]+=smallsText[i][randInt(0,smallsText[i].length)];
-                }
-            }
-            if(!smalls.includes(colour11[1])){
-                document.getElementById("2").innerHTML += colour11[8];
-            }
+            
 
 
             
@@ -232,6 +301,25 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
             document.getElementById("3").appendChild(br)
             document.getElementById("3").appendChild(p)
             document.getElementById("3").innerHTML += colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
+
+            document.getElementById("3").appendChild(br)
+            document.getElementById("3").appendChild(p)
+            var butt = document.createElement("BUTTON");    
+            butt.innerHTML = "shuffle"
+            butt.onclick = function(){
+                selectedColours = [first.value, second.value, third.value]
+                shuffle(selectedColours)
+                one = selectedColours[0]
+                two = selectedColours[1]
+                three = selectedColours[2]
+                first.value = one
+                second.value = two
+                third.value = three
+                document.getElementById("2").innerHTML = "";
+                doThing()
+
+            }
+            document.getElementById("3").appendChild(butt)
             
             
 
