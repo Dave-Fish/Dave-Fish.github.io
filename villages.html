@@ -59,32 +59,42 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
 
     <script>
         function randInt(x, y){
-            return(Math.floor((Math.random()*(y-x))));
+            return(Math.floor(((Math.random()*(y-x))+x)));
         }
 
 
         colours = [
             ["#fff", "white",    0, "my", "town",    "medicine",                  "medical care",        "there is a large hospital",                                                                                                  "there is a small gp surgery or a&e"], 
-            ["#888", "grey",     1, "bu", "town",    "fire/electric power",       "industrial estate",   "there is a large area for power generation",                                                                                 "there is an area for power generation and fire usage"],
+            ["#888", "grey",     1, "bu", "town",    "fire/electric power",       "industrial estate",   "there is a large industrial estate",                                                                                         "there is an area for power generation and fire usage"],
             ["#000", "black",    2, "ty", "town",    "police and justice",        "law facilities",      "there is a sizable police station or prison or court",                                                                       "there is a small building with holding cells and an alert for the police"],  
             ["#f00", "red",      3, "py", "city",    "governance",                "government building", "there is a government building",                                                                                             "there is a small building for local government and suggestions"], 
-            ["#840", "brown",    4, "be", "village", "natural areas",             "natural area",        "there are many natural places, such as woods, fields, cliffs, a mountain, fields, a desert area, a lake",                    "there is a small, quiet natural area"],
-            ["#f80", "orange",   5, "ba", "village", "food",                      "restaurants",         "there are many restaurants",                                                                                                 "there are one or two restaurants"], 
-            ["#ff0", "yellow",   6, "bi", "city",    "arts",                      "art",                 "there is a major art location, such as a theatre, art gallery, concert hall, or crafts centre",                              "there is a small arts attraction"],
+            ["#840", "brown",    4, "be", "village", "natural areas",             "natural area",        "there is a large ",                                                                                                          "there is a small "],
+            ["#f80", "orange",   5, "ba", "village", "food",                      "restaurants",         "there are many restaurants",                                                                                                 "there is a restaurant and a takeaway"], 
+            ["#ff0", "yellow",   6, "bi", "city",    "arts",                      "art",                 "there is a large ",                                                                                                          "there is a small "],
             ["#8f0", "lime",     7, "ly", "village", "school",                    "school",              "there is a major secondary school",                                                                                          "there is a small primary school"],
-            ["#080", "green",    8, "py", "village", "agriculture",               "agriculture",         "there is a large area for farming a crop or type of crop",                                                                   "there is an area for growing crops"],
+            ["#080", "green",    8, "py", "village", "agriculture",               "agriculture",         "there is a large area for farming ",                                                                                         "there is a community crop garden"],
             ["#0ff", "cyan",     9, "sy", "town",    "water",                     "pools",               "there is a large centre for water, including a pool, sauna, onsen, and hot tubs",                                            "there is a small water centre"],
             ["#048", "blue",    10, "bo", "city",    "exercise and wellbeing",    "gym",                 "there is a large sports centre",                                                                                             "there is a small gym"],  
-            ["#88f", "purple",  11, "by", "city",    "science and knowledge",     "research facilities", "there are facilities for research",                                                                                          "there is a small area for research"],  
-            ["#f0f", "magenta", 12, "wy", "village", "religion",                  "place of worship",    "there is either one large space or multiple smaller places to practice a religion, such as a church, synangogue, or mosque", "there is a small place of worship"], 
-            ["#808", "violet",  13, "ky", "city",    "consumerism",               "shops",               "there is a 'shopping' centre or many small 'shops' for people to obtain or give tools, supplies, or creations",              "there is a small shop or trade centre"],
+            ["#88f", "purple",  11, "by", "city",    "science and knowledge",     "research facilities", "there are facilities for research",                                                                                          "there is a small area for sharing research"],  
+            ["#f0f", "magenta", 12, "wy", "village", "religion",                  "place of worship",    "there ",                                                                                                                     "there is a small place of worship"], 
+            ["#808", "violet",  13, "ky", "city",    "consumerism",               "shops",               "there ",                                                                                                                     "there is a small trade centre"],
             ["#f8b", "pink",    14, "ny", "town",    "adult education",           "adult education",     "there is a centre for adults to learn about certain subjects or skills",                                                     "there is a small local adult skills class"],  
         ]
-                                                    
-        blackCommodities = ["police station", "prison", "court of law"]
-        brownCommodoties = ["woods", "forest", "lake", "desert", "mountain", "river", "cliffside"]
-        yellowCommodoties = ["arts centre", "art gallery", "theatre", "concert hall", "crafts centre"]
-        greenCrops = ["carrots", "strawberries", "rice"]
+               
+        whiteCommoditiesSmall = ["gp surgery", "a&e"]
+        blackCommoditiesLarge = ["police station", "prison", "court of law"]
+        brownCommodities = ["woods", "forest", "lake", "desert", "mountain", "river", "cliffside"]
+        yellowCommodities = ["arts centre", "art gallery", "theatre", "concert hall", "crafts centre", "performance space", "studio"]
+        greenCropsLarge = [
+            "rice", "wheat", "oats", "maize", "rice", "wheat", "oats", "maize",
+            "berries", "temperate tree fruits", "tropical tree fruits",
+            "leafy greens", "root vegetables", "bulb vegetables", "stem vegetables", "flower vegetables",
+            "fruid vegetables", "pod vegetables", "tuber vegetables", "seed vegetables", "fungi",
+            "legumes", "beans",
+            "spices", "sugar cane", "nuts"
+        ]
+        magentaCommoditiesLarge = ["is one large place of worship", "are a few small places of worship"]
+        violetCommoditiesLarge = ["is a large moneyless shopping centre, for people giving or obtaining products", "are many small moneyless shops, for people giving or obraining products"]
 
 
         // Source - https://stackoverflow.com/a/9895164
@@ -108,11 +118,11 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
         
         doThing = function(){
 
-            if (first.value == "random"){
+            if (third.value == "random"){
                 colour11 = colours[randInt(0,15)]
             }else{
                 colours.forEach(element => {
-                    if (first.value == element[0]){
+                    if (third.value == element[0]){
                         colour11 = element
                     }
                 });
@@ -130,11 +140,11 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
                 console.log(colour22)
             }
 
-            if (third.value == "random"){
+            if (first.value == "random"){
                 colour33 = colours[randInt(0,15)]
             }else{
                 colours.forEach(element => {
-                    if (third.value == element[0]){
+                    if (first.value == element[0]){
                         colour33 = element
                     }
                 });
@@ -162,41 +172,57 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
             if (colour11[4] == "village"){
                 document.getElementById("1").innerHTML += "it is a "+colour11[4];
                 document.getElementById("1").appendChild(br)
-                document.getElementById("1").innerHTML += "population approx. 400";
+                document.getElementById("1").innerHTML += "population "+randInt(250,500);
             }else if(colour11[4] == "town"){
                 document.getElementById("1").innerHTML += "it is in the town of "+colour11[3]+" "+colour22[3];
                 document.getElementById("1").appendChild(br)
-                document.getElementById("1").innerHTML += "population approx. 7000";
+                document.getElementById("1").innerHTML += "population "+randInt(5000,7500);
             }else{
                 document.getElementById("1").innerHTML += "it is in the city of "+colour11[3];
                 document.getElementById("1").appendChild(br)
-                document.getElementById("1").innerHTML += "population approx. 100,000";
+                document.getElementById("1").innerHTML += "population "+randInt(50000,125000);
             }
 
-            document.getElementById("1").appendChild(br)
-            document.getElementById("1").appendChild(p)
-            document.getElementById("1").innerHTML += colour33[7];
-            document.getElementById("1").appendChild(br)
-            document.getElementById("1").appendChild(p)
-            document.getElementById("1").innerHTML += colour22[8];
-            document.getElementById("1").appendChild(br)
-            document.getElementById("1").appendChild(p)
-            document.getElementById("1").innerHTML += colour11[8];
 
 
 
-            document.getElementById("2").innerHTML = "in terms of decorations:";
+            larges = ["black", "brown", "yellow", "green", "magenta", "violet"]
+            largesText = [blackCommoditiesLarge, brownCommodities, yellowCommodities, greenCropsLarge, magentaCommoditiesLarge, violetCommoditiesLarge]
+            smalls = ["white", "brown", "yellow"]
+            smallsText = [whiteCommoditiesSmall, brownCommodities, yellowCommodities]
+            
+            for (let i = 0; i < 6; i++){
+                if(larges[i] == colour33[1]){
+                    document.getElementById("2").innerHTML += colour33[7]+=largesText[i][randInt(0,largesText[i].length)];
+                }
+            }
+            if(!larges.includes(colour33[1])){
+                document.getElementById("2").innerHTML += colour33[7];
+            }
+            
             document.getElementById("2").appendChild(br)
             document.getElementById("2").appendChild(p)
-            document.getElementById("2").innerHTML += "its primary colour is "+colour11[1];
+
+            for (let i = 0; i < 3; i++){
+                if(smalls[i] == colour22[1]){
+                    document.getElementById("2").innerHTML += colour22[8]+=smallsText[i][randInt(0,smallsText[i].length)];
+                }
+            }
+            if(!smalls.includes(colour22[1])){
+                document.getElementById("2").innerHTML += colour22[8];
+            }
+
             document.getElementById("2").appendChild(br)
             document.getElementById("2").appendChild(p)
-            document.getElementById("2").innerHTML += "its secondary colour is "+colour22[1];
-            document.getElementById("2").appendChild(br)
-            document.getElementById("2").appendChild(p)
-            document.getElementById("2").innerHTML += "its tertiary colour is "+colour33[1];
 
-
+            for (let i = 0; i < 3; i++){
+                if(smalls[i] == colour11[1]){
+                    document.getElementById("2").innerHTML += colour11[8]+=smallsText[i][randInt(0,smallsText[i].length)];
+                }
+            }
+            if(!smalls.includes(colour11[1])){
+                document.getElementById("2").innerHTML += colour11[8];
+            }
 
 
             
