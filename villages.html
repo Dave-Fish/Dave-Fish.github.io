@@ -23,17 +23,39 @@
 </head>
 <body>
 
-    <h1 style="padding: 30px;">press space</h1>
-    <p style="padding: 30px">this is a website for my brain world's villages</p>
 
+
+      
     
     
     <div id="3" style="width: 25%; position: absolute; height: 100%; top: 0%; text-align: right; padding-left: 74%;"></div>
     <div id="0" style="width: 74%; position: absolute; height: 100%; top: 0%;"></div>
     <div id="2" style="width: 32%; position: absolute; height: 100%; top: 0%; text-align: right; padding-left: 41%;"></div>
     <div id="4" style="width: 41%; position: absolute; height: 100%; top: 0%;"></div>
-    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%; text-align: right;"></div>
+    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%; text-align: right;">
+            <!--
+Source - https://stackoverflow.com/a/4351466
+Posted by Valentin Flachsel, modified by community. See post 'Timeline' for change history
+Retrieved 2026-07-11, License - CC BY-SA 4.0
+-->
+<h1>where would you live</h1>
+<p>this is a website for my brain world's villages</p>
+<p>please input 3 things you'd like to live near</p>
+<p>feel free to have repeats</p>
 
+<select id="first" style="width: 100%; height: 10%;">
+    <option value="random" selected="selected">random</option>
+</select>
+<select id="second" style="width: 100%; height: 10%;">
+    <option value="random" selected="selected">random</option>
+</select>
+<select id="third" style="width: 100%; height: 10%;">
+    <option value="random" selected="selected">random</option>
+</select>
+
+<button type="button" id="done" onclick="doThing()" style="width: 100%; height: 10%;">where do i live</button>
+
+    </div>
 
     <script>
         function randInt(x, y){
@@ -42,28 +64,83 @@
 
 
         colours = [
-            ["#fff", "white",    0, "insa", "town",    "medicine",                  "kindness"], 
-            ["#888", "grey",     1, "seli", "town",    "fires (and stopping them)", "bravery"],
-            ["#000", "black",    2, "lawa", "town",    "police and justice",        "strength"],  
-            ["#f00", "red",      3, "pana", "city",    "governance",                "selflessness"], 
-            ["#840", "brown",    4, "kasi", "village", "natural areas",             "peace"],
-            ["#f80", "orange",   5, "moku", "village", "food",                      "friendliness"], 
-            ["#ff0", "yellow",   6, "musi", "city",    "entertainment",             "joy"],
-            ["#8f0", "lime",     7, "lili", "village", "school",                    "patience"],
-            ["#080", "green",    8, "kili", "village", "agriculture",               "routine"],
-            ["#0ff", "cyan",     9, "pali", "town",    "production",                "creativity"],
-            ["#048", "blue",    10, "kon",  "city",    "exercise and wellbeing",    "good health"],  
-            ["#88f", "purple",  11, "sona", "city",    "science and knowledge",     "intelligence"],  
-            ["#f0f", "magenta", 12, "sewi", "village", "religion",                  "respect"], 
-            ["#808", "violet",  13, "esun", "city",    "consumerism",               "generosity"],
-            ["#f8b", "pink",    14, "kute", "town",    "adult education",           "resiliance"],  
+            ["#fff", "white",    0, "my", "town",    "medicine",                  "medical care",        "there is a large hospital",                                                                                                  "there is a small gp surgery or a&e"], 
+            ["#888", "grey",     1, "bu", "town",    "fire/electric power",       "industrial estate",   "there is a large area for power generation",                                                                                 "there is an area for power generation and fire usage"],
+            ["#000", "black",    2, "ty", "town",    "police and justice",        "law facilities",      "there is a sizable police station or prison or court",                                                                       "there is a small building with holding cells and an alert for the police"],  
+            ["#f00", "red",      3, "py", "city",    "governance",                "government building", "there is a government building",                                                                                             "there is a small building for local government and suggestions"], 
+            ["#840", "brown",    4, "be", "village", "natural areas",             "natural area",        "there are many natural places, such as woods, fields, cliffs, a mountain, fields, a desert area, a lake",                    "there is a small, quiet natural area"],
+            ["#f80", "orange",   5, "ba", "village", "food",                      "restaurants",         "there are many restaurants",                                                                                                 "there are one or two restaurants"], 
+            ["#ff0", "yellow",   6, "bi", "city",    "arts",                      "art",                 "there is a major art location, such as a theatre, art gallery, concert hall, or crafts centre",                              "there is a small arts attraction"],
+            ["#8f0", "lime",     7, "ly", "village", "school",                    "school",              "there is a major secondary school",                                                                                          "there is a small primary school"],
+            ["#080", "green",    8, "py", "village", "agriculture",               "agriculture",         "there is a large area for farming a crop or type of crop",                                                                   "there is an area for growing crops"],
+            ["#0ff", "cyan",     9, "sy", "town",    "water",                     "pools",               "there is a large centre for water, including a pool, sauna, onsen, and hot tubs",                                            "there is a small water centre"],
+            ["#048", "blue",    10, "bo", "city",    "exercise and wellbeing",    "gym",                 "there is a large sports centre",                                                                                             "there is a small gym"],  
+            ["#88f", "purple",  11, "by", "city",    "science and knowledge",     "research facilities", "there are facilities for research",                                                                                          "there is a small area for research"],  
+            ["#f0f", "magenta", 12, "wy", "village", "religion",                  "place of worship",    "there is either one large space or multiple smaller places to practice a religion, such as a church, synangogue, or mosque", "there is a small place of worship"], 
+            ["#808", "violet",  13, "ky", "city",    "consumerism",               "shops",               "there is a 'shopping' centre or many small 'shops' for people to obtain or give tools, supplies, or creations",              "there is a small shop or trade centre"],
+            ["#f8b", "pink",    14, "ny", "town",    "adult education",           "adult education",     "there is a centre for adults to learn about certain subjects or skills",                                                     "there is a small local adult skills class"],  
         ]
+                                                    
+        blackCommodities = ["police station", "prison", "court of law"]
+        brownCommodoties = ["woods", "forest", "lake", "desert", "mountain", "river", "cliffside"]
+        yellowCommodoties = ["arts centre", "art gallery", "theatre", "concert hall", "crafts centre"]
+        greenCrops = ["carrots", "strawberries", "rice"]
+
+
+        // Source - https://stackoverflow.com/a/9895164
+        // Posted by Alex Turpin, modified by community. See post 'Timeline' for change history
+        // Retrieved 2026-07-11, License - CC BY-SA 4.0
+
+        var first = document.getElementById("first");
+        var second = document.getElementById("second");
+        var third = document.getElementById("third");
+        dropdowns = [first, second, third]
+
+        for(var j = 0; j < dropdowns.length; j++) {
+            for(var i = 0; i < colours.length; i++) {
+                var opt = colours[i][6];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = colours[i][0];
+                dropdowns[j].appendChild(el);
+            }
+        }
         
         doThing = function(){
 
-            colour11 = colours[randInt(0,15)]
-            colour22 = colours[randInt(0,15)]
-            colour33 = colours[randInt(0,15)]
+            if (first.value == "random"){
+                colour11 = colours[randInt(0,15)]
+            }else{
+                colours.forEach(element => {
+                    if (first.value == element[0]){
+                        colour11 = element
+                    }
+                });
+                console.log(colour11)
+            }
+            
+            if (second.value == "random"){
+                colour22 = colours[randInt(0,15)]
+            }else{
+                colours.forEach(element => {
+                    if (second.value == element[0]){
+                        colour22 = element
+                    }
+                });
+                console.log(colour22)
+            }
+
+            if (third.value == "random"){
+                colour33 = colours[randInt(0,15)]
+            }else{
+                colours.forEach(element => {
+                    if (third.value == element[0]){
+                        colour33 = element
+                    }
+                });
+                console.log(colour33)
+            }
+
 
             colour1 = colour11[0]
             colour2 = colour22[0]
@@ -98,10 +175,13 @@
 
             document.getElementById("1").appendChild(br)
             document.getElementById("1").appendChild(p)
-            document.getElementById("1").innerHTML += "its main focus is "+colour33[5];
+            document.getElementById("1").innerHTML += colour33[7];
             document.getElementById("1").appendChild(br)
             document.getElementById("1").appendChild(p)
-            document.getElementById("1").innerHTML += "the people value "+colour11[6];
+            document.getElementById("1").innerHTML += colour22[8];
+            document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
+            document.getElementById("1").innerHTML += colour11[8];
 
 
 
@@ -159,18 +239,18 @@
             console.log("changed thing");
         }
 
-        document.body.onkeydown = function(e){
-            if (e.keyCode == 32) {
-                doThing();
-                console.log('Space pressed');
-            }
-        }
+        // document.body.onkeydown = function(e){
+        //     if (e.keyCode == 32) {
+        //         doThing();
+        //         console.log('Space pressed');
+        //     }
+        // }
 
-        document.body.addEventListener("touchstart", processTouchStart);
-        function processTouchStart(event) {
-            doThing();
-            console.log('That tickles!');
-        }
+        // document.body.addEventListener("touchstart", processTouchStart);
+        // function processTouchStart(event) {
+        //     doThing();
+        //     console.log('That tickles!');
+        // }
     </script>
 </body>
 </html>

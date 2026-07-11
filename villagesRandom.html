@@ -1,0 +1,181 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dave Davies">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Brain world</title>
+    <link rel="icon" type="image/png" href="face emoji copy.png" />
+    <style>
+        img{
+            width: 50%;
+        }
+        h1{
+            font-size: 4vmax;
+        }
+        body, input{
+            font-size: 2vmax;
+            text-shadow: 2px 2px 10px #444;
+            color: #eee;
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 style="padding: 30px;">press space</h1>
+    <p style="padding: 30px">this is a website for my brain world's villages</p>
+
+    
+    
+    <div id="3" style="width: 25%; position: absolute; height: 100%; top: 0%; text-align: right; padding-left: 74%;"></div>
+    <div id="0" style="width: 74%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="2" style="width: 32%; position: absolute; height: 100%; top: 0%; text-align: right; padding-left: 41%;"></div>
+    <div id="4" style="width: 41%; position: absolute; height: 100%; top: 0%;"></div>
+    <div id="1" style="width: 40%; position: absolute; height: 100%; top: 0%; text-align: right;"></div>
+
+
+    <script>
+        function randInt(x, y){
+            return(Math.floor((Math.random()*(y-x))));
+        }
+
+
+        colours = [
+            ["#fff", "white",    0, "insa", "town",    "medicine",                  "kindness",     "there is a large hospital",                                                                                                  "there is a small gp surgery or a&e"], 
+            ["#888", "grey",     1, "seli", "town",    "fire/electric power",       "bravery",      "there is a large area for power generation",                                                                                 "there is an area for power generation and fire usage"],
+            ["#000", "black",    2, "lawa", "town",    "police and justice",        "strength",     "there is a sizable police station or prison or court",                                                                       "there is a small building with holding cells and an alert for the police"],  
+            ["#f00", "red",      3, "pana", "city",    "governance",                "selflessness", "there is a government building",                                                                                             "there is a small building for local government and suggestions"], 
+            ["#840", "brown",    4, "kasi", "village", "natural areas",             "peace",        "there are many natural places, such as woods, fields, cliffs, a mountain, fields, a desert area, a lake",                    "there is a small, quiet natural area"],
+            ["#f80", "orange",   5, "moku", "village", "food",                      "friendliness", "there are many resteraunts",                                                                                                 "there are one or two resteraunts"], 
+            ["#ff0", "yellow",   6, "musi", "city",    "arts",                      "joy",          "there is a major art location, such as a theatre, art gallery, concert hall, or crafts centre",                              "there is a small arts attraction"],
+            ["#8f0", "lime",     7, "lili", "village", "school",                    "patience",     "there is a major secondary school",                                                                                          "there is a small primary school"],
+            ["#080", "green",    8, "kili", "village", "agriculture",               "routine",      "there is a large area for farming a crop or type of crop",                                                                   "there is an area for growing crops"],
+            ["#0ff", "cyan",     9, "telo", "town",    "water",                     "rest",         "there is a large centre for water, including a pool, sauna, onsen, and hot tubs",                                            "there is a small water centre"],
+            ["#048", "blue",    10, "kon",  "city",    "exercise and wellbeing",    "good health",  "there is a large sports centre",                                                                                             "there is a small gym"],  
+            ["#88f", "purple",  11, "sona", "city",    "science and knowledge",     "intelligence", "there are facilities for research",                                                                                          "there is a small area for research"],  
+            ["#f0f", "magenta", 12, "sewi", "village", "religion",                  "respect",      "there is either one large space or multiple smaller places to practice a religion, such as a church, synangogue, or mosque", "there is a small place of worship"], 
+            ["#808", "violet",  13, "esun", "city",    "consumerism",               "generosity",   "there is a 'shopping' centre or many small 'shops' for people to obtain or give tools, supplies, or creations",              "there is a small shop or trade centre"],
+            ["#f8b", "pink",    14, "kute", "town",    "adult education",           "resiliance",   "there is a centre for adults to learn about certain subjects or skills",                                                     "there is a small local adult skills class"],  
+        ]
+                                                    
+        blackCommodities = ["police station", "prison", "court of law"]
+        brownCommodoties = ["woods", "forest", "lake", "desert", "mountain", "river", "cliffside"]
+        yellowCommodoties = ["arts centre", "art gallery", "theatre", "concert hall", "crafts centre"]
+        greenCrops = ["carrots", "strawberries", "rice"]
+        
+        doThing = function(){
+
+            colour11 = colours[randInt(0,15)]
+            colour22 = colours[randInt(0,15)]
+            colour33 = colours[randInt(0,15)]
+
+            colour1 = colour11[0]
+            colour2 = colour22[0]
+            colour3 = colour33[0]
+            villageColours = [colour1, colour2, colour3]
+
+            document.getElementById("1").style.background = colour1
+            document.getElementById("2").style.background = colour2
+            document.getElementById("3").style.background = colour3
+
+
+
+            let br = document.createElement('br');
+            let p = document.createElement('p');
+            document.getElementById("1").innerHTML = "you live in ma "+colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
+            document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
+
+            if (colour11[4] == "village"){
+                document.getElementById("1").innerHTML += "it is a "+colour11[4];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "population approx. 400";
+            }else if(colour11[4] == "town"){
+                document.getElementById("1").innerHTML += "it is in the town of "+colour11[3]+" "+colour22[3];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "population approx. 7000";
+            }else{
+                document.getElementById("1").innerHTML += "it is in the city of "+colour11[3];
+                document.getElementById("1").appendChild(br)
+                document.getElementById("1").innerHTML += "population approx. 100,000";
+            }
+
+            document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
+            document.getElementById("1").innerHTML += "its main focus is "+colour33[5];
+            document.getElementById("1").appendChild(br)
+            document.getElementById("1").appendChild(p)
+            document.getElementById("1").innerHTML += "the people value "+colour11[6];
+
+
+
+            document.getElementById("2").innerHTML = "in terms of decorations:";
+            document.getElementById("2").appendChild(br)
+            document.getElementById("2").appendChild(p)
+            document.getElementById("2").innerHTML += "its primary colour is "+colour11[1];
+            document.getElementById("2").appendChild(br)
+            document.getElementById("2").appendChild(p)
+            document.getElementById("2").innerHTML += "its secondary colour is "+colour22[1];
+            document.getElementById("2").appendChild(br)
+            document.getElementById("2").appendChild(p)
+            document.getElementById("2").innerHTML += "its tertiary colour is "+colour33[1];
+
+
+
+
+            
+
+
+            document.getElementById("3").innerHTML = colour11[1]+"\n"+colour22[1]+"\n"+colour33[1]
+            document.getElementById("3").appendChild(br)
+            document.getElementById("3").appendChild(p)
+            document.getElementById("3").innerHTML += colour11[3]+"\n"+colour22[3]+"\n"+colour33[3];
+            
+            
+
+
+
+            // if light background, dark text and vice versa
+            for(let i = 0; i < villageColours.length; i++){
+                if (villageColours[i] == "#fff" || 
+                villageColours[i] == "#ff0" || 
+                villageColours[i] == "#0ff" || 
+                villageColours[i] == "#8f0" || 
+                villageColours[i] == "#f8b" || 
+                villageColours[i] == "#f80"){
+                    document.getElementById((i+1).toString()).style.color = "#000";
+                    document.getElementById((i+1).toString()).style.textShadow = "0px 0px 20px #fff";
+                    
+                }else{
+                    console.log((i+1).toString())
+                    document.getElementById((i+1).toString()).style.color = "#fff";
+                    document.getElementById((i+1).toString()).style.textShadow = "0px 0px 20px #000";
+                }
+            }
+            
+
+            
+            
+
+
+            document.getElementById("4").style.background = "#444";
+            document.getElementById("0").style.background = "#444";
+            console.log("changed thing");
+        }
+
+        document.body.onkeydown = function(e){
+            if (e.keyCode == 32) {
+                doThing();
+                console.log('Space pressed');
+            }
+        }
+
+        document.body.addEventListener("touchstart", processTouchStart);
+        function processTouchStart(event) {
+            doThing();
+            console.log('That tickles!');
+        }
+    </script>
+</body>
+</html>
