@@ -1,0 +1,147 @@
+<!DOCTYPE  html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Dave Davies">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>but WHERE do you live?</title>
+    <link rel="icon" type="image/png" href="face emoji copy.png" />
+    <style>
+        img{
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="500" height="300" style="border:1px solid #000000;">
+    </canvas>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "#edc";
+        ctx.fillRect(0, 0, c.width, c.height);
+
+
+        occupiedPixels = [];
+
+
+        drawPixel = function(hex, x, y){
+            ctx.fillStyle = hex;
+            ctx.fillRect(x, y, 1, 1);
+            occupiedPixels.push(x.toString()+","+y.toString())
+            console.log(occupiedPixels)
+        }
+
+
+
+        colours = [
+        ["#fff", "white",   "city",   ], 
+        ["#888", "grey",    "town",   ],
+        ["#000", "black",   "town",   ],  
+        ["#f00", "red",     "city",   ], 
+        ["#840", "brown",   "village",],
+        ["#f80", "orange",  "village",], 
+        ["#ff0", "yellow",  "city",   ],
+        ["#8f0", "lime",    "village",],
+        ["#080", "green",   "village",],
+        ["#0ff", "cyan",    "town",   ],
+        ["#048", "blue",    "city",   ],  
+        ["#88f", "purple",  "city",   ],  
+        ["#f0f", "magenta", "village",], 
+        ["#808", "violet",  "town",   ],
+        ["#f8b", "pink",    "town",   ]]
+
+        citySize = 225;
+        townSize = 15;
+        villageSize = 1;
+
+        move = [-1, 0, 1]
+
+        cluster = function(sX, sY, size, hex){
+            for (let i = 0; i < size; i++){
+                startX = sX;
+                startY = sY;
+                do {
+                    startX += move[Math.floor(Math.random()*move.length)]
+                    startY += move[Math.floor(Math.random()*move.length)]
+                    if(startX < 1 || startX > c.width || startY < 1 || startY > c.height){
+                        startX = sX;
+                        startY = sY;
+                    }
+                }
+                while (occupiedPixels.includes(startX.toString()+","+startY.toString()));
+                drawPixel(hex, startX, startY)   
+            }
+        }
+
+
+        // red city (center)
+        cluster(c.width/2, c.height/2, citySize, "#f00")
+        // white city (top)
+        cluster(c.width/2, 50, citySize, "#fff")
+        // purple city (bottom)
+        cluster(c.width/2, c.height-50, citySize, "#88f")
+        // yellow city (left)
+        cluster(50, c.height/2, citySize, "#ff0")
+        // blue city (right)
+        cluster(c.width-50, c.height/2, citySize, "#048")
+
+
+
+        // towns
+        towns = []
+        colours.forEach(element => {
+            if(element[2] == "town"){
+                towns.push(element[0]);
+            }
+        });
+        for(let i = 0; i < townSize; i++){
+            for(let j = 0; j < towns.length; j++){
+                startX = Math.floor(Math.random()*c.width);
+                startY = Math.floor(Math.random()*c.height);
+                do {
+                    startX += move[Math.floor(Math.random()*move.length)]
+                    startY += move[Math.floor(Math.random()*move.length)]
+                    if(startX < 1 || startX > c.width || startY < 1 || startY > c.height){
+                        startX = Math.floor(Math.random()*c.width);
+                        startY = Math.floor(Math.random()*c.height);
+                    }
+                }
+                while (occupiedPixels.includes(startX.toString()+","+startY.toString()));
+
+
+                cluster(startX, startY, townSize, towns[j])
+            }
+        }
+
+        // villages
+        villages = []
+        colours.forEach(element => {
+            if(element[2] == "village"){
+                villages.push(element[0]);
+            }
+        });
+        for(let i = 0; i < townSize; i++){
+            for(let j = 0; j < villages.length; j++){
+                startX = Math.floor(Math.random()*c.width);
+                startY = Math.floor(Math.random()*c.height);
+                do {
+                    startX += move[Math.floor(Math.random()*move.length)]
+                    startY += move[Math.floor(Math.random()*move.length)]
+                    if(startX < 1 || startX > c.width || startY < 1 || startY > c.height){
+                        startX = Math.floor(Math.random()*c.width);
+                        startY = Math.floor(Math.random()*c.height);
+                    }
+                }
+                while (occupiedPixels.includes(startX.toString()+","+startY.toString()));
+
+
+                cluster(startX, startY, villageSize, villages[j])
+            }
+        }
+
+    
+        
+    </script>
+</body>
+</html>
