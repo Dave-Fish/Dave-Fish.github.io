@@ -209,7 +209,7 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
                 document.getElementById("1").appendChild(br)
                 document.getElementById("1").innerHTML += "population "+randInt(5000,7500);
             }else{
-                document.getElementById("1").innerHTML += "it is in the city of "+colour11[3];
+                document.getElementById("1").innerHTML += "it is in the city of "+colour11[5];
                 document.getElementById("1").appendChild(br)
                 document.getElementById("1").innerHTML += "population "+randInt(50000,125000);
             }
@@ -227,14 +227,12 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
             }else{
 
             
-
+                document.getElementById("2").innerHTML = colour33[7];
                 for (let i = 0; i < larges.length; i++){
                     if(larges[i] == colour33[1]){
-                        document.getElementById("2").innerHTML += colour33[7] +=largesText[i][randInt(0,largesText[i].length)];
+                        document.getElementById("2").innerHTML += largesText[i][randInt(0,largesText[i].length)];
+                        break;
                     }
-                }
-                if(!larges.includes(colour33[1])){
-                    document.getElementById("2").innerHTML += colour33[7];
                 }
                 
                 document.getElementById("2").appendChild(br)
@@ -276,6 +274,7 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
                         if(smalls[i] == colour22[1]){
                             document.getElementById("2").innerHTML += smallsText[i][randInt(0,smallsText[i].length)];
                             console.log("what does this mean")
+                            break;
                         }
                     }
 
@@ -286,6 +285,7 @@ Retrieved 2026-07-11, License - CC BY-SA 4.0
                     for (let i = 0; i < smalls.length; i++){
                         if(smalls[i] == colour11[1]){
                             document.getElementById("2").innerHTML += smallsText[i][randInt(0,smallsText[i].length)];
+                            break;
                         }
                     }
                 }
