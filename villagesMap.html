@@ -34,7 +34,12 @@
 
         drawPixel = function(hex, x, y){
             // size of villages
-            s = Math.floor(c.height/150);
+            if (c.height < c.width){
+                s = Math.floor(c.height/150);
+            }else{
+                s = Math.floor(c.height/150);
+            }
+            
 
             ctx.fillStyle = hex;
             ctx.fillRect(x, y, s, s);
