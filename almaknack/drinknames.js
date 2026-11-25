@@ -1,11 +1,24 @@
 drinkNames = [
-"aluna eclipse",
-"serenity",
-"opulence",
-"decadence",
-"jack of hearts",
-"of the forest",
+"gravity",
+"synergia",
+"reflection",
+"sword of offering",
 "verdance",
-"literally just ice",
-"shot of vermouth"
+"opulence",
+"incendia",
+"of the forest",
+"decadence",
+"golden hour",
+"resonance",
+"conquest",
+"elysium",
+"aluna eclipse",
+"jack of hearts",
+"apricity",
+
+"hidden grove",
+"crescendo",
+"orbit",
+"serenity",
+"negroni zero"
 ]

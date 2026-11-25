@@ -1,82 +1,159 @@
-<!DOCTYPE  html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="author" content="Dave Davies">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>Alma-Knack</title>
-	<link rel="icon" type="image/png" href="face emoji copy.png" />
-    <link rel="stylesheet" href="almaknack.css">
-</head>
-<body>
-    <h1> <a href="https://dave.fish/almaknack">Alma-Knack</a>  Marathon</h1>
-    <p>This is a little game I have made to make me better at making drinks at work.</p>
-    <p>The set up involves placing a container of water in each relevant area (glass bottle with speed pourer in ice well 2, plastic squeezy bottle in ice well 1, speed pourer in fridge, bottle with lid on back bar) and getting some ice.</p>
-    <p>In order to pass each drink, you have to confidently pick up the relevant bottle, then place it back down, and pour the amount of water from its corresponding bottle into the relevant position. The drink must be made in its entirity, including each individial "ingredient", the relevant techniques, the correct glass, and "garnishes" can be included in the form of sticky notes.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Dave Davies" />
+    <meta
+      name="viewport"
+      content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>Alma-Knack</title>
+    <link rel="icon" type="image/png" href="face emoji copy.png" />
+    <link rel="stylesheet" href="almaknack.css" />
+  </head>
+  <body>
+    <h1><a href="https://dave.fish/almaknack">Alma-Knack</a> Marathon</h1>
+    <p>
+      This is a little game I have made to make me better at making drinks at
+      work.
+    </p>
+    <p>
+      The set up involves placing a container of water in each relevant area
+      (glass bottle with speed pourer in ice well 2, plastic squeezy bottle in
+      ice well 1, speed pourer in fridge, bottle with lid on back bar) and
+      getting some ice.
+    </p>
+    <p>
+      In order to pass each drink, you have to confidently pick up the relevant
+      bottle, then place it back down, and pour the amount of water from its
+      corresponding bottle into the relevant position. The drink must be made in
+      its entirity, including each individial "ingredient", the relevant
+      techniques, the correct glass, and "garnishes" can be included in the form
+      of sticky notes.
+    </p>
     <h3>Marathon</h3>
-    <p>Make every drink on the menu as quickly as possible. Either plain mode, in which you go through them all, or simulation mode, in which you recieve extra challenges, such as distractions and groups.
+    <p>
+      Make every drink on the menu as quickly as possible. Either plain mode, in
+      which you go through them all, or simulation mode, in which you recieve
+      extra challenges, such as distractions and group orders.
     </p>
 
-    <button type="button" id="go" onclick="doThing()" class="center">Go!</button>
+    <button type="button" id="go" onclick="doThing()" class="center">
+      Start!
+    </button>
 
-    <h3 class="center">Drink to make:</h3>
-    <h1 id="drink" class="center"></h1>
     <h2 id="timer" class="center"></h2>
     <h3 id="congrats" class="center"></h3>
-    <button type="button" id="done" onclick="stopThing()" class="center" style="background-color: #222;">Done!</button>
+    <h3 class="center">Drink to make:</h3>
+    <h1 id="drink" class="center"></h1>
+
+    
+    <div id="div1"></div>
+    <button
+      type="button"
+      id="done"
+      onclick="stopThing()"
+      class="center"
+      style="background-color: #222"
+    >
+      Done!
+    </button>
     <script src="drinknames.js"></script>
     <script>
 
-        let timer;
+      // Source - https://stackoverflow.com/a/2450976
+// Posted by ChristopheD, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-11-25, License - CC BY-SA 4.0
 
-        let seconds = 0;
-        let minutes = 0;
-        let hours = 0;
+function shuffle(array) {
+  let currentIndex = array.length;
 
-        function startClock() {
-            if (!timer) {
-                timer = setInterval(showTime, 1000);
-            }
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+
+      let timer;
+
+      let seconds = 0;
+      let minutes = 0;
+      let hours = 0;
+
+      shuffle(drinkNames);
+      let drinksDone = [];
+
+      function startClock() {
+        if (!timer) {
+          timer = setInterval(showTime, 1000);
+        }
+      }
+
+      function showTime() {
+        seconds++;
+        console.log(seconds);
+
+        if (seconds >= 60) {
+          seconds -= 60;
+          minutes += 1;
+        }
+        if (minutes >= 60) {
+          minutes -= 60;
+          hours += 1;
         }
 
-        function showTime() {
-            seconds++;
+        document.getElementById("timer").innerHTML =
+          hours + " : " + minutes + " : " + seconds;
+      }
 
-            if (seconds >= 60){
-                seconds -= 60;
-                minutes += 1;
-            }
-            if (minutes >= 60){
-                minutes -= 60;
-                hours += 1;
-            }
+      function stopClock() {
+        clearInterval(timer);
+        timer = undefined;
+      }
 
-            document.getElementById("timer").innerHTML = hours+" : "+minutes+" : "+seconds;
-        }
+      function doThing() {
+        document.getElementById("drink").innerHTML =
+          drinkNames[0];
+        document.getElementById("go").style.background = "#222";
+        document.getElementById("done").style.background = "#eee";
+        drinksDone++;
 
-        function stopClock() {
-            clearInterval(timer);
-            timer = undefined;
-        }
+        startClock();
+      }
 
+      function stopThing() {
+        if (drinksDone == drinkNames.length){
+          stopClock();
 
-        function doThing(){
-            document.getElementById("drink").innerHTML=drinkNames[Math.floor(Math.random() * drinkNames.length)];
-            document.getElementById("go").style.background = "#222"
-            document.getElementById("done").style.background = "#eee"
+          document.getElementById("congrats").innerHTML =
+          "Congratulations! It took you ^ that long!!";
+        }else{
+        var newTime = document.createElement("h2");
+        var node = document.createTextNode(hours + " : " + minutes + " : " + seconds);
+        newTime.appendChild(node);
+        document.getElementById("div1").appendChild(newTime);
 
-            startClock();
-        }
-
-        function stopThing(){
-            stopClock();
-
-            document.getElementById("congrats").innerHTML = "Congratulations! It took you ^ that long!!"
-        }
-            
+        var newTime = document.createElement("h1");
+        var node = document.createTextNode(drinkNames[drinksDone]);
+        newTime.appendChild(node);
+        document.getElementById("div1").appendChild(newTime);
+        drinksDone++;
         
+        var element = document.getElementById("div1");
+        element.classList.add("center");
+
+        }
         
 
+        
+      }
     </script>
-    
-</body>
+  </body>
+</html>
